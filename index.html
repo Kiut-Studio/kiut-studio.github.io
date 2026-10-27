@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Los juegos de Dina</title>
+<meta name="description" content="Juegos web con los dibujos de Sofía: Dina Run, Dina Beat y el especial Torta Runner.">
+<meta name="theme-color" content="#FF4D6D">
+<link rel="icon" href="favicon-32.png">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout: cabecera con Dina caminando, dos tarjetas de juego (cada una con su color), y aparte el "especial" con borde de entrada recortada. */
+:root{
+  --fondo:#fff4f7; --papel:#ffffff; --tinta:#3f2433; --suave:#7d5b6b;
+  --rosa:#ff4d6d; --rosa-osc:#c92f4f; --rosa-cl:#ffe4ec;
+  --vio:#7a4fd0; --vio-osc:#5733a8; --vio-cl:#efe6ff;
+  --crema:#fff6dc; --oro:#e0a526; --oro-osc:#9a6c06;
+  --borde:#f3cdd9;
+  --mano:'Caveat','Comic Sans MS',cursive;
+  --ui:'Fredoka','Trebuchet MS',system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{background:var(--fondo)}
+body{margin:0;background:var(--fondo);color:var(--tinta);font:400 16px/1.45 var(--ui);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  background-image:radial-gradient(circle at 12px 12px,#ffd3df 1.6px,transparent 2px);background-size:28px 28px}
+.wrap{max-width:980px;margin:0 auto;padding-block:20px 40px;display:flex;flex-direction:column;gap:28px}
+a{color:inherit}
+button,a{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:3px solid var(--vio);outline-offset:3px;border-radius:10px}
+
+/* cabecera */
+header{display:flex;flex-direction:column;gap:6px;align-items:flex-start;position:relative;padding-top:8px}
+.eyebrow{font:600 13px var(--ui);letter-spacing:.08em;text-transform:uppercase;color:var(--rosa-osc)}
+h1{margin:0;font:700 clamp(46px,11vw,84px)/.9 var(--mano);color:var(--tinta);text-wrap:balance}
+h1 em{font-style:normal;color:var(--rosa)}
+.lead{margin:4px 0 0;max-width:46ch;color:var(--suave);font-size:17px}
+.paseo{position:relative;height:74px;width:100%;overflow:hidden;margin-top:4px;border-bottom:3px dashed var(--borde)}
+.dina{position:absolute;bottom:2px;left:0;width:84px;height:78px;background:url(img/dina-camina.webp) 0 0/200% 400% no-repeat;
+  animation:paso .5s steps(1) infinite,cruza 14s linear infinite}
+@keyframes paso{0%{background-position:0 0}50%{background-position:100% 0}}
+@keyframes cruza{from{transform:translateX(-90px)}to{transform:translateX(calc(100vw + 20px))}}
+@media (prefers-reduced-motion:reduce){.dina{animation:none;left:16px}}
+.bolsa{display:inline-flex;align-items:center;gap:8px;background:var(--papel);border:2px solid var(--borde);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.bolsa img{width:24px;height:24px;object-fit:contain}
+.bolsa b{font-variant-numeric:tabular-nums}
+
+/* juegos */
+.juegos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:22px}
+.juego{--c:var(--rosa);--c-osc:var(--rosa-osc);--c-cl:var(--rosa-cl);
+  background:var(--papel);border-radius:26px;border:3px solid var(--tinta);box-shadow:6px 6px 0 var(--tinta);
+  display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.juego.beat{--c:var(--vio);--c-osc:var(--vio-osc);--c-cl:var(--vio-cl)}
+.vista{height:210px;background:var(--c-cl);position:relative;overflow:hidden;border-bottom:3px solid var(--tinta)}
+.vista img{display:block}
+.run .vista img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.beat .vista{display:flex;justify-content:center;align-items:flex-start;gap:14px;padding-top:18px;background:linear-gradient(160deg,#cdb6ff,var(--vio-cl))}
+.beat .vista img{width:118px;border-radius:16px;border:3px solid var(--tinta);box-shadow:3px 3px 0 var(--tinta)}
+.beat .vista img:first-child{transform:rotate(-5deg) translateY(10px)}
+.beat .vista img:last-child{transform:rotate(4deg)}
+.cuerpo{padding:16px 18px 18px;display:flex;flex-direction:column;gap:10px;flex:1}
+.titulo{display:flex;align-items:center;gap:12px}
+.titulo img{width:58px;height:58px;border-radius:16px;border:2px solid var(--tinta);flex:none}
+h2{margin:0;font:700 40px/1 var(--mano);color:var(--c-osc)}
+.tipo{font-size:14px;color:var(--suave);margin:0}
+.cuerpo p.desc{margin:0;max-width:52ch}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.chips li{font-size:13px;background:var(--c-cl);color:var(--c-osc);border-radius:999px;padding:3px 10px;font-weight:500}
+.tuyo{font-size:14px;color:var(--suave);min-height:20px;margin:0}
+.tuyo b{color:var(--tinta);font-variant-numeric:tabular-nums}
+.jugar{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  background:var(--c);color:#fff;font:600 19px var(--ui);padding:11px 26px;border-radius:999px;border:3px solid var(--tinta);box-shadow:3px 3px 0 var(--tinta);transition:transform .08s,box-shadow .08s}
+.jugar:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--tinta)}
+.jugar:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--tinta)}
+
+/* especial */
+.especial{position:relative;background:var(--crema);border:3px dashed var(--oro);border-radius:22px;padding:18px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:18px;align-items:center}
+.especial::before,.especial::after{content:"";position:absolute;top:50%;width:26px;height:26px;margin-top:-13px;background:var(--fondo);border-radius:50%;border:3px dashed var(--oro)}
+.especial::before{left:-15px;clip-path:inset(0 0 0 50%)}
+.especial::after{right:-15px;clip-path:inset(0 50% 0 0)}
+.sello{align-self:flex-start;display:inline-block;font:600 12px var(--ui);letter-spacing:.1em;text-transform:uppercase;color:var(--oro-osc);border:2px solid var(--oro);border-radius:6px;padding:2px 8px;transform:rotate(-2deg)}
+.especial h2{color:var(--oro-osc);font-size:38px}
+.especial .titulo img{width:52px;height:52px}
+.especial .vista2 img{width:100%;border-radius:14px;border:3px solid var(--tinta);display:block;aspect-ratio:1100/508;object-fit:cover}
+.especial .desc{margin:0}
+.especial .jugar{--c:var(--oro);background:var(--oro);color:var(--tinta)}
+.esp-txt{display:flex;flex-direction:column;gap:10px;min-width:0}
+
+/* pie */
+.proximo{background:var(--papel);border:2px solid var(--borde);border-radius:18px;padding:14px 16px;display:flex;gap:12px;align-items:flex-start}
+.proximo .ico{font-size:24px;line-height:1}
+.proximo h3{margin:0 0 2px;font:600 16px var(--ui)}
+.proximo p{margin:0;color:var(--suave);font-size:15px}
+footer{font-size:14px;color:var(--suave);display:flex;flex-direction:column;gap:4px;border-top:3px dashed var(--borde);padding-top:16px}
+footer b{color:var(--tinta)}
+
+@media (max-width:640px){
+  .especial{grid-template-columns:1fr}
+  .especial::before,.especial::after{top:auto;bottom:38%}
+  .vista{height:180px}
+  .beat .vista img{width:100px}
+  h2{font-size:36px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">Kiut Studio · dibujos de Sofía, código de Leandro</span>
+  <h1>Los juegos de <em>Dina</em></h1>
+  <p class="lead">Una gata golosa, una torta y muchas frutillas. Se juegan en el navegador, en el celular o en la compu, y se pueden instalar como app.</p>
+  <span class="bolsa" id="bolsa" hidden><img src="img/frutilla.webp" alt="">Tu bolsa: <b id="bolsaN">0</b> frutillas</span>
+  <div class="paseo" aria-hidden="true"><div class="dina"></div></div>
+</header>
+
+<section class="juegos" aria-label="Juegos">
+  <article class="juego run">
+    <div class="vista"><img src="img/dina-run.webp" alt="Partida de Dina Run: Sofi corre juntando frutillas mientras Dina la persigue" loading="lazy"></div>
+    <div class="cuerpo">
+      <div class="titulo"><img src="img/dina-run-icon.png" alt=""><div><h2>Dina Run</h2><p class="tipo">Corré sin parar · un toque</p></div></div>
+      <p class="desc">Saltá las tortas, juntá frutillas y elegí dulces en el camino. Si chocás, Dina sale a correrte. Con personajes, cosméticos, Pastelería y, en Halloween, su pase.</p>
+      <ul class="chips"><li>🎃 Pase de Halloween</li><li>🐱 5 personajes</li><li>📲 Instalable</li></ul>
+      <p class="tuyo" id="tuyoRun"></p>
+      <a class="jugar" href="https://kiut-studio.github.io/dina-run/">▶ Jugar</a>
+    </div>
+  </article>
+
+  <article class="juego beat">
+    <div class="vista"><img src="img/dina-beat-menu.webp" alt="Menú de Dina Beat" loading="lazy"><img src="img/dina-beat-juego.webp" alt="Partida de Dina Beat: Dina baja hacia la torta al ritmo de la música" loading="lazy"></div>
+    <div class="cuerpo">
+      <div class="titulo"><img src="img/dina-beat-icon.png" alt=""><div><h2>Dina Beat</h2><p class="tipo">Ritmo · tocá a tiempo</p></div></div>
+      <p class="desc">Dina baja a comerse la torta al ritmo de la música: espantala con el rociador justo a tiempo. Tres etapas, tus propias melodías y hasta tus canciones.</p>
+      <ul class="chips"><li>🎵 Tus canciones</li><li>🍓 Suma a tu bolsa</li><li>📲 Instalable</li></ul>
+      <p class="tuyo" id="tuyoBeat"></p>
+      <a class="jugar" href="https://kiut-studio.github.io/dina-beat/">▶ Jugar</a>
+    </div>
+  </article>
+</section>
+
+<section class="especial" aria-label="Especial">
+  <div class="esp-txt">
+    <span class="sello">🎂 Edición especial</span>
+    <div class="titulo"><img src="img/torta-runner-icon.png" alt=""><div><h2>Torta Runner</h2><p class="tipo">El juego de cumpleaños de la familia</p></div></div>
+    <p class="desc">Donde empezó todo: el runner que hicimos en familia para un cumpleaños, con ranking familiar y fiesta al final. Queda como estaba, de recuerdo.</p>
+    <a class="jugar" href="https://leandroacasco.github.io/torta-runner/">▶ Jugar el especial</a>
+  </div>
+  <div class="vista2"><img src="img/torta-runner.webp" alt="Partida de Torta Runner" loading="lazy"></div>
+</section>
+
+<div class="proximo">
+  <span class="ico">☁️</span>
+  <div><h3>Próximamente: tu progreso en la nube</h3>
+  <p>Por ahora tus frutillas y récords se guardan en este celular o compu. Pronto vas a poder guardarlos con tu cuenta y seguir en otro dispositivo.</p></div>
+</div>
+
+<footer>
+  <span><b>Dibujos, personajes y animación:</b> Sofía ©. Todos los derechos reservados.</span>
+  <span><b>Programación:</b> Leandro. Hecho con cariño en Paraguay por <b>Kiut Studio</b>.</span>
+</footer>
+
+</div>
+<script>
+// Lee el progreso de los juegos (mismo sitio). Si no hay nada o el navegador no deja, no se muestra.
+function leer(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}}
+const fmt=n=>Math.round(n).toLocaleString('es-PY');
+const run=leer('sofiRunner.v1'),beat=leer('sofiSilbato.v1');
+if(run&&typeof run.total==='number'){
+  const bolsa=Math.max(0,run.total-(run.spent|0));
+  document.getElementById('bolsaN').textContent=fmt(bolsa);document.getElementById('bolsa').hidden=false;
+  if(run.best)document.getElementById('tuyoRun').innerHTML='🏆 Tu récord: <b>'+fmt(run.best)+' m</b>';
+}
+if(beat&&Array.isArray(beat.stars)){
+  const st=beat.stars.reduce((a,b)=>a+(b|0),0);
+  if(st)document.getElementById('tuyoBeat').innerHTML='🍓 Tus estrellas: <b>'+st+' de '+beat.stars.length*3+'</b>';
+}
+</script>
+</body>
+</html>
