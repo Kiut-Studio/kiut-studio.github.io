@@ -6,7 +6,10 @@
 <title>Los juegos de Dina</title>
 <meta name="description" content="Juegos web con los dibujos de Sofía: Dina Run, Dina Beat y el especial Torta Runner.">
 <meta name="theme-color" content="#FF4D6D">
-<link rel="icon" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="256x256" href="img/kiut-logo.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:image" content="https://kiut-studio.github.io/img/kiut-logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* Layout: cabecera con Dina caminando, dos tarjetas de juego (cada una con su color), y aparte el "especial" con borde de entrada recortada. */
@@ -32,6 +35,8 @@ button,a{-webkit-tap-highlight-color:transparent}
 
 /* cabecera */
 header{display:flex;flex-direction:column;gap:6px;align-items:flex-start;position:relative;padding-top:8px}
+.marca{display:flex;align-items:center;gap:10px}
+.marca img{width:64px;height:64px;flex:none;filter:drop-shadow(3px 3px 0 var(--tinta))}
 .eyebrow{font:600 13px var(--ui);letter-spacing:.08em;text-transform:uppercase;color:var(--rosa-osc)}
 h1{margin:0;font:700 clamp(46px,11vw,84px)/.9 var(--mano);color:var(--tinta);text-wrap:balance}
 h1 em{font-style:normal;color:var(--rosa)}
@@ -108,7 +113,7 @@ footer b{color:var(--tinta)}
 <div class="wrap">
 
 <header>
-  <span class="eyebrow">Kiut Studio · dibujos de Sofía, código de Leandro</span>
+  <div class="marca"><img src="img/kiut-logo.png" alt="Logo de Kiut Studio: Dina comiendo dulces de una calabaza, dibujo de Sofía"><span class="eyebrow">Kiut Studio · dibujos de Sofía, código de Leandro</span></div>
   <h1>Los juegos de <em>Dina</em></h1>
   <p class="lead">Una gata golosa, una torta y muchas frutillas. Se juegan en el navegador, en el celular o en la compu, y se pueden instalar como app.</p>
   <span class="bolsa" id="bolsa" hidden><img src="img/frutilla.webp" alt="">Tu bolsa: <b id="bolsaN">0</b> frutillas</span>
@@ -156,7 +161,7 @@ footer b{color:var(--tinta)}
 </div>
 
 <footer>
-  <span><b>Dibujos, personajes y animación:</b> Sofía ©. Todos los derechos reservados.</span>
+  <span><b>Dibujos, personajes, animación y logo:</b> Sofía ©. Todos los derechos reservados.</span>
   <span><b>Programación:</b> Leandro. Hecho con cariño en Paraguay por <b>Kiut Studio</b>.</span>
 </footer>
 
