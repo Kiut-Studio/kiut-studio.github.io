@@ -49,6 +49,7 @@ h1 em{font-style:normal;color:var(--rosa)}
 @keyframes cruza{from{transform:translateX(-90px)}to{transform:translateX(calc(100vw + 20px))}}
 @media (prefers-reduced-motion:reduce){.dina{animation:none;left:16px}}
 .bolsa{display:inline-flex;align-items:center;gap:8px;background:var(--papel);border:2px solid var(--borde);border-radius:999px;padding:6px 14px 6px 8px;font-weight:500}
+.bolsa[hidden]{display:none}
 .bolsa img{width:24px;height:24px;object-fit:contain}
 .bolsa b{font-variant-numeric:tabular-nums}
 
@@ -98,6 +99,7 @@ h2{margin:0;font:700 40px/1 var(--mano);color:var(--c-osc)}
 .proximo .ico{font-size:24px;line-height:1}
 .proximo h3{margin:0 0 2px;font:600 16px var(--ui)}
 .proximo p{margin:0;color:var(--suave);font-size:15px}
+.proximo p b{color:var(--tinta)}
 footer{font-size:14px;color:var(--suave);display:flex;flex-direction:column;gap:4px;border-top:3px dashed var(--borde);padding-top:16px}
 footer b{color:var(--tinta)}
 
@@ -123,22 +125,22 @@ footer b{color:var(--tinta)}
 
 <section class="juegos" aria-label="Juegos">
   <article class="juego run">
-    <div class="vista"><img src="img/dina-run.webp" alt="Partida de Dina Run: Sofi corre juntando frutillas mientras Dina la persigue" loading="lazy"></div>
+    <div class="vista"><img src="img/dina-run.webp" alt="Partida de Dina Run: Sofi salta una torta juntando frutillas mientras Dina la persigue" loading="lazy"></div>
     <div class="cuerpo">
       <div class="titulo"><img src="img/dina-run-icon.png" alt=""><div><h2>Dina Run</h2><p class="tipo">Corré sin parar · un toque</p></div></div>
       <p class="desc">Saltá las tortas, juntá frutillas y elegí dulces en el camino. Si chocás, Dina sale a correrte. Con personajes, cosméticos, Pastelería y, en Halloween, su pase.</p>
-      <ul class="chips"><li>🎃 Pase de Halloween</li><li>🐱 5 personajes</li><li>📲 Instalable</li></ul>
+      <ul class="chips"><li>🏆 Ranking de todos</li><li>☁️ Guardado en la nube</li><li>🐱 5 personajes</li><li>📲 Instalable</li></ul>
       <p class="tuyo" id="tuyoRun"></p>
       <a class="jugar" href="https://kiut-studio.github.io/dina-run/">▶ Jugar</a>
     </div>
   </article>
 
   <article class="juego beat">
-    <div class="vista"><img src="img/dina-beat-menu.webp" alt="Menú de Dina Beat" loading="lazy"><img src="img/dina-beat-juego.webp" alt="Partida de Dina Beat: Dina baja hacia la torta al ritmo de la música" loading="lazy"></div>
+    <div class="vista"><img src="img/dina-beat-menu.webp" alt="Menú de Dina Beat con Sofi y Dina" loading="lazy"><img src="img/dina-beat-juego.webp" alt="Partida de Dina Beat: Dina baja hacia la torta al ritmo de la música" loading="lazy"></div>
     <div class="cuerpo">
       <div class="titulo"><img src="img/dina-beat-icon.png" alt=""><div><h2>Dina Beat</h2><p class="tipo">Ritmo · tocá a tiempo</p></div></div>
       <p class="desc">Dina baja a comerse la torta al ritmo de la música: espantala con el rociador justo a tiempo. Tres etapas, tus propias melodías y hasta tus canciones.</p>
-      <ul class="chips"><li>🎵 Tus canciones</li><li>🍓 Suma a tu bolsa</li><li>📲 Instalable</li></ul>
+      <ul class="chips"><li>🎵 Tus canciones</li><li>⚔️ Desafíos</li><li>☁️ Guardado en la nube</li><li>📲 Instalable</li></ul>
       <p class="tuyo" id="tuyoBeat"></p>
       <a class="jugar" href="https://kiut-studio.github.io/dina-beat/">▶ Jugar</a>
     </div>
@@ -152,13 +154,13 @@ footer b{color:var(--tinta)}
     <p class="desc">Donde empezó todo: el runner que hicimos en familia para un cumpleaños, con ranking familiar y fiesta al final. Queda como estaba, de recuerdo.</p>
     <a class="jugar" href="https://leandroacasco.github.io/torta-runner/">▶ Jugar el especial</a>
   </div>
-  <div class="vista2"><img src="img/torta-runner.webp" alt="Partida de Torta Runner" loading="lazy"></div>
+  <div class="vista2"><img src="img/torta-runner.webp" alt="Partida de Torta Runner: Cinthia salta juntando frutillas mientras Dina la persigue" loading="lazy"></div>
 </section>
 
 <div class="proximo">
   <span class="ico">☁️</span>
-  <div><h3>Próximamente: tu progreso en la nube</h3>
-  <p>Por ahora tus frutillas y récords se guardan en este celular o compu. Pronto vas a poder guardarlos con tu cuenta y seguir en otro dispositivo.</p></div>
+  <div><h3>Tu progreso, en la nube</h3>
+  <p>En Dina Run o Dina Beat tocá <b>☁️ Entrar</b> y entrá con tu cuenta de Google: tus frutillas, personajes y récords quedan guardados y seguís jugando en cualquier celular o compu. Es una sola cuenta para los dos juegos, y en Dina Run aparecés en el ranking con tu nombre y tu foto.</p></div>
 </div>
 
 <footer>
