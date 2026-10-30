@@ -234,7 +234,7 @@ const BANCO = [
 {id:"k12",b:"b2",q:"Antes de usar la Ley de Coulomb, ¿cómo se escriben 40 cm?",o:["0,40 m","40 m","4 m","0,040 m"],e:"1 cm = 10⁻² m, entonces 40 cm = 0,40 m. Usar centímetros directo es un error frecuente.",s:"Secciones 20 y 50"},
 {id:"k13",b:"b2",q:"q₁ hace una fuerza sobre q₂, y q₂ una sobre q₁. Esas dos fuerzas…",o:["tienen igual módulo y sentidos opuestos (3.ª ley de Newton)","son más grandes sobre la carga más chica","apuntan para el mismo lado","se anulan porque actúan sobre el mismo cuerpo"],e:"F₁₂ = −F₂₁. Igual módulo, misma dirección, sentidos opuestos, y actúan sobre cuerpos distintos (por eso no se anulan).",s:"Sección 17"},
 {id:"k14",b:"b2",q:"¿Qué dirección tiene la fuerza eléctrica entre dos cargas puntuales?",o:["La de la recta que une las dos cargas","Siempre horizontal","Perpendicular a la recta que las une","Siempre hacia abajo"],e:"La dirección es la línea que une las cargas; el sentido depende de si se atraen o se repelen.",s:"Sección 16"},
-{id:"k15",b:"b2",q:"Dos cargas iguales a 0,15 m se hacen una fuerza de 3,6 N. ¿Cuánto vale cada carga?",o:["≈ 3,0 µC","≈ 9,0 µC","≈ 0,3 µC","≈ 30 µC"],e:"q² = F·r² / k = (3,6)(0,0225) / (8,99 × 10⁹) ≈ 9,0 × 10⁻¹² → q ≈ 3,0 × 10⁻⁶ C. ¡No te olvides de la raíz!",s:"Ejercicio intermedio 1"},
+{id:"k15",b:"b2",q:"Dos cargas iguales a 0,15 m se hacen una fuerza de 3,6 N. ¿Cuánto vale cada carga?",o:["≈ 3,0 µC","≈ 9,0 µC","≈ 0,3 µC","≈ 30 µC"],e:"q² = F·r² / k = (3,6)(0,0225) / (8,99 × 10⁹) ≈ 9,0 × 10⁻¹² → q ≈ 3,0 × 10⁻⁶ C. ¡Falta sacar la raíz!",s:"Ejercicio intermedio 1"},
 {id:"k16",b:"b2",q:"¿A qué distancia deben estar 2 µC y 5 µC para que F = 1,0 N?",o:["≈ 0,30 m","≈ 0,09 m","≈ 3,0 m","≈ 0,90 m"],e:"r = √(k·q₁q₂ / F) = √(8,99 × 10⁹ · 10 × 10⁻¹²) = √0,0899 ≈ 0,30 m. (0,09 es r², falta la raíz.)",s:"Ejercicio intermedio 2"},
 
 /* ---------- Bloque 3: campo eléctrico ---------- */
@@ -300,7 +300,7 @@ const EJ = [
 {id:"b3",n:"basico",t:"Fuerza entre +5 µC y −8 µC",q:"Dos cargas q₁ = +5 µC y q₂ = −8 µC están separadas 40 cm. Determine el módulo de la fuerza e indique si hay atracción o repulsión.",
  fig:{w:360,h:110,c:[[90,50,"+","q₁ = +5 µC"],[270,50,"−","q₂ = −8 µC"]],cota:[[90,92,270,92,"40 cm"]]},
  figR:{w:360,h:110,c:[[90,50,"+","q₁"],[270,50,"−","q₂"]],v:[[90,50,150,50,"F",1],[270,50,210,50,"F",1]],cota:[[90,92,270,92,"0,40 m"]]},
- p:[["Datos y conversión","q₁ = 5 × 10⁻⁶ C\nq₂ = −8 × 10⁻⁶ C\nr = 40 cm = 0,40 m (¡convertir!)"],["Atracción o repulsión","Signos opuestos → atracción."],["Ecuación","F = k · [[|q₁ · q₂|::r²]]"],["Cálculo",`F = [[${K} · (5 × 10⁻⁶) · (8 × 10⁻⁶)::(0,40)²]]\nF = [[0,360::0,16]] ≈ 2,25 N`]],
+ p:[["Datos y conversión","q₁ = 5 × 10⁻⁶ C\nq₂ = −8 × 10⁻⁶ C\nr = 40 cm = 0,40 m (¡hay que convertir!)"],["Atracción o repulsión","Signos opuestos → atracción."],["Ecuación","F = k · [[|q₁ · q₂|::r²]]"],["Cálculo",`F = [[${K} · (5 × 10⁻⁶) · (8 × 10⁻⁶)::(0,40)²]]\nF = [[0,360::0,16]] ≈ 2,25 N`]],
  r:"F ≈ 2,25 N, de atracción: las fuerzas apuntan una hacia la otra."},
 {id:"b4",n:"basico",t:"Campo de Q = +4 µC",q:"Una carga Q = +4 µC produce un campo eléctrico. Determine su intensidad a r = 0,30 m.",
  fig:{w:360,h:110,c:[[90,50,"+","Q = +4 µC"]],pt:[[270,50,"P"]],cota:[[90,92,270,92,"0,30 m"]]},
@@ -334,7 +334,7 @@ const EJ = [
 {id:"a1",n:"avanz",t:"Tres cargas en línea",q:"Tres cargas están en línea recta: q₁ = +3 µC, q₂ = −2 µC (en el centro) y q₃ = +4 µC. De q₁ a q₂ hay 0,10 m y de q₂ a q₃, 0,20 m. Determine la fuerza resultante sobre q₂.",
  fig:{w:360,h:130,c:[[50,40,"+","q₁ = +3 µC"],[125,40,"−","q₂ = −2 µC","b",6],[275,40,"+","q₃ = +4 µC"]],cota:[[50,105,125,105,"0,10 m"],[125,105,275,105,"0,20 m"]]},
  figR:{w:360,h:160,c:[[70,40,"+","q₁"],[145,40,"−","q₂"],[295,40,"+","q₃"]],v:[[145,80,55,80,"F₁₂ = 5,39 N",1,"b"],[145,80,175,80,"F₃₂ = 1,80 N",1,"d"],[145,125,85,125,"F_R = 3,60 N",3,"b"]],l:[[145,54,145,130,2]]},
- p:[["Datos y conversión","q₁ = 3 × 10⁻⁶ C\nq₂ = −2 × 10⁻⁶ C\nq₃ = 4 × 10⁻⁶ C\nr₁₂ = 0,10 m\nr₂₃ = 0,20 m"],["Atracción o repulsión","q₁ (+) y q₂ (−) se atraen → q₂ es jalada hacia la izquierda.\nq₃ (+) y q₂ (−) se atraen → q₂ es jalada hacia la derecha."],["F₁₂",`F₁₂ = [[${K} · (3 × 10⁻⁶) · (2 × 10⁻⁶)::(0,10)²]] ≈ 5,39 N (←)`],["F₃₂",`F₃₂ = [[${K} · (4 × 10⁻⁶) · (2 × 10⁻⁶)::(0,20)²]] ≈ 1,80 N (→)`],["Superposición","Sentidos opuestos → se restan:\nF_R = 5,39 − 1,80 ≈ 3,60 N"]],
+ p:[["Datos y conversión","q₁ = 3 × 10⁻⁶ C\nq₂ = −2 × 10⁻⁶ C\nq₃ = 4 × 10⁻⁶ C\nr₁₂ = 0,10 m\nr₂₃ = 0,20 m"],["Atracción o repulsión","q₁ (+) y q₂ (−) se atraen → q₂ es atraída hacia la izquierda.\nq₃ (+) y q₂ (−) se atraen → q₂ es atraída hacia la derecha."],["F₁₂",`F₁₂ = [[${K} · (3 × 10⁻⁶) · (2 × 10⁻⁶)::(0,10)²]] ≈ 5,39 N (←)`],["F₃₂",`F₃₂ = [[${K} · (4 × 10⁻⁶) · (2 × 10⁻⁶)::(0,20)²]] ≈ 1,80 N (→)`],["Superposición","Sentidos opuestos → se restan:\nF_R = 5,39 − 1,80 ≈ 3,60 N"]],
  r:"F_R ≈ 3,60 N, horizontal, hacia la izquierda (hacia q₁). Gana q₁ porque está a la mitad de distancia."},
 {id:"a2",n:"avanz",t:"Triángulo rectángulo",q:"q₀ = +2 µC está en el ángulo recto (en el origen). q_A = +3 µC está en (0,30 ; 0) m y q_B = −4 µC en (0 ; 0,40) m. Determine la fuerza resultante sobre q₀.",
  fig:{w:360,h:250,ejes:[150,190],c:[[150,190,"+","q₀ = +2 µC","bi"],[270,190,"+","q_A = +3 µC","b"],[150,30,"−","q_B = −4 µC","d"]],l:[[270,190,150,30]],cota:[[150,232,270,232,"0,30 m"],[110,190,110,30,"0,40 m","i"]]},
@@ -432,11 +432,11 @@ const FORMULAS = [
   {f:"e = 1,602 × 10⁻¹⁹ C", d:"Carga elemental: la de un protón (+e) o un electrón (−e)."},
   {f:"Q = n · e", d:"La carga siempre es un múltiplo entero de e (n = número entero)."},
   {f:"n = [[|Q|::e]]", d:"Cuántos electrones de más (si Q < 0) o de menos (si Q > 0)."},
-  {f:"1 µC = 10⁻⁶ C     1 nC = 10⁻⁹ C\n1 cm = 10⁻² m     1 mm = 10⁻³ m", d:"Convertir siempre antes de reemplazar en una fórmula."}]},
+  {f:"1 µC = 10⁻⁶ C     1 nC = 10⁻⁹ C\n1 cm = 10⁻² m     1 mm = 10⁻³ m", d:"Siempre convertí antes de reemplazar en una fórmula."}]},
  {tema:"b2", items:[
   {f:"F = k · [[|q₁ · q₂|::r²]]", d:"Módulo de la fuerza entre dos cargas puntuales. F en N, q en C, r en m."},
   {f:"k = 8,99 × 10⁹ N·m²/C²", d:"Constante de Coulomb en el vacío (se puede usar ≈ 9 × 10⁹). También k = [[1::4πε₀]], con ε₀ = 8,854 × 10⁻¹² C²/(N·m²)."},
-  {f:"(+,+) o (−,−) → repulsión\n(+,−) → atracción", d:"Decidirlo mirando los signos, antes de hacer cuentas."},
+  {f:"(+,+) o (−,−) → repulsión\n(+,−) → atracción", d:"Mirá los signos antes de hacer las cuentas."},
   {f:"2q → 2F     las dos 2q → 4F\n2r → [[F::4]]     3r → [[F::9]]     [[r::2]] → 4F", d:"Cómo cambia la fuerza (F ∝ q y F ∝ [[1::r²]])."},
   {f:"F₁₂ = −F₂₁", d:"Tercera ley de Newton: igual módulo, sentidos opuestos, sobre cuerpos distintos."}]},
  {tema:"b3", items:[
@@ -449,11 +449,11 @@ const FORMULAS = [
   {f:"F_R = F₁ + F₂ + F₃ + …\nE_R = E₁ + E₂ + E₃ + …", d:"Superposición: se suman como vectores, no como números."},
   {f:"F_x = F · cos θ     F_y = F · sen θ", d:"Componentes de un vector que forma un ángulo θ con el eje +x."},
   {f:"E_R = √(E_x² + E_y²)", d:"Módulo de la resultante (igual para fuerzas)."},
-  {f:"tan θ = [[E_y::E_x]]", d:"Dirección de la resultante. Mirar en qué cuadrante queda."},
+  {f:"tan θ = [[E_y::E_x]]", d:"Dirección de la resultante. Mirá en qué cuadrante queda."},
   {f:"[[|q₁|::r₁²]] = [[|q₂|::r₂²]]", d:"Punto de campo nulo (k se cancela). Mismo signo: entre las cargas, cerca de la menor. Signos opuestos: afuera, del lado de la menor."},
   {f:"p = q · d", d:"Momento dipolar: dos cargas iguales y opuestas separadas una distancia d."}]}
 ];
-const METODO = ["Extraer los datos (q, r, E…).","Convertir al Sistema Internacional (µC → C, cm → m).","Identificar la incógnita.","Dibujar la situación.","Decidir atracción o repulsión (o el sentido del campo).","Elegir la ecuación.","Reemplazar los datos.","Hacer la cuenta.","Interpretar: módulo + unidad + dirección + sentido."];
+const METODO = ["Anotá los datos (q, r, E…).","Pasá todo al Sistema Internacional (µC → C, cm → m).","Escribí qué hay que calcular (la incógnita).","Hacé un dibujo.","Decidí si hay atracción o repulsión (o hacia dónde va el campo).","Elegí la fórmula.","Reemplazá los datos.","Hacé la cuenta.","Escribí la respuesta: módulo + unidad + dirección + sentido."];
 
 function formulas(){
   pararReloj(); P=null;
@@ -525,9 +525,9 @@ function menu(){
   let h = `<div class="top"><span></span><button class="redondo" id="mudo" aria-label="Sonido">${datos.mudo?"🔇":"🔊"}</button></div>
   <h1>Dina Física</h1><p class="lema">¡Psst! Respondé bien y Dina no se come la torta</p>
   <div class="duo"><img src="assets/sofi.webp" alt="Sofi"><img class="d" src="assets/dina_corre.webp" alt="Dina"></div>
-  <p class="ayuda">Dina baja hacia la torta mientras pensás. Tocá la respuesta correcta para espantarla con el rociador.</p>
+  <p class="ayuda">Mientras pensás, Dina baja hacia la torta. Si tocás la respuesta correcta, Sofi le echa agua y Dina se escapa.</p>
   <div class="lista">
-   <button class="btn mix" data-modo="mix"><span class="nom">🎯 Prueba mezclada<small>12 preguntas de todos los temas · empezá por acá</small></span><span class="der">${datos.mejor.mix!=null?"récord "+datos.mejor.mix+"/12":""}</span></button>`;
+   <button class="btn mix" data-modo="mix"><span class="nom">🎯 Prueba mezclada<small>12 preguntas de todos los temas · empezá por esta</small></span><span class="der">${datos.mejor.mix!=null?"récord "+datos.mejor.mix+"/12":""}</span></button>`;
   for(const k in TEMAS){ const t=TEMAS[k], e=datos.est[k]||0;
     h += `<button class="btn" data-modo="${k}" style="background:${t.c};--s:${t.s}"><span class="nom">${t.nom}<small>${t.sub}</small></span><span class="der"><span class="fr">${fresas(e)}</span>${datos.mejor[k]!=null?"<br>récord "+datos.mejor[k]+"/8":""}</span></button>`; }
   const hechos = EJ.filter(e=>datos.ej[e.id]==="si").length;
@@ -667,8 +667,8 @@ function resultado(){
   }
   anotar({tipo:"partida", modo: mix?"Prueba mezclada":TEMAS[P.modo].nom, repaso:P.repaso, aciertos:P.ok, total:n,
     respuestas:P.res.map(r=>({id:r.p.id, tema:TEMAS[r.p.b].nom, pregunta:r.p.q, bien:r.bien, elegida:r.elegida||"(se acabó el tiempo)", correcta:r.p.o[0], seg:r.seg}))});
-  const tit = est===3?"¡Torta intacta!":est===2?"¡Muy bien!":est===1?"¡Vas bien!":"Dina se dio un banquete";
-  const msj = est===3?"Sabés este tema. Probá otro o la prueba mezclada.":est>=1?"Repasá las que fallaste abajo y volvé a intentar.":"Leé de nuevo las secciones que aparecen abajo y jugá otra vez: las falladas van a volver a salir.";
+  const tit = est===3?"¡Torta intacta!":est===2?"¡Muy bien!":est===1?"¡Vas bien!":"Dina se comió casi toda la torta";
+  const msj = est===3?"Sabés este tema. Ahora probá con otro tema o con la prueba mezclada.":est>=1?"Mirá abajo las que fallaste y jugá otra vez.":"Leé otra vez en el material las secciones que aparecen abajo y jugá de nuevo. Las preguntas que fallaste van a volver a salir.";
   let h = `<div class="res-cab"><img src="assets/${est>=2?"sofi":"dina"}.webp" alt=""><h2>${tit}</h2>
     <div class="nota">${P.ok} de ${n} bien</div><div class="estrellas">${fresas(est)}</div><p>${msj}</p></div>`;
   if(mix){
@@ -698,7 +698,7 @@ const ICONO = {si:"✅", masomenos:"🟡", no:"❌"};
 function listaEj(){
   pararReloj(); P=null;
   let h = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver al menú">←</button><h2>Ejercicios en papel</h2></div>
-    <p class="ayuda" style="text-align:left;margin:4px 0 0">Resolvelo primero en el cuaderno con el método del material. Después mirá la solución paso a paso y marcá cómo te fue.</p>`;
+    <p class="ayuda" style="text-align:left;margin:4px 0 0">Primero resolvé el ejercicio en el cuaderno, con los pasos del material. Después mirá la solución paso a paso y marcá cómo te fue.</p>`;
   for(const nv in NIVELES){
     h += `<div class="nivel">${NIVELES[nv]}</div>`;
     EJ.filter(e=>e.n===nv).forEach(e=>{ const i=EJ.indexOf(e), st=datos.ej[e.id];
@@ -713,7 +713,7 @@ function verEj(i){
   app.innerHTML = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver a la lista">←</button><h2>${({basico:"Básico",inter:"Intermedio",avanz:"Avanzado"})[e.n]} ${e.id.slice(1)}</h2></div>
     <div class="tarjeta"><span class="tema" style="--tc:var(--tinta)">${e.t}</span>
       <p class="enun">${F(e.q)}</p>${e.fig?`<div class="marco">${dib(e.fig)}</div>`:""}
-      <div class="papel">📝 Primero resolvelo en el cuaderno. Acordate: módulo + unidad + dirección + sentido.</div>
+      <div class="papel">📝 Primero resolvé en el cuaderno. En la respuesta escribí: módulo + unidad + dirección + sentido.</div>
       <div class="pasos" id="pasos"></div>
       <button class="sig" id="mas">Ver el primer paso</button>
       <div id="fin"></div></div>`;
@@ -726,7 +726,7 @@ function verEj(i){
       mas.textContent = vistos<e.p.length ? "Ver el siguiente paso" : "Ver la respuesta"; }
     else{
       cont.insertAdjacentHTML("beforeend",`<div class="paso final"><b>Respuesta</b>${F(e.r)}${e.figR?`<div class="marco">${dib(e.figR)}</div>`:""}</div>`); mas.hidden=true;
-      $("#fin").innerHTML=`<p class="preg" style="font-size:17px">¿Te salió?</p><div class="tal">
+      $("#fin").innerHTML=`<p class="preg" style="font-size:17px">¿Pudiste resolver?</p><div class="tal">
         <button data-r="si">✅ Sí</button><button data-r="masomenos">🟡 Más o menos</button><button data-r="no">❌ No</button></div>`;
       $("#fin").querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{
         const r=b.dataset.r; datos.ej[e.id]=r; guardar();
