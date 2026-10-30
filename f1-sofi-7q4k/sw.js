@@ -1,6 +1,6 @@
 // Dina Física — copia sin conexión. Solo maneja su carpeta y sus propias cachés
 // (el sitio lo comparten varios juegos). Subir el número con cada versión.
-const C = 'dina-fisica-v2';
+const C = 'dina-fisica-v3';
 const BASE = [
   './', './index.html', './config.js', './manifest.json', './icon-192.png', './icon-512.png',
   './assets/dina.webp', './assets/dina_corre.webp', './assets/torta.webp',

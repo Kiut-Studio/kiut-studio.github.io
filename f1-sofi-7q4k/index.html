@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Dina Física">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Andika:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&family=Nunito:wght@600;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap">
 <style>
 /* Mundo único (rosa pastel de Dina Beat): pantalla de juego de una columna, escena arriba, pregunta y respuestas abajo */
 :root{
@@ -23,7 +23,7 @@
   --b1:#ff7eb6; --b1s:#d9579a; --b2:#ff9a3c; --b2s:#d9741c; --b3:#8a5ce0; --b3s:#6a3fbf; --b4:#2fb37e; --b4s:#1f8a5f;
   --display:"Fredoka","Baloo 2","Trebuchet MS",system-ui,sans-serif;
   --texto:"Andika","Verdana","Segoe UI",system-ui,sans-serif;
-  --pos:#e8553f; --neg:#3a7fd9; --vec:#6a4fd0; --vec2:#d9741c; --res:#1f8a5f;
+  --escala:1; --pos:#e8553f; --neg:#3a7fd9; --vec:#6a4fd0; --vec2:#d9741c; --res:#1f8a5f;
   color-scheme:light;
 }
 html,body{height:100%}
@@ -99,10 +99,10 @@ h1{font-family:var(--display);font-weight:700;font-size:44px;line-height:1;margi
 
 .tarjeta{background:var(--blanco);border-radius:22px;padding:14px 16px 16px;margin-top:12px;box-shadow:0 4px 0 var(--sombra)}
 .tema{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--blanco);padding:3px 10px;border-radius:999px;background:var(--tc)}
-.preg{font-family:var(--texto);font-weight:700;font-size:19px;line-height:1.4;margin:10px 0 2px;text-wrap:pretty}
+.preg{font-family:var(--texto);font-weight:700;font-size:calc(19px*var(--escala));line-height:1.4;margin:10px 0 2px;text-wrap:pretty}
 .opciones{display:flex;flex-direction:column;gap:9px;margin-top:12px}
 .op{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;padding:11px 13px;border-radius:16px;background:var(--crema);border:2px solid var(--sombra);
-  font-weight:700;font-size:16px;line-height:1.35;transition:transform .08s,background .2s}
+  font-weight:700;font-size:calc(16px*var(--escala));line-height:1.35;transition:transform .08s,background .2s}
 .op:active{transform:scale(.98)}
 .op b{flex:none;width:26px;height:26px;border-radius:50%;background:var(--blanco);border:2px solid var(--sombra);display:grid;place-items:center;font-family:var(--display);font-size:14px}
 .op span{min-width:0}
@@ -112,7 +112,7 @@ h1{font-family:var(--display);font-weight:700;font-size:44px;line-height:1;margi
 .op.mal b{background:var(--mal);border-color:var(--mal);color:var(--blanco)}
 .op[disabled]{cursor:default}
 .op[disabled]:not(.bien):not(.mal){opacity:.55}
-.devolucion{margin-top:12px;border-radius:16px;padding:12px 14px;line-height:1.45}
+.devolucion{margin-top:12px;border-radius:16px;padding:12px 14px;line-height:1.45;font-size:calc(16px*var(--escala))}
 .devolucion.si{background:var(--bien-fondo)}
 .devolucion.no{background:var(--mal-fondo)}
 .devolucion h3{margin:0 0 4px;font-family:var(--display);font-size:19px}
@@ -134,7 +134,7 @@ h1{font-family:var(--display);font-weight:700;font-size:44px;line-height:1;margi
 .barra{grid-column:1/-1;height:10px;border-radius:5px;background:var(--crema);overflow:hidden}
 .barra i{display:block;height:100%;border-radius:5px;background:var(--tc)}
 .falladas{margin-top:14px;display:flex;flex-direction:column;gap:10px}
-.falla{background:var(--blanco);border-radius:18px;padding:12px 14px;border-left:0;box-shadow:0 3px 0 var(--sombra);line-height:1.4}
+.falla{background:var(--blanco);border-radius:18px;padding:12px 14px;border-left:0;box-shadow:0 3px 0 var(--sombra);line-height:1.4;font-size:calc(16px*var(--escala))}
 .falla .q{font-weight:800}
 .falla .r{margin-top:6px;color:var(--bien);font-weight:800}
 .falla .e{margin-top:4px;font-size:14px;color:var(--tinta-suave);font-weight:600}
@@ -146,15 +146,15 @@ h1{font-family:var(--display);font-weight:700;font-size:44px;line-height:1;margi
 .cab-ej{display:flex;align-items:center;gap:10px;margin-bottom:6px}
 .cab-ej h2{font-family:var(--display);font-size:26px;margin:0;flex:1;min-width:0}
 .nivel{margin:16px 0 8px;font-family:var(--display);font-size:18px;font-weight:700}
-.ej-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:12px 14px;border-radius:16px;background:var(--blanco);box-shadow:0 3px 0 var(--sombra);font-weight:700;line-height:1.3}
+.ej-item{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:12px 14px;border-radius:16px;background:var(--blanco);box-shadow:0 3px 0 var(--sombra);font-weight:700;line-height:1.3;font-size:calc(16px*var(--escala))}
 .ej-item + .ej-item{margin-top:8px}
 .ej-item .n{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--crema);font-family:var(--display);border:2px solid var(--sombra)}
 .ej-item .t{flex:1;min-width:0}
 .ej-item .st{flex:none;font-size:20px}
-.enun{font-family:var(--texto);font-weight:700;font-size:18px;line-height:1.5;margin:10px 0 0;text-wrap:pretty}
+.enun{font-family:var(--texto);font-weight:700;font-size:calc(18px*var(--escala));line-height:1.5;margin:10px 0 0;text-wrap:pretty}
 .papel{margin-top:10px;padding:10px 12px;border-radius:14px;background:var(--crema);border:2px dashed var(--sombra);font-weight:700;font-size:14px;color:var(--tinta-suave)}
 .pasos{display:flex;flex-direction:column;gap:8px;margin-top:12px}
-.paso{border-radius:14px;padding:10px 12px;background:var(--crema);line-height:1.7;font-size:17px;overflow-x:auto;animation:aparece .25s ease-out}
+.paso{border-radius:14px;padding:10px 12px;background:var(--crema);line-height:1.7;font-size:calc(17px*var(--escala));overflow-x:auto;animation:aparece .25s ease-out}
 .paso b{display:block;font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:var(--tinta-suave)}
 .paso.final{background:var(--bien-fondo);font-weight:800}
 @keyframes aparece{from{opacity:0;transform:translateY(6px)}}
@@ -180,10 +180,35 @@ sub{font-size:.72em;line-height:0;vertical-align:-.3em}
 .marco{background:var(--blanco);border:2px solid var(--crema);border-radius:14px;padding:4px 6px 8px;margin-top:10px}
 .formula{background:var(--blanco);border-radius:16px;padding:12px 14px;box-shadow:0 3px 0 var(--sombra)}
 .formula + .formula{margin-top:8px}
-.formula .mat{font-size:21px;font-weight:700;line-height:1.7;overflow-x:auto}
-.formula p{margin:6px 0 0;color:var(--tinta-suave);font-weight:700;font-size:15px;line-height:1.5}
-.metodo{background:var(--blanco);border-radius:16px;padding:12px 14px 12px 36px;margin:0;box-shadow:0 3px 0 var(--sombra);line-height:1.6;font-weight:700}
+.formula .mat{font-size:calc(21px*var(--escala));font-weight:700;line-height:1.7;overflow-x:auto}
+.formula p{margin:6px 0 0;color:var(--tinta-suave);font-weight:700;font-size:calc(15px*var(--escala));line-height:1.5}
+.metodo{background:var(--blanco);border-radius:16px;padding:12px 14px 12px 36px;margin:0;box-shadow:0 3px 0 var(--sombra);line-height:1.6;font-weight:700;font-size:calc(16px*var(--escala))}
 .btn.form{background:var(--b4s);--s:#145c3f}
+
+/* ---------- letra y tamaño ---------- */
+.aa{font-family:var(--texto);font-weight:700;font-size:17px;letter-spacing:-.5px}
+.hud .aa{width:40px;height:40px;font-size:15px}
+.hoja{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center;background:rgba(74,42,63,.35);animation:fondo .15s ease-out}
+@keyframes fondo{from{opacity:0}}
+.panel{width:100%;max-width:460px;max-height:86vh;overflow:auto;background:var(--crema);border-radius:24px 24px 0 0;
+  padding:16px max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));
+  box-shadow:0 -6px 24px rgba(74,42,63,.2);animation:sube .2s ease-out}
+@keyframes sube{from{transform:translateY(40px);opacity:.5}}
+.panel h2{font-family:var(--display);font-size:22px;margin:0}
+.panel .fila-cab{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.panel .fila-cab h2{flex:1}
+.panel .sub{font-weight:700;color:var(--tinta-suave);font-size:14px;margin:12px 0 6px}
+.letras{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.letra{text-align:left;padding:10px 12px;border-radius:16px;background:var(--blanco);border:2px solid var(--sombra);min-width:0}
+.letra[aria-pressed="true"]{border-color:var(--rosa-osc);box-shadow:0 0 0 2px var(--rosa) inset}
+.letra .ln{display:block;font-weight:700;font-size:16px}
+.letra .lm{display:block;font-size:17px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.letra .lf{display:block;font-size:11px;color:var(--tinta-suave);margin-top:2px;font-family:var(--display)}
+.tam{display:flex;align-items:center;gap:8px}
+.tam button{flex:none;width:52px;height:46px;border-radius:14px;background:var(--blanco);border:2px solid var(--sombra);font-weight:700}
+.tam .menos{font-size:15px} .tam .mas{font-size:22px}
+.tam .val{flex:1;text-align:center;font-weight:700;font-size:16px}
+.muestra{background:var(--blanco);border-radius:16px;padding:10px 14px;line-height:1.6;font-size:calc(17px*var(--escala));margin-top:10px}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -457,7 +482,7 @@ const METODO = ["Anotá los datos (q, r, E…).","Pasá todo al Sistema Internac
 
 function formulas(){
   pararReloj(); P=null;
-  let h = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver al menú">←</button><h2>Fórmulas</h2></div>`;
+  let h = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver al menú">←</button><h2>Fórmulas</h2><button class="redondo aa" aria-label="Cambiar letra y tamaño">Aa</button></div>`;
   FORMULAS.forEach(g=>{ const t=TEMAS[g.tema];
     h += `<div class="nivel"><span class="tema" style="--tc:${t.c}">${t.nom}</span></div>`;
     g.items.forEach(it=> h += `<div class="formula"><div class="mat">${F(it.f)}</div><p>${F(it.d)}</p></div>`); });
@@ -468,12 +493,32 @@ function formulas(){
 
 /* =====================  GUARDADO  ===================== */
 const CLAVE = "dinaFisica.v1";
-let datos = {est:{}, mejor:{}, vistas:{}, ej:{}, apuro:true, mudo:false, nombre:"Sofi", cola:[], letra:"andika"};
+let datos = {est:{}, mejor:{}, vistas:{}, ej:{}, apuro:true, mudo:false, nombre:"Sofi", cola:[], letra:"andika", escala:1};
 try{ const g = JSON.parse(localStorage.getItem(CLAVE)||"null"); if(g) datos = Object.assign(datos,g); }catch(_){}
 function guardar(){ try{ localStorage.setItem(CLAVE, JSON.stringify(datos)); }catch(_){} }
-/* Letra a elección: Escolar (como se escribe a mano), Muy clara y Redonda. */
-const LETRAS = {andika:{nom:"Escolar",f:'"Andika"'}, atkinson:{nom:"Muy clara",f:'"Atkinson Hyperlegible"'}, nunito:{nom:"Redonda",f:'"Nunito"'}};
-function ponerLetra(){ const l=LETRAS[datos.letra]||LETRAS.andika; document.documentElement.style.setProperty("--texto", l.f+',"Verdana","Segoe UI",system-ui,sans-serif'); }
+/* Letra y tamaño a elección (botón Aa en cada pantalla). Las letras se bajan solo cuando hacen falta. */
+const LETRAS = {
+  andika:  {nom:"Escolar",   f:"Andika",                g:"Andika:wght@400;700"},
+  atkinson:{nom:"Muy clara", f:"Atkinson Hyperlegible", g:"Atkinson+Hyperlegible:wght@400;700"},
+  lexend:  {nom:"Lectura",   f:"Lexend",                g:"Lexend:wght@400;700"},
+  comic:   {nom:"A mano",    f:"Comic Neue",            g:"Comic+Neue:wght@400;700"},
+  nunito:  {nom:"Redonda",   f:"Nunito",                g:"Nunito:wght@600;800"},
+  open:    {nom:"Común",     f:"Open Sans",             g:"Open+Sans:wght@400;700"},
+  literata:{nom:"De libro",  f:"Literata",              g:"Literata:wght@400;700"},
+  fredoka: {nom:"Del juego", f:"Fredoka",               g:"Fredoka:wght@500;700"}
+};
+const ESCALAS = [0.9, 1, 1.15, 1.3, 1.5];
+const cargadas = new Set();
+function cargarLetra(k){ const l=LETRAS[k]; if(!l || cargadas.has(k)) return; cargadas.add(k);
+  const ln=document.createElement("link"); ln.rel="stylesheet"; ln.href="https://fonts.googleapis.com/css2?family="+l.g+"&display=swap"; document.head.appendChild(ln); }
+function ponerLetra(){
+  if(!LETRAS[datos.letra]) datos.letra="andika";
+  if(!ESCALAS.includes(datos.escala)) datos.escala=1;
+  cargarLetra(datos.letra);
+  const st=document.documentElement.style;
+  st.setProperty("--texto", '"'+LETRAS[datos.letra].f+'","Verdana","Segoe UI",system-ui,sans-serif');
+  st.setProperty("--escala", datos.escala);
+}
 ponerLetra();
 
 /* =====================  HOJA DE GOOGLE  =====================
@@ -522,7 +567,7 @@ function estrellasDe(ok,tot){ const p=ok/tot; return p>=.99?3:p>=.75?2:p>=.5?1:0
 
 function menu(){
   pararReloj();
-  let h = `<div class="top"><span></span><button class="redondo" id="mudo" aria-label="Sonido">${datos.mudo?"🔇":"🔊"}</button></div>
+  let h = `<div class="top"><button class="redondo aa" aria-label="Cambiar letra y tamaño">Aa</button><button class="redondo" id="mudo" aria-label="Sonido">${datos.mudo?"🔇":"🔊"}</button></div>
   <h1>Dina Física</h1><p class="lema">¡Psst! Respondé bien y Dina no se come la torta</p>
   <div class="duo"><img src="assets/sofi.webp" alt="Sofi"><img class="d" src="assets/dina_corre.webp" alt="Dina"></div>
   <p class="ayuda">Mientras pensás, Dina baja hacia la torta. Si tocás la respuesta correcta, Sofi le echa agua y Dina se escapa.</p>
@@ -534,7 +579,7 @@ function menu(){
   h += `<button class="btn form" id="forms"><span class="nom">📐 Fórmulas<small>todas las del material, con qué es cada letra</small></span></button>`;
   h += `<button class="btn ej" id="ejs"><span class="nom">📝 Ejercicios en papel<small>los ${EJ.length} del material, paso a paso</small></span><span class="der">${hechos}/${EJ.length} ✓</span></button>`;
   h += `</div>
-  <div class="chips"><button class="chip" id="quien">👤 Juega: ${datos.nombre}</button><button class="chip" id="letra">Aa Letra: ${(LETRAS[datos.letra]||LETRAS.andika).nom}</button>${yaInstalada()?"":`<button class="chip" id="instalar">📲 Instalar</button>`}</div>
+  <div class="chips"><button class="chip" id="quien">👤 Juega: ${datos.nombre}</button>${yaInstalada()?"":`<button class="chip" id="instalar">📲 Instalar</button>`}</div>
   <p class="ayuda" id="ayudaInst" hidden></p>
   <div class="chips" role="group" aria-label="Tiempo">
     <button class="chip" id="conApuro" aria-pressed="${datos.apuro}">⏱ Con reloj</button>
@@ -547,7 +592,6 @@ function menu(){
   $("#ejs").onclick=listaEj;
   $("#forms").onclick=formulas;
   if($("#instalar")) $("#instalar").onclick=instalar;
-  $("#letra").onclick=()=>{ const ks=Object.keys(LETRAS); datos.letra=ks[(ks.indexOf(datos.letra)+1)%ks.length]; guardar(); ponerLetra(); menu(); };
   $("#quien").onclick=()=>{
     const c=$("#quien"); c.innerHTML=`👤 <input id="nom" maxlength="16" aria-label="Nombre" value="${datos.nombre.replace(/"/g,"")}">`;
     const i=$("#nom"); i.focus(); i.select();
@@ -576,6 +620,7 @@ function pantallaJuego(){
      <button class="redondo" id="salir" aria-label="Volver al menú">✕</button>
      <div class="porciones" id="porc">${"<span></span>".repeat(8)}</div>
      <div><div class="puntos"><img src="assets/frutilla.webp" alt=""><span id="pts">0</span></div><div class="racha" id="racha"></div></div>
+     <button class="redondo aa" aria-label="Cambiar letra y tamaño">Aa</button>
    </div>
    <div class="puntitos" id="dots">${P.qs.map(()=>"<i></i>").join("")}</div>
    <div class="escena" id="esc"><div class="riel"></div><img class="sofi" src="assets/sofi.webp" alt="Sofi">
@@ -588,7 +633,7 @@ function pantallaJuego(){
 function mostrar(){
   const p = P.qs[P.i], t = TEMAS[p.b];
   const ops = mezclar(p.o.map((txt,k)=>({txt,bien:k===0})));
-  P.ops = ops; P.listo=false; P.t0=performance.now();
+  P.ops = ops; P.listo=false; P.t0=performance.now(); P.f=0; P.pausa=0;
   $("#dots").querySelectorAll("i").forEach((d,k)=>d.classList.toggle("ya",k===P.i));
   $("#tarj").innerHTML = `<span class="tema" style="--tc:${t.c}">${t.nom}</span>
     <p class="preg">${F(p.q)}</p>
@@ -605,12 +650,12 @@ function pararReloj(){ cancelAnimationFrame(raf); raf=0; }
 function arrancarReloj(){
   pararReloj();
   const dina=$("#dina"), esc=$("#esc"), reloj=$("#reloj");
-  const inicio = performance.now();
+  const inicio = performance.now() - (P && P.pausa ? P.pausa*1000 : 0); if(P) P.pausa=0;
   const paso = ahora=>{
     if(!P || P.listo || !dina.isConnected) return;
     const fin = esc.clientHeight - 64 - 56;
     if(!datos.apuro){ dina.style.top = (fin*.12)+"px"; return; }
-    const f = Math.min(1,(ahora-inicio)/1000/DURA);
+    const f = Math.min(1,(ahora-inicio)/1000/DURA); P.f=f;
     dina.style.top = (f*fin)+"px";
     if(reloj) reloj.textContent = Math.ceil(DURA*(1-f))+" s";
     if(f>=1){ responder(-1); return; }
@@ -669,7 +714,7 @@ function resultado(){
     respuestas:P.res.map(r=>({id:r.p.id, tema:TEMAS[r.p.b].nom, pregunta:r.p.q, bien:r.bien, elegida:r.elegida||"(se acabó el tiempo)", correcta:r.p.o[0], seg:r.seg}))});
   const tit = est===3?"¡Torta intacta!":est===2?"¡Muy bien!":est===1?"¡Vas bien!":"Dina se comió casi toda la torta";
   const msj = est===3?"Sabés este tema. Ahora probá con otro tema o con la prueba mezclada.":est>=1?"Mirá abajo las que fallaste y jugá otra vez.":"Leé otra vez en el material las secciones que aparecen abajo y jugá de nuevo. Las preguntas que fallaste van a volver a salir.";
-  let h = `<div class="res-cab"><img src="assets/${est>=2?"sofi":"dina"}.webp" alt=""><h2>${tit}</h2>
+  let h = `<div class="top"><span></span><button class="redondo aa" aria-label="Cambiar letra y tamaño">Aa</button></div><div class="res-cab"><img src="assets/${est>=2?"sofi":"dina"}.webp" alt=""><h2>${tit}</h2>
     <div class="nota">${P.ok} de ${n} bien</div><div class="estrellas">${fresas(est)}</div><p>${msj}</p></div>`;
   if(mix){
     h += `<div class="temas"><h3>Cómo te fue en cada tema</h3>`;
@@ -697,7 +742,7 @@ function resultado(){
 const ICONO = {si:"✅", masomenos:"🟡", no:"❌"};
 function listaEj(){
   pararReloj(); P=null;
-  let h = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver al menú">←</button><h2>Ejercicios en papel</h2></div>
+  let h = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver al menú">←</button><h2>Ejercicios en papel</h2><button class="redondo aa" aria-label="Cambiar letra y tamaño">Aa</button></div>
     <p class="ayuda" style="text-align:left;margin:4px 0 0">Primero resolvé el ejercicio en el cuaderno, con los pasos del material. Después mirá la solución paso a paso y marcá cómo te fue.</p>`;
   for(const nv in NIVELES){
     h += `<div class="nivel">${NIVELES[nv]}</div>`;
@@ -710,7 +755,7 @@ function listaEj(){
 }
 function verEj(i){
   const e=EJ[i]; let vistos=0;
-  app.innerHTML = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver a la lista">←</button><h2>${({basico:"Básico",inter:"Intermedio",avanz:"Avanzado"})[e.n]} ${e.id.slice(1)}</h2></div>
+  app.innerHTML = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver a la lista">←</button><h2>${({basico:"Básico",inter:"Intermedio",avanz:"Avanzado"})[e.n]} ${e.id.slice(1)}</h2><button class="redondo aa" aria-label="Cambiar letra y tamaño">Aa</button></div>
     <div class="tarjeta"><span class="tema" style="--tc:var(--tinta)">${e.t}</span>
       <p class="enun">${F(e.q)}</p>${e.fig?`<div class="marco">${dib(e.fig)}</div>`:""}
       <div class="papel">📝 Primero resolvé en el cuaderno. En la respuesta escribí: módulo + unidad + dirección + sentido.</div>
@@ -738,11 +783,46 @@ function verEj(i){
 }
 
 document.addEventListener("keydown",e=>{
-  if(!P || !$("#tarj")) return;
+  if(!P || !$("#tarj") || document.querySelector(".hoja")) return;
   const k="1234abcd".indexOf(e.key.toLowerCase());
   if(k>=0 && !P.listo){ responder(k%4); }
   else if((e.key==="Enter"||e.key===" ") && P.listo && $("#sig")){ e.preventDefault(); $("#sig").click(); }
 });
+/* ---------- panel de letra y tamaño ---------- */
+function abrirLetras(){
+  if(document.querySelector(".hoja")) return;
+  Object.keys(LETRAS).forEach(cargarLetra);           // para ver cada ejemplo con su letra
+  const enJuego = P && !P.listo && datos.apuro && document.getElementById("dina");
+  if(enJuego){ P.pausa = (P.f||0)*DURA; pararReloj(); }
+  const hoja=document.createElement("div"); hoja.className="hoja";
+  const pintar=()=>{
+    const pct=Math.round(datos.escala*100);
+    hoja.innerHTML=`<div class="panel" role="dialog" aria-modal="true" aria-label="Letra y tamaño">
+      <div class="fila-cab"><h2>Letra y tamaño</h2><button class="redondo" id="cerrarL" aria-label="Cerrar">✕</button></div>
+      ${enJuego?`<p class="sub" style="margin-top:0">⏸ El reloj está en pausa mientras elegís.</p>`:""}
+      <div class="sub">Letra</div>
+      <div class="letras">${Object.entries(LETRAS).map(([k,l])=>`<button class="letra" data-l="${k}" aria-pressed="${k===datos.letra}" style="font-family:'${l.f}',Verdana,sans-serif">
+        <span class="ln">${l.nom}</span><span class="lm">${F("q₁ = 3 × 10⁻⁶ C")}</span><span class="lf">${l.f}</span></button>`).join("")}</div>
+      <div class="sub">Tamaño</div>
+      <div class="tam"><button class="menos" id="tmenos" aria-label="Letra más chica" ${datos.escala<=ESCALAS[0]?"disabled":""}>A−</button>
+        <span class="val">${pct} %</span>
+        <button class="mas" id="tmas" aria-label="Letra más grande" ${datos.escala>=ESCALAS[ESCALAS.length-1]?"disabled":""}>A+</button></div>
+      <div class="muestra">${F("F = k · [[|q₁ · q₂|::r²]]   ≈ 2,40 N")}</div>
+      <button class="sig" id="listoL">Listo</button></div>`;
+    hoja.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>{ datos.letra=b.dataset.l; guardar(); ponerLetra(); pintar(); });
+    const mover=d=>{ const i=ESCALAS.indexOf(datos.escala)+d; if(i<0||i>=ESCALAS.length) return; datos.escala=ESCALAS[i]; guardar(); ponerLetra(); pintar(); };
+    hoja.querySelector("#tmenos").onclick=()=>mover(-1);
+    hoja.querySelector("#tmas").onclick=()=>mover(1);
+    hoja.querySelector("#cerrarL").onclick=cerrar; hoja.querySelector("#listoL").onclick=cerrar;
+  };
+  const cerrar=()=>{ hoja.remove(); document.removeEventListener("keydown",esc,true); if(enJuego && P && !P.listo) arrancarReloj(); };
+  const esc=e=>{ if(e.key==="Escape"){ e.stopPropagation(); cerrar(); } };
+  hoja.addEventListener("click",e=>{ if(e.target===hoja) cerrar(); });
+  document.addEventListener("keydown",esc,true);
+  pintar(); document.body.appendChild(hoja);
+}
+document.addEventListener("click",e=>{ if(e.target.closest(".aa")) abrirLetras(); });
+
 /* ---------- instalar como app ---------- */
 let avisoInstalar=null;
 const yaInstalada=()=>matchMedia("(display-mode: standalone)").matches || navigator.standalone===true;
