@@ -1,5 +1,7 @@
 # Dina Física
 
+Parte de [Dina Estudia](../README.md).
+
 Juego para estudiar Física 1 (electrostática: Ley de Coulomb y campo eléctrico) con los dibujos de Sofía. Las preguntas y los ejercicios salen del material del Prof. Fernando Arturo Riveros.
 
 No está enlazado desde la portada y tiene `noindex` para que no aparezca en buscadores. Se comparte solo por enlace.
@@ -7,6 +9,8 @@ No está enlazado desde la portada y tiene `noindex` para que no aparezca en bus
 ## Qué tiene
 - **Preguntas** de opción múltiple en 4 temas (carga, Coulomb, campo, superposición) y una prueba mezclada de 12. Dina baja hacia la torta mientras pensás; si acertás la espantás. Las que fallás vuelven a salir más seguido.
 - **Ejercicios en papel**: los 18 del material (básico, intermedio y avanzado), con el dibujo del enunciado, la solución paso a paso, el dibujo de los vectores de la respuesta y un "¿Te salió?".
+- **Ejercicios con números nuevos**: cada ejercicio tiene un botón 🎲 que arma el mismo tipo de problema con otras cargas y distancias, con los pasos, la respuesta y los dibujos calculados para esos números (generadores en `GEN`). También hay un **Ejercicio sorpresa**.
+- **Simulacro de examen**: 8 preguntas de teoría (5 puntos cada una) y 3 problemas con números nuevos para el cuaderno (20 puntos cada uno), con tiempo total de 40, 60 o 90 minutos. La teoría se corrige sola; los problemas los corrige Sofía mirando la solución. Se anota en la hoja como una partida ("Simulacro (teoría)") y tres ejercicios ("Simulacro · …").
 - **Fórmulas**: todas las del material por tema, con qué es cada letra, y los pasos para resolver un problema.
 - Las cuentas se muestran con fracciones, potencias y subíndices de verdad (con el botón **Aa** de cada pantalla se elige entre 8 letras y 5 tamaños; si está respondiendo, el reloj se pausa) para que sea fácil copiarlas al cuaderno.
 - Guarda el progreso en el teléfono (`localStorage`, clave `dinaFisica.v1`) y, si se configura, en una hoja de Google.
@@ -24,4 +28,4 @@ Se crean solas tres pestañas: **Partidas**, **Respuestas** (cada pregunta, bien
 - Programación: Leandro, con asistencia de IA.
 
 ## Instalar como app
-`manifest.json` usa un `id` absoluto (`/f1-sofi-7q4k/`), igual que Dina Run y Dina Beat, con íconos `any` y `maskable` separados. `sw.js` solo guarda la carpeta del juego y solo borra sus propias cachés (`dina-fisica-*`); subir el número con cada versión.
+Se instala junto con el hub: usa `../manifest.json` y `../sw.js` (ver el README de Dina Estudia).
