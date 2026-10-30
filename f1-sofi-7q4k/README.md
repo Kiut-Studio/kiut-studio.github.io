@@ -6,7 +6,9 @@ No está enlazado desde la portada y tiene `noindex` para que no aparezca en bus
 
 ## Qué tiene
 - **Preguntas** de opción múltiple en 4 temas (carga, Coulomb, campo, superposición) y una prueba mezclada de 12. Dina baja hacia la torta mientras pensás; si acertás la espantás. Las que fallás vuelven a salir más seguido.
-- **Ejercicios en papel**: los 18 del material (básico, intermedio y avanzado), con la solución paso a paso y un "¿Te salió?".
+- **Ejercicios en papel**: los 18 del material (básico, intermedio y avanzado), con el dibujo del enunciado, la solución paso a paso, el dibujo de los vectores de la respuesta y un "¿Te salió?".
+- **Fórmulas**: todas las del material por tema, con qué es cada letra, y los pasos para resolver un problema.
+- Las cuentas se muestran con fracciones, potencias y subíndices de verdad (letra Atkinson Hyperlegible) para que sea fácil copiarlas al cuaderno.
 - Guarda el progreso en el teléfono (`localStorage`, clave `dinaFisica.v1`) y, si se configura, en una hoja de Google.
 
 ## Hoja de Google (opcional)

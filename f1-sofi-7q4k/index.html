@@ -7,7 +7,7 @@
 <title>Dina Física</title>
 <link rel="icon" href="assets/frutilla.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
 /* Mundo único (rosa pastel de Dina Beat): pantalla de juego de una columna, escena arriba, pregunta y respuestas abajo */
 :root{
@@ -15,7 +15,8 @@
   --sombra:#e9b6cd; --blanco:#ffffff; --bien:#2fae78; --bien-fondo:#e3f7ee; --mal:#e2496b; --mal-fondo:#fde6ec;
   --b1:#ff7eb6; --b1s:#d9579a; --b2:#ff9a3c; --b2s:#d9741c; --b3:#8a5ce0; --b3s:#6a3fbf; --b4:#2fb37e; --b4s:#1f8a5f;
   --display:"Fredoka","Baloo 2","Trebuchet MS",system-ui,sans-serif;
-  --texto:"Nunito","Segoe UI",system-ui,sans-serif;
+  --texto:"Atkinson Hyperlegible","Verdana","Segoe UI",system-ui,sans-serif;
+  --pos:#e8553f; --neg:#3a7fd9; --vec:#6a4fd0; --vec2:#d9741c; --res:#1f8a5f;
   color-scheme:light;
 }
 html,body{height:100%}
@@ -91,7 +92,7 @@ h1{font-family:var(--display);font-weight:700;font-size:44px;line-height:1;margi
 
 .tarjeta{background:var(--blanco);border-radius:22px;padding:14px 16px 16px;margin-top:12px;box-shadow:0 4px 0 var(--sombra)}
 .tema{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:var(--blanco);padding:3px 10px;border-radius:999px;background:var(--tc)}
-.preg{font-family:var(--display);font-weight:600;font-size:20px;line-height:1.3;margin:10px 0 2px;text-wrap:pretty}
+.preg{font-family:var(--texto);font-weight:700;font-size:19px;line-height:1.4;margin:10px 0 2px;text-wrap:pretty}
 .opciones{display:flex;flex-direction:column;gap:9px;margin-top:12px}
 .op{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;padding:11px 13px;border-radius:16px;background:var(--crema);border:2px solid var(--sombra);
   font-weight:700;font-size:16px;line-height:1.35;transition:transform .08s,background .2s}
@@ -143,10 +144,10 @@ h1{font-family:var(--display);font-weight:700;font-size:44px;line-height:1;margi
 .ej-item .n{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--crema);font-family:var(--display);border:2px solid var(--sombra)}
 .ej-item .t{flex:1;min-width:0}
 .ej-item .st{flex:none;font-size:20px}
-.enun{font-family:var(--display);font-weight:600;font-size:19px;line-height:1.35;margin:10px 0 0;text-wrap:pretty}
+.enun{font-family:var(--texto);font-weight:700;font-size:18px;line-height:1.5;margin:10px 0 0;text-wrap:pretty}
 .papel{margin-top:10px;padding:10px 12px;border-radius:14px;background:var(--crema);border:2px dashed var(--sombra);font-weight:700;font-size:14px;color:var(--tinta-suave)}
 .pasos{display:flex;flex-direction:column;gap:8px;margin-top:12px}
-.paso{border-radius:14px;padding:10px 12px;background:var(--crema);line-height:1.45;animation:aparece .25s ease-out}
+.paso{border-radius:14px;padding:10px 12px;background:var(--crema);line-height:1.7;font-size:17px;overflow-x:auto;animation:aparece .25s ease-out}
 .paso b{display:block;font-size:12px;letter-spacing:.6px;text-transform:uppercase;color:var(--tinta-suave)}
 .paso.final{background:var(--bien-fondo);font-weight:800}
 @keyframes aparece{from{opacity:0;transform:translateY(6px)}}
@@ -154,6 +155,28 @@ h1{font-family:var(--display);font-weight:700;font-size:44px;line-height:1;margi
 .tal button{padding:12px 6px;border-radius:14px;background:var(--crema);border:2px solid var(--sombra);font-weight:800;font-size:15px}
 .chip input{font:inherit;border:0;background:transparent;width:8em;outline:none;color:inherit}
 .enviado{text-align:center;font-size:12px;color:var(--tinta-suave);margin-top:8px;font-weight:700}
+
+/* ---------- fórmulas legibles ---------- */
+sup{font-size:.72em;line-height:0;vertical-align:.6em}
+sub{font-size:.72em;line-height:0;vertical-align:-.3em}
+.fr{display:inline-flex;flex-direction:column;align-items:stretch;vertical-align:middle;margin:.2em .2em;line-height:1.3;text-align:center}
+.fr>span{padding:0 .3em}
+.hueco{display:inline-block;width:1.4em}
+.fr>span:first-child{border-bottom:2px solid currentColor;padding-bottom:.15em}
+.fr>span:last-child{padding-top:.15em}
+.fig{width:100%;max-width:400px;height:auto;display:block;margin:12px auto 0;font-family:var(--texto);font-weight:700;font-size:14px}
+.fig text{fill:var(--tinta)}
+.fig .vt text{fill:inherit}
+.fig .suave,.fig .cota{fill:var(--tinta-suave)}
+.fig .sg{fill:#fff;font-size:22px;font-family:var(--display)}
+.fig .eje{stroke:var(--tinta-suave);stroke-width:1.5}
+.marco{background:var(--blanco);border:2px solid var(--crema);border-radius:14px;padding:4px 6px 8px;margin-top:10px}
+.formula{background:var(--blanco);border-radius:16px;padding:12px 14px;box-shadow:0 3px 0 var(--sombra)}
+.formula + .formula{margin-top:8px}
+.formula .mat{font-size:21px;font-weight:700;line-height:1.7;overflow-x:auto}
+.formula p{margin:6px 0 0;color:var(--tinta-suave);font-weight:700;font-size:15px;line-height:1.5}
+.metodo{background:var(--blanco);border-radius:16px;padding:12px 14px 12px 36px;margin:0;box-shadow:0 3px 0 var(--sombra);line-height:1.6;font-weight:700}
+.btn.form{background:var(--b4s);--s:#145c3f}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
@@ -253,64 +276,188 @@ const BANCO = [
 
 /* =====================  EJERCICIOS EN PAPEL  =====================
    Los del material (secciones 52 a 54). Los avanzados no traen números en el material:
-   se usan los mismos datos que en el PDF de ejercicios resueltos. */
+   se usan los mismos datos que en el PDF de ejercicios resueltos.
+   Escritura: [[arriba::abajo]] = fracción · q₁, F_Rx = subíndice · 10⁻⁶ = potencia · \n = renglón nuevo.
+   fig = dibujo del enunciado · figR = dibujo con los vectores de la respuesta. */
 const NIVELES = {basico:"Nivel básico", inter:"Nivel intermedio", avanz:"Nivel avanzado"};
+const K = "(8,99 × 10⁹)";
 const EJ = [
 {id:"b1",n:"basico",t:"Número de electrones",q:"Determine el número de electrones correspondiente a una carga Q = −3,2 µC.",
- p:[["Datos y conversión","Q = −3,2 µC = −3,2 × 10⁻⁶ C · e = 1,602 × 10⁻¹⁹ C"],["Ecuación","n = |Q| / e"],["Cálculo","n = (3,2 × 10⁻⁶) / (1,602 × 10⁻¹⁹) ≈ 2,0 × 10¹³"]],
+ p:[["Datos y conversión","Q = −3,2 µC = −3,2 × 10⁻⁶ C\ne = 1,602 × 10⁻¹⁹ C"],["Ecuación","n = [[|Q|::e]]"],["Cálculo","n = [[3,2 × 10⁻⁶::1,602 × 10⁻¹⁹]] ≈ 2,0 × 10¹³"]],
  r:"n ≈ 2,0 × 10¹³ electrones. Como Q es negativa, son electrones de más."},
 {id:"b2",n:"basico",t:"Fuerza entre +2 µC y +7 µC",q:"Dos cargas q₁ = +2 µC y q₂ = +7 µC están separadas r = 0,25 m. Determine la fuerza eléctrica.",
- p:[["Datos y conversión","q₁ = 2 × 10⁻⁶ C · q₂ = 7 × 10⁻⁶ C · r = 0,25 m"],["Atracción o repulsión","Las dos son positivas → repulsión."],["Ecuación","F = k·|q₁q₂| / r²"],["Cálculo","F = (8,99 × 10⁹)(2 × 10⁻⁶)(7 × 10⁻⁶) / (0,25)² = 0,126 / 0,0625 ≈ 2,01 N"]],
- r:"F ≈ 2,01 N, en la recta que une las cargas, de repulsión (cada una empuja a la otra hacia afuera)."},
+ fig:{w:360,h:110,c:[[90,50,"+","q₁ = +2 µC"],[270,50,"+","q₂ = +7 µC"]],cota:[[90,92,270,92,"0,25 m"]]},
+ figR:{w:360,h:110,c:[[90,50,"+","q₁"],[270,50,"+","q₂"]],v:[[90,50,30,50,"F",1],[270,50,330,50,"F",1]],cota:[[90,92,270,92,"0,25 m"]]},
+ p:[["Datos y conversión","q₁ = 2 × 10⁻⁶ C\nq₂ = 7 × 10⁻⁶ C\nr = 0,25 m"],["Atracción o repulsión","Las dos son positivas → repulsión."],["Ecuación","F = k · [[|q₁ · q₂|::r²]]"],["Cálculo",`F = [[${K} · (2 × 10⁻⁶) · (7 × 10⁻⁶)::(0,25)²]]\nF = [[0,126::0,0625]] ≈ 2,01 N`]],
+ r:"F ≈ 2,01 N, en la recta que une las cargas, de repulsión: cada una empuja a la otra hacia afuera."},
 {id:"b3",n:"basico",t:"Fuerza entre +5 µC y −8 µC",q:"Dos cargas q₁ = +5 µC y q₂ = −8 µC están separadas 40 cm. Determine el módulo de la fuerza e indique si hay atracción o repulsión.",
- p:[["Datos y conversión","q₁ = 5 × 10⁻⁶ C · q₂ = −8 × 10⁻⁶ C · r = 40 cm = 0,40 m (¡convertir!)"],["Atracción o repulsión","Signos opuestos → atracción."],["Ecuación","F = k·|q₁q₂| / r²"],["Cálculo","F = (8,99 × 10⁹)(5 × 10⁻⁶)(8 × 10⁻⁶) / (0,40)² = 0,360 / 0,16 ≈ 2,25 N"]],
- r:"F ≈ 2,25 N, de atracción (las fuerzas apuntan una hacia la otra)."},
+ fig:{w:360,h:110,c:[[90,50,"+","q₁ = +5 µC"],[270,50,"−","q₂ = −8 µC"]],cota:[[90,92,270,92,"40 cm"]]},
+ figR:{w:360,h:110,c:[[90,50,"+","q₁"],[270,50,"−","q₂"]],v:[[90,50,150,50,"F",1],[270,50,210,50,"F",1]],cota:[[90,92,270,92,"0,40 m"]]},
+ p:[["Datos y conversión","q₁ = 5 × 10⁻⁶ C\nq₂ = −8 × 10⁻⁶ C\nr = 40 cm = 0,40 m (¡convertir!)"],["Atracción o repulsión","Signos opuestos → atracción."],["Ecuación","F = k · [[|q₁ · q₂|::r²]]"],["Cálculo",`F = [[${K} · (5 × 10⁻⁶) · (8 × 10⁻⁶)::(0,40)²]]\nF = [[0,360::0,16]] ≈ 2,25 N`]],
+ r:"F ≈ 2,25 N, de atracción: las fuerzas apuntan una hacia la otra."},
 {id:"b4",n:"basico",t:"Campo de Q = +4 µC",q:"Una carga Q = +4 µC produce un campo eléctrico. Determine su intensidad a r = 0,30 m.",
- p:[["Datos y conversión","Q = 4 × 10⁻⁶ C · r = 0,30 m"],["Sentido","Q > 0 → el campo apunta hacia afuera."],["Ecuación","E = k·|Q| / r²"],["Cálculo","E = (8,99 × 10⁹)(4 × 10⁻⁶) / (0,30)² = 35 960 / 0,09 ≈ 4,0 × 10⁵ N/C"]],
+ fig:{w:360,h:110,c:[[90,50,"+","Q = +4 µC"]],pt:[[270,50,"P"]],cota:[[90,92,270,92,"0,30 m"]]},
+ figR:{w:360,h:110,c:[[90,50,"+","Q"]],pt:[[270,50,"P"]],v:[[270,50,340,50,"E",2]],cota:[[90,92,270,92,"0,30 m"]]},
+ p:[["Datos y conversión","Q = 4 × 10⁻⁶ C\nr = 0,30 m"],["Sentido","Q > 0 → el campo apunta hacia afuera."],["Ecuación","E = k · [[|Q|::r²]]"],["Cálculo",`E = [[${K} · (4 × 10⁻⁶)::(0,30)²]]\nE = [[35 960::0,09]] ≈ 4,0 × 10⁵ N/C`]],
  r:"E ≈ 4,0 × 10⁵ N/C, radial, alejándose de la carga."},
 {id:"b5",n:"basico",t:"Campo de Q = −6 µC",q:"Una carga Q = −6 µC produce un campo eléctrico a r = 0,20 m. Determine módulo y sentido.",
- p:[["Datos y conversión","Q = −6 × 10⁻⁶ C · r = 0,20 m"],["Sentido","Q < 0 → el campo apunta hacia la carga."],["Ecuación","E = k·|Q| / r² (el módulo usa |Q|)"],["Cálculo","E = (8,99 × 10⁹)(6 × 10⁻⁶) / (0,20)² = 53 940 / 0,04 ≈ 1,35 × 10⁶ N/C"]],
+ fig:{w:360,h:110,c:[[90,50,"−","Q = −6 µC"]],pt:[[270,50,"P"]],cota:[[90,92,270,92,"0,20 m"]]},
+ figR:{w:360,h:110,c:[[90,50,"−","Q"]],pt:[[270,50,"P"]],v:[[270,50,200,50,"E",2]],cota:[[90,92,270,92,"0,20 m"]]},
+ p:[["Datos y conversión","Q = −6 × 10⁻⁶ C\nr = 0,20 m"],["Sentido","Q < 0 → el campo apunta hacia la carga."],["Ecuación","E = k · [[|Q|::r²]]  (el módulo usa |Q|, sin el signo)"],["Cálculo",`E = [[${K} · (6 × 10⁻⁶)::(0,20)²]]\nE = [[53 940::0,04]] ≈ 1,35 × 10⁶ N/C`]],
  r:"E ≈ 1,35 × 10⁶ N/C, radial, apuntando hacia la carga."},
 {id:"i1",n:"inter",t:"Dos cargas iguales que hacen 3,6 N",q:"Dos cargas iguales ejercen una fuerza F = 3,6 N cuando están separadas r = 0,15 m. Determine el módulo de cada carga.",
- p:[["Datos","F = 3,6 N · r = 0,15 m · q₁ = q₂ = q"],["Ecuación","F = k·q² / r² → q² = F·r² / k"],["Cálculo","q² = (3,6)(0,15)² / (8,99 × 10⁹) = 0,081 / (8,99 × 10⁹) ≈ 9,0 × 10⁻¹²"],["Raíz","q = √(9,0 × 10⁻¹²) ≈ 3,0 × 10⁻⁶ C"]],
+ p:[["Datos","F = 3,6 N\nr = 0,15 m\nq₁ = q₂ = q"],["Despeje","F = k · [[q²::r²]]   →   q² = [[F · r²::k]]"],["Cálculo",`q² = [[3,6 · (0,15)²::8,99 × 10⁹]] = [[0,081::8,99 × 10⁹]] ≈ 9,0 × 10⁻¹²`],["Raíz","q = √(9,0 × 10⁻¹²) ≈ 3,0 × 10⁻⁶ C"]],
  r:"|q| ≈ 3,0 µC cada una."},
 {id:"i2",n:"inter",t:"¿A qué distancia para 1,0 N?",q:"¿A qué distancia deben encontrarse dos cargas de 2 µC y 5 µC para que la fuerza sea F = 1,0 N?",
- p:[["Datos y conversión","q₁ = 2 × 10⁻⁶ C · q₂ = 5 × 10⁻⁶ C · F = 1,0 N"],["Despeje","F = k·|q₁q₂| / r² → r = √(k·|q₁q₂| / F)"],["Cálculo","r² = (8,99 × 10⁹)(10 × 10⁻¹²) / 1,0 = 0,0899 m²"],["Raíz","r = √0,0899 ≈ 0,30 m"]],
+ p:[["Datos y conversión","q₁ = 2 × 10⁻⁶ C\nq₂ = 5 × 10⁻⁶ C\nF = 1,0 N"],["Despeje","F = k · [[|q₁ · q₂|::r²]]   →   r² = [[k · |q₁ · q₂|::F]]"],["Cálculo",`r² = [[${K} · (10 × 10⁻¹²)::1,0]] = 0,0899 m²`],["Raíz","r = √0,0899 ≈ 0,30 m"]],
  r:"r ≈ 0,30 m."},
 {id:"i3",n:"inter",t:"Carga negativa en un campo",q:"Una carga q = −2 µC se encuentra en un campo E = 6 × 10⁴ N/C. Determine la fuerza.",
- p:[["Datos y conversión","q = −2 × 10⁻⁶ C · E = 6 × 10⁴ N/C"],["Ecuación","F = |q|·E (el sentido sale del signo)"],["Cálculo","F = (2 × 10⁻⁶)(6 × 10⁴) = 0,12 N"],["Sentido","q < 0 → la fuerza va al revés del campo."]],
+ fig:{w:360,h:110,campo:1,c:[[180,55,"−","q = −2 µC"]]},
+ figR:{w:360,h:110,campo:1,c:[[180,55,"−","q"]],v:[[180,55,110,55,"F",1]]},
+ p:[["Datos y conversión","q = −2 × 10⁻⁶ C\nE = 6 × 10⁴ N/C"],["Ecuación","F = |q| · E   (el sentido sale del signo)"],["Cálculo","F = (2 × 10⁻⁶) · (6 × 10⁴) = 0,12 N"],["Sentido","q < 0 → la fuerza va al revés del campo."]],
  r:"F = 0,12 N, de sentido contrario al campo."},
 {id:"i4",n:"inter",t:"¿Cuánta carga tiene?",q:"Una partícula experimenta una fuerza F = 0,25 N en un campo E = 5 × 10⁴ N/C. Determine el módulo de su carga.",
- p:[["Datos","F = 0,25 N · E = 5 × 10⁴ N/C"],["Despeje","F = |q|·E → |q| = F / E"],["Cálculo","|q| = 0,25 / (5 × 10⁴) = 5 × 10⁻⁶ C"]],
+ p:[["Datos","F = 0,25 N\nE = 5 × 10⁴ N/C"],["Despeje","F = |q| · E   →   |q| = [[F::E]]"],["Cálculo","|q| = [[0,25::5 × 10⁴]] = 5 × 10⁻⁶ C"]],
  r:"|q| = 5 × 10⁻⁶ C = 5 µC."},
 {id:"i5",n:"inter",t:"Punto medio entre cargas iguales",q:"Dos cargas positivas iguales se encuentran separadas 0,80 m. Determine el campo en el punto medio.",
- p:[["Dibujo","+q — 0,40 m — P — 0,40 m — +q"],["Sentido","El campo de la izquierda en P apunta a la derecha; el de la derecha, a la izquierda."],["Superposición","Mismas cargas y misma distancia → E₁ = E₂ con sentidos opuestos → se cancelan."]],
+ fig:{w:360,h:110,c:[[60,50,"+","+q"],[300,50,"+","+q"]],pt:[[180,50,"P"]],cota:[[60,92,180,92,"0,40 m"],[180,92,300,92,"0,40 m"]]},
+ figR:{w:360,h:110,c:[[60,50,"+","+q"],[300,50,"+","+q"]],pt:[[180,50,"P"]],v:[[180,50,240,50,"E₁",2],[180,50,120,50,"E₂",2]],cota:[[60,92,180,92,"0,40 m"],[180,92,300,92,"0,40 m"]]},
+ p:[["Sentido","En P, el campo de la carga de la izquierda apunta a la derecha y el de la derecha apunta a la izquierda."],["Superposición","Cargas iguales y distancias iguales → E₁ = E₂ con sentidos opuestos → se cancelan."]],
  r:"E_R = 0 en el punto medio. Cada carga produce campo, pero se anulan."},
-{id:"a1",n:"avanz",t:"Tres cargas en línea",q:"q₁ = +3 µC, q₂ = −2 µC (en el centro) y q₃ = +4 µC están en línea recta. De q₁ a q₂ hay 0,10 m y de q₂ a q₃, 0,20 m. Determine la fuerza resultante sobre q₂.",
- p:[["Atracción o repulsión","q₁(+) y q₂(−) se atraen → q₂ es jalada a la izquierda. q₃(+) y q₂(−) se atraen → jalada a la derecha."],["F₁₂","(8,99 × 10⁹)(3 × 10⁻⁶)(2 × 10⁻⁶) / (0,10)² ≈ 5,39 N (←)"],["F₃₂","(8,99 × 10⁹)(4 × 10⁻⁶)(2 × 10⁻⁶) / (0,20)² ≈ 1,80 N (→)"],["Superposición","Sentidos opuestos → se restan: 5,39 − 1,80 ≈ 3,60 N"]],
- r:"F_R ≈ 3,60 N, horizontal, hacia la izquierda (hacia q₁). q₁ gana porque está a la mitad de distancia."},
-{id:"a2",n:"avanz",t:"Triángulo rectángulo",q:"q₀ = +2 µC está en el ángulo recto (origen). q_A = +3 µC está en (0,30; 0) m y q_B = −4 µC en (0; 0,40) m. Determine la fuerza resultante sobre q₀.",
- p:[["Atracción o repulsión","q₀ y q_A (+,+): repulsión → fuerza en −x. q₀ y q_B (+,−): atracción → fuerza en +y."],["F_A","(8,99 × 10⁹)(2 × 10⁻⁶)(3 × 10⁻⁶) / (0,30)² ≈ 0,599 N"],["F_B","(8,99 × 10⁹)(2 × 10⁻⁶)(4 × 10⁻⁶) / (0,40)² ≈ 0,450 N"],["Componentes","F_Rx = −0,599 N · F_Ry = +0,450 N"],["Módulo","F_R = √(0,599² + 0,450²) ≈ 0,749 N"],["Dirección","tan θ = 0,450 / 0,599 → θ ≈ 36,9° sobre el eje −x"]],
+{id:"a1",n:"avanz",t:"Tres cargas en línea",q:"Tres cargas están en línea recta: q₁ = +3 µC, q₂ = −2 µC (en el centro) y q₃ = +4 µC. De q₁ a q₂ hay 0,10 m y de q₂ a q₃, 0,20 m. Determine la fuerza resultante sobre q₂.",
+ fig:{w:360,h:110,c:[[50,50,"+","q₁ = +3 µC"],[125,50,"−","q₂ = −2 µC"],[275,50,"+","q₃ = +4 µC"]],cota:[[50,92,125,92,"0,10 m"],[125,92,275,92,"0,20 m"]]},
+ figR:{w:360,h:160,c:[[70,40,"+","q₁"],[145,40,"−","q₂"],[295,40,"+","q₃"]],v:[[145,80,55,80,"F₁₂ = 5,39 N",1,"b"],[145,80,175,80,"F₃₂ = 1,80 N",1,"d"],[145,125,85,125,"F_R = 3,60 N",3,"b"]],l:[[145,54,145,130,2]]},
+ p:[["Datos y conversión","q₁ = 3 × 10⁻⁶ C\nq₂ = −2 × 10⁻⁶ C\nq₃ = 4 × 10⁻⁶ C\nr₁₂ = 0,10 m\nr₂₃ = 0,20 m"],["Atracción o repulsión","q₁ (+) y q₂ (−) se atraen → q₂ es jalada hacia la izquierda.\nq₃ (+) y q₂ (−) se atraen → q₂ es jalada hacia la derecha."],["F₁₂",`F₁₂ = [[${K} · (3 × 10⁻⁶) · (2 × 10⁻⁶)::(0,10)²]] ≈ 5,39 N (←)`],["F₃₂",`F₃₂ = [[${K} · (4 × 10⁻⁶) · (2 × 10⁻⁶)::(0,20)²]] ≈ 1,80 N (→)`],["Superposición","Sentidos opuestos → se restan:\nF_R = 5,39 − 1,80 ≈ 3,60 N"]],
+ r:"F_R ≈ 3,60 N, horizontal, hacia la izquierda (hacia q₁). Gana q₁ porque está a la mitad de distancia."},
+{id:"a2",n:"avanz",t:"Triángulo rectángulo",q:"q₀ = +2 µC está en el ángulo recto (en el origen). q_A = +3 µC está en (0,30 ; 0) m y q_B = −4 µC en (0 ; 0,40) m. Determine la fuerza resultante sobre q₀.",
+ fig:{w:360,h:250,ejes:[150,190],c:[[150,190,"+","q₀ = +2 µC","bi"],[270,190,"+","q_A = +3 µC","b"],[150,30,"−","q_B = −4 µC","d"]],l:[[270,190,150,30]],cota:[[150,232,270,232,"0,30 m"],[110,190,110,30,"0,40 m","i"]]},
+ figR:{w:360,h:230,ejes:[230,170],c:[[230,170,"+","q₀","bd"]],v:[[230,170,158,170,"F_A = 0,60 N",1,"b"],[230,170,230,116,"F_B = 0,45 N",1,"d"],[230,170,158,116,"F_R = 0,75 N",3,"a"]],l:[[158,170,158,116,1],[158,116,230,116,1]],ang:[230,170,143.1,180,"36,9°"]},
+ p:[["Datos y conversión","q₀ = 2 × 10⁻⁶ C\nq_A = 3 × 10⁻⁶ C, a 0,30 m\nq_B = −4 × 10⁻⁶ C, a 0,40 m"],["Atracción o repulsión","q₀ y q_A (+,+): repulsión → fuerza en −x.\nq₀ y q_B (+,−): atracción → fuerza en +y."],["F_A",`F_A = [[${K} · (2 × 10⁻⁶) · (3 × 10⁻⁶)::(0,30)²]] ≈ 0,599 N`],["F_B",`F_B = [[${K} · (2 × 10⁻⁶) · (4 × 10⁻⁶)::(0,40)²]] ≈ 0,450 N`],["Componentes","F_Rx = −0,599 N\nF_Ry = +0,450 N"],["Módulo","F_R = √(0,599² + 0,450²) ≈ 0,749 N"],["Dirección","tan θ = [[0,450::0,599]]   →   θ ≈ 36,9° sobre el eje −x"]],
  r:"F_R ≈ 0,75 N, a 36,9° por encima del eje −x (143,1° desde el eje +x)."},
-{id:"a3",n:"avanz",t:"Cargas opuestas: punto medio",q:"q₁ = +5 µC y q₂ = −5 µC están separadas 0,50 m. Determine el campo eléctrico en el punto medio.",
- p:[["Datos","r = 0,25 m de cada carga hasta P"],["Sentido","q₁ > 0: su campo se aleja (→). q₂ < 0: su campo apunta hacia ella (→). Los dos a la derecha."],["Cada campo","E = (8,99 × 10⁹)(5 × 10⁻⁶) / (0,25)² ≈ 7,19 × 10⁵ N/C"],["Superposición","Mismo sentido → se suman: 2 × 7,19 × 10⁵ ≈ 1,44 × 10⁶ N/C"]],
+{id:"a3",n:"avanz",t:"Cargas opuestas: punto medio",q:"Dos cargas q₁ = +5 µC y q₂ = −5 µC están separadas 0,50 m. Determine el campo eléctrico en el punto medio.",
+ fig:{w:360,h:110,c:[[60,50,"+","q₁ = +5 µC"],[300,50,"−","q₂ = −5 µC"]],pt:[[180,50,"P"]],cota:[[60,92,180,92,"0,25 m"],[180,92,300,92,"0,25 m"]]},
+ figR:{w:360,h:150,c:[[60,40,"+","q₁"],[300,40,"−","q₂"]],pt:[[180,40,"P"]],v:[[180,40,240,40,"E₁",2],[180,80,240,80,"E₂",2],[180,120,300,120,"E_R",3]]},
+ p:[["Datos y conversión","q₁ = 5 × 10⁻⁶ C\nq₂ = −5 × 10⁻⁶ C\nr = 0,25 m de cada carga hasta P"],["Sentido","q₁ > 0: su campo se aleja de ella (→).\nq₂ < 0: su campo apunta hacia ella (→).\nLos dos apuntan a la derecha."],["Cada campo",`E = [[${K} · (5 × 10⁻⁶)::(0,25)²]] ≈ 7,19 × 10⁵ N/C`],["Superposición","Mismo sentido → se suman:\nE_R = 2 · 7,19 × 10⁵ ≈ 1,44 × 10⁶ N/C"]],
  r:"E_R ≈ 1,44 × 10⁶ N/C, horizontal, de la carga positiva hacia la negativa."},
-{id:"a4",n:"avanz",t:"Triángulo equilátero",q:"Tres cargas iguales q = +2 µC están en los vértices de un triángulo equilátero de lado 0,10 m. Determine la fuerza resultante sobre una de ellas.",
- p:[["Atracción o repulsión","Todas positivas → repulsión: cada fuerza sale del vértice alejándose de la otra carga."],["Cada fuerza","F = (8,99 × 10⁹)(2 × 10⁻⁶)² / (0,10)² ≈ 3,60 N"],["Componentes","Las dos forman 60°, cada una a 30° de la bisectriz. Las de costado (3,60·sen 30°) se cancelan."],["Módulo","F_R = 2 · 3,60 · cos 30° ≈ 6,23 N"]],
- r:"F_R ≈ 6,23 N, por la bisectriz del vértice, hacia afuera del triángulo."},
-{id:"a5",n:"avanz",t:"Campo nulo (mismo signo)",q:"q₁ = +4 µC en x = 0 y q₂ = +1 µC en x = 0,30 m. Determine el punto donde el campo resultante es cero.",
- p:[["Dónde buscar","Mismo signo → los campos son opuestos solo entre las cargas."],["Condición","E₁ = E₂ → 4 / x² = 1 / (0,30 − x)² (k se cancela)"],["Raíz","2 / x = 1 / (0,30 − x) → 0,60 − 2x = x"],["Cálculo","3x = 0,60 → x = 0,20 m"]],
- r:"E_R = 0 en x = 0,20 m, entre las cargas, a 0,10 m de q₂ (la menor)."},
-{id:"a6",n:"avanz",t:"Componentes del campo",q:"P está en el origen. q₁ = +2 µC está en x = −0,30 m y q₂ = −3 µC en y = +0,40 m. Determine las componentes del campo en P.",
- p:[["Sentido","q₁ > 0: el campo se aleja de q₁ → +x. q₂ < 0: el campo va hacia q₂ → +y."],["E₁","(8,99 × 10⁹)(2 × 10⁻⁶) / (0,30)² ≈ 2,00 × 10⁵ N/C"],["E₂","(8,99 × 10⁹)(3 × 10⁻⁶) / (0,40)² ≈ 1,69 × 10⁵ N/C"],["Módulo","E_R = √(Eₓ² + E_y²) ≈ 2,61 × 10⁵ N/C"],["Dirección","tan θ = 1,69 / 2,00 → θ ≈ 40,2° sobre el eje +x"]],
- r:"Eₓ ≈ 2,00 × 10⁵ N/C, E_y ≈ 1,69 × 10⁵ N/C; E_R ≈ 2,61 × 10⁵ N/C a 40,2° sobre +x."},
-{id:"a7",n:"avanz",t:"Cuatro cargas en un cuadrado",q:"Cuatro cargas iguales q = +2 µC están en los vértices de un cuadrado de lado 0,20 m. Analice el campo eléctrico en el centro.",
- p:[["Distancia","r = media diagonal = 0,20·√2 / 2 ≈ 0,141 m → r² = 0,020 m²"],["Cada campo","E = (8,99 × 10⁹)(2 × 10⁻⁶) / 0,020 ≈ 8,99 × 10⁵ N/C (los cuatro iguales)"],["Sentido","Cada campo se aleja de su carga, hacia el vértice opuesto."],["Superposición","Los de vértices opuestos son iguales y opuestos → se cancelan de a pares."]],
+{id:"a4",n:"avanz",t:"Triángulo equilátero",q:"Tres cargas iguales q = +2 µC están en los vértices de un triángulo equilátero de lado 0,10 m. Determine la fuerza resultante sobre la carga de arriba (q_A).",
+ fig:{w:360,h:200,c:[[180,40,"+","q_A","d"],[110,160,"+","q_B","b"],[250,160,"+","q_C","b"]],l:[[180,40,110,160,1],[180,40,250,160,1],[110,160,250,160,1]],txt:[[300,110,"lado = 0,10 m"],[300,128,"q = +2 µC"]]},
+ figR:{w:360,h:220,c:[[180,140,"+","q_A","b"]],l:[[180,140,140,209,1],[180,140,220,209,1]],v:[[180,140,214,81,"F_BA = 3,60 N",1,"d"],[180,140,146,81,"F_CA = 3,60 N",1,"i"],[180,140,180,22,"F_R = 6,23 N",3,"d"]]},
+ p:[["Datos y conversión","q = 2 × 10⁻⁶ C en cada vértice\na = 0,10 m"],["Atracción o repulsión","Todas positivas → repulsión. Cada fuerza sale de q_A alejándose de la otra carga."],["Cada fuerza",`F = [[${K} · (2 × 10⁻⁶)²::(0,10)²]] ≈ 3,60 N`],["Componentes","Las dos fuerzas forman 60° entre sí: cada una está a 30° de la vertical.\nLas componentes de costado (3,60 · sen 30°) se cancelan.\nLas verticales (3,60 · cos 30°) se suman."],["Módulo","F_R = 2 · 3,60 · cos 30° ≈ 6,23 N"]],
+ r:"F_R ≈ 6,23 N, vertical (por la bisectriz del vértice), hacia afuera del triángulo."},
+{id:"a5",n:"avanz",t:"Campo nulo (mismo signo)",q:"Dos cargas están sobre el eje x: q₁ = +4 µC en x = 0 y q₂ = +1 µC en x = 0,30 m. Determine el punto donde el campo resultante es cero.",
+ fig:{w:360,h:115,c:[[60,50,"+","q₁ = +4 µC"],[300,50,"+","q₂ = +1 µC"]],cota:[[60,98,300,98,"0,30 m"]],txt:[[60,84,"x = 0"],[300,84,"x = 0,30 m"]]},
+ figR:{w:360,h:145,c:[[60,40,"+","q₁"],[300,40,"+","q₂"]],pt:[[220,40,"P"]],v:[[220,80,280,80,"E₁",2,"d"],[220,80,160,80,"E₂",2,"i"]],cota:[[60,115,220,115,"x = 0,20 m"],[220,115,300,115,"0,10 m"]]},
+ p:[["Dónde buscar","Las dos son positivas: solo entre las cargas los campos apuntan al revés. Ahí puede estar el cero."],["Condición","E₁ = E₂   →   [[|q₁|::x²]] = [[|q₂|::(0,30 − x)²]]   (k se cancela)"],["Reemplazo","[[4::x²]] = [[1::(0,30 − x)²]]"],["Raíz de los dos lados","[[2::x]] = [[1::0,30 − x]]   →   0,60 − 2x = x"],["Cálculo","3x = 0,60   →   x = 0,20 m"]],
+ r:"E_R = 0 en x = 0,20 m: entre las cargas, a 0,10 m de q₂ (la menor)."},
+{id:"a6",n:"avanz",t:"Componentes del campo",q:"El punto P está en el origen. q₁ = +2 µC está en x = −0,30 m y q₂ = −3 µC en y = +0,40 m. Determine las componentes del campo eléctrico en P.",
+ fig:{w:360,h:230,ejes:[230,190],c:[[110,190,"+","q₁ = +2 µC","a"],[230,30,"−","q₂ = −3 µC","i"]],pt:[[230,190,"P","bd"]],cota:[[110,212,230,212,"0,30 m"],[290,190,290,30,"0,40 m","d"]]},
+ figR:{w:360,h:220,ejes:[120,180],pt:[[120,180,"P","bi"]],v:[[120,180,220,180,"E₁ = 2,00 × 10⁵",2,"b"],[120,180,120,96,"E₂ = 1,69 × 10⁵",2,"i"],[120,180,220,96,"E_R = 2,61 × 10⁵ N/C",3,"a"]],l:[[220,180,220,96,1],[120,96,220,96,1]],ang:[120,180,0,40.2,"40,2°"]},
+ p:[["Datos y conversión","q₁ = 2 × 10⁻⁶ C, a 0,30 m de P\nq₂ = −3 × 10⁻⁶ C, a 0,40 m de P"],["Sentido","q₁ > 0: el campo se aleja de q₁ → apunta a +x.\nq₂ < 0: el campo va hacia q₂ → apunta a +y."],["E₁",`E₁ = [[${K} · (2 × 10⁻⁶)::(0,30)²]] ≈ 2,00 × 10⁵ N/C`],["E₂",`E₂ = [[${K} · (3 × 10⁻⁶)::(0,40)²]] ≈ 1,69 × 10⁵ N/C`],["Componentes","E_x = 2,00 × 10⁵ N/C\nE_y = 1,69 × 10⁵ N/C"],["Módulo","E_R = √(E_x² + E_y²) ≈ 2,61 × 10⁵ N/C"],["Dirección","tan θ = [[1,69::2,00]]   →   θ ≈ 40,2° sobre el eje +x"]],
+ r:"E_x ≈ 2,00 × 10⁵ N/C y E_y ≈ 1,69 × 10⁵ N/C. E_R ≈ 2,61 × 10⁵ N/C a 40,2° sobre el eje +x."},
+{id:"a7",n:"avanz",t:"Cuatro cargas en un cuadrado",q:"Cuatro cargas iguales q = +2 µC están en los vértices de un cuadrado de lado 0,20 m. Analice el campo eléctrico en el centro O.",
+ fig:{w:360,h:215,c:[[90,30,"+","q₁","i"],[270,30,"+","q₂","d"],[270,180,"+","q₃","d"],[90,180,"+","q₄","i"]],l:[[90,30,270,30,1],[270,30,270,180,1],[270,180,90,180,1],[90,180,90,30,1],[90,30,270,180,2],[270,30,90,180,2]],pt:[[180,105,"O","d"]],txt:[[180,208,"lado = 0,20 m"]]},
+ figR:{w:360,h:215,c:[[90,30,"+","q₁","i"],[270,30,"+","q₂","d"],[270,180,"+","q₃","d"],[90,180,"+","q₄","i"]],l:[[90,30,270,30,1],[270,30,270,180,1],[270,180,90,180,1],[90,180,90,30,1]],pt:[[180,105,"O","a"]],v:[[180,105,225,150,"E₁",2,"d"],[180,105,135,150,"E₂",2,"i"],[180,105,135,60,"E₃",2,"i"],[180,105,225,60,"E₄",2,"d"]],txt:[[180,208,"E₁ y E₃ se anulan · E₂ y E₄ se anulan"]]},
+ p:[["Distancia","r = media diagonal = [[0,20 · √2::2]] ≈ 0,141 m\nr² = 0,020 m²"],["Cada campo",`E = [[${K} · (2 × 10⁻⁶)::0,020]] ≈ 8,99 × 10⁵ N/C (los cuatro iguales)`],["Sentido","Cada campo se aleja de su carga, hacia el vértice opuesto."],["Superposición","Los campos de vértices opuestos son iguales y opuestos → se cancelan de a pares."]],
  r:"E_R = 0 en el centro. Cada carga produce campo, pero se anulan por simetría."},
-{id:"a8",n:"avanz",t:"Campo nulo (signos opuestos)",q:"q₁ = +9 µC en x = 0 y q₂ = −4 µC en x = 0,30 m. Determine la región donde podría haber un punto de campo nulo.",
- p:[["Región I (x < 0)","Campos opuestos, pero q₁ es mayor y está más cerca → siempre gana. No hay."],["Región II (entre)","Los dos campos apuntan a la derecha → se suman. No hay."],["Región III (x > 0,30)","Campos opuestos y la menor (q₂) está más cerca → se pueden igualar."],["Condición","9 / x² = 4 / (x − 0,30)² → 3 / x = 2 / (x − 0,30) → 3x − 0,90 = 2x → x = 0,90 m"]],
- r:"En la región III, x = 0,90 m (0,60 m a la derecha de q₂)."}
+{id:"a8",n:"avanz",t:"Campo nulo (signos opuestos)",q:"Una carga q₁ = +9 µC está en x = 0 y una carga q₂ = −4 µC en x = 0,30 m. Determine la región donde podría haber un punto de campo nulo.",
+ fig:{w:360,h:120,c:[[90,55,"+","q₁ = +9 µC"],[200,55,"−","q₂ = −4 µC"]],cota:[[90,97,200,97,"0,30 m"]],txt:[[42,18,"región I"],[145,18,"región II"],[285,18,"región III"]],l:[[90,22,90,82,2],[200,22,200,82,2]]},
+ figR:{w:360,h:150,c:[[40,45,"+","q₁"],[100,45,"−","q₂"]],pt:[[280,45,"P"]],v:[[280,85,330,85,"E₁",2,"d"],[280,85,230,85,"E₂",2,"i"]],cota:[[40,125,280,125,"x = 0,90 m"]]},
+ p:[["Región I (x < 0)","Los campos apuntan al revés, pero q₁ es mayor y está más cerca → siempre gana. No hay punto nulo."],["Región II (entre las cargas)","E₁ → (se aleja de +) y E₂ → (va hacia −): mismo sentido, se suman. No hay punto nulo."],["Región III (x > 0,30)","Los campos apuntan al revés y la carga menor (q₂) está más cerca → se pueden igualar. Sí hay punto nulo."],["Condición","[[9::x²]] = [[4::(x − 0,30)²]]   →   [[3::x]] = [[2::x − 0,30]]"],["Cálculo","3x − 0,90 = 2x   →   x = 0,90 m"]],
+ r:"El punto nulo está en la región III, en x = 0,90 m (0,60 m a la derecha de q₂)."}
 ];
+
+/* ---------- dibujos (SVG) ----------
+   c: cargas [x,y,signo,texto,dónde va el texto] · pt: puntos [x,y,texto] · v: vectores [x1,y1,x2,y2,texto,tipo,dónde]
+   tipo 1 = fuerza, 2 = campo, 3 = resultante · l: líneas [x1,y1,x2,y2,punteada] · cota: [x1,y1,x2,y2,texto]
+   ejes: [x0,y0] · campo: líneas de un campo uniforme hacia la derecha · ang: [x,y,ánguloBase,texto] */
+const COL = {1:"var(--vec)",2:"var(--vec2)",3:"var(--res)"};
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+function etiq(x,y,t,donde,dy){
+  const o={a:[0,-14,"middle"],b:[0,24,"middle"],d:[14,5,"start"],i:[-14,5,"end"],bi:[-10,24,"end"],bd:[10,24,"start"]}[donde||"a"];
+  return `<text x="${x+o[0]}" y="${y+o[1]+(dy||0)}" text-anchor="${o[2]}">${subSVG(t)}</text>`;
+}
+function subSVG(t){ // q₁ → q con subíndice; q_A → q con subíndice A
+  return esc(t).replace(/([A-Za-z])_([A-Za-z0-9]+)/g,(m,a,b)=>`${a}<tspan dy="4" font-size="75%">${b}</tspan><tspan dy="-4"></tspan>`);
+}
+function dib(f){
+  let s=`<svg viewBox="0 0 ${f.w} ${f.h}" class="fig" role="img" aria-label="Dibujo del ejercicio">`;
+  s+=`<defs>${[1,2,3].map(k=>`<marker id="m${k}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="${COL[k]}"/></marker>`).join("")}
+    <marker id="mc" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 1L10 5L0 9z" fill="var(--tinta-suave)"/></marker></defs>`;
+  if(f.campo){ for(let y=18;y<f.h;y+=26) s+=`<line x1="20" y1="${y}" x2="${f.w-20}" y2="${y}" stroke="var(--sombra)" stroke-width="2" marker-end="url(#mc)"/>`;
+    s+=`<text x="${f.w-24}" y="14" text-anchor="end" class="suave">campo E →</text>`; }
+  if(f.ejes){ const [x0,y0]=f.ejes; s+=`<line x1="20" y1="${y0}" x2="${f.w-14}" y2="${y0}" class="eje" marker-end="url(#mc)"/><line x1="${x0}" y1="${f.h-8}" x2="${x0}" y2="10" class="eje" marker-end="url(#mc)"/>
+    <text x="${f.w-14}" y="${y0-8}" text-anchor="end" class="suave">x</text><text x="${x0+8}" y="18" class="suave">y</text>`; }
+  (f.l||[]).forEach(([a,b,c,d,p])=>s+=`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}" stroke="var(--tinta-suave)" stroke-width="${p===2?1.5:2}" ${p?`stroke-dasharray="${p===2?"3 5":"6 5"}"`:""} opacity=".6"/>`);
+  (f.cota||[]).forEach(([a,b,c,d,t,donde])=>{ s+=`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}" stroke="var(--tinta-suave)" stroke-width="1.5" marker-start="url(#mc)" marker-end="url(#mc)"/>`;
+    const mx=(a+c)/2,my=(b+d)/2; s+= donde==="i"?`<text x="${mx-8}" y="${my+5}" text-anchor="end" class="cota">${esc(t)}</text>`:donde==="d"?`<text x="${mx+8}" y="${my+5}" class="cota">${esc(t)}</text>`:`<text x="${mx}" y="${my+17}" text-anchor="middle" class="cota">${esc(t)}</text>`; });
+  if(f.ang){ const [x,y,g1,g2,t]=f.ang, r=36, rad=g=>g*Math.PI/180, P=(g,rr)=>[x+rr*Math.cos(rad(g)), y-rr*Math.sin(rad(g))];
+    const [ax,ay]=P(g1,r),[bx,by]=P(g2,r),[tx,ty]=P((g1+g2)/2,r+22);
+    s+=`<path d="M${ax.toFixed(1)} ${ay.toFixed(1)} A${r} ${r} 0 0 0 ${bx.toFixed(1)} ${by.toFixed(1)}" fill="none" stroke="var(--tinta)" stroke-width="1.5"/>`;
+    s+=`<text x="${tx.toFixed(1)}" y="${(ty+5).toFixed(1)}" text-anchor="middle" class="cota">${t}</text>`; }
+  (f.v||[]).forEach(([a,b,c,d,t,k,donde])=>{ s+=`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}" stroke="${COL[k]}" stroke-width="${k===3?4:3}" stroke-linecap="round" marker-end="url(#m${k})"/>`;
+    const lx=c, ly=d; s+=`<g fill="${COL[k]}" class="vt">${etiq(lx,ly,t,donde||(Math.abs(c-a)>Math.abs(d-b)?"a":"d"))}</g>`; });
+  (f.c||[]).forEach(([x,y,sg,t,donde])=>{ const pos=sg==="+"; s+=`<circle cx="${x}" cy="${y}" r="14" fill="${pos?"var(--pos)":"var(--neg)"}"/>
+    <text x="${x}" y="${y+6}" text-anchor="middle" class="sg">${pos?"+":"−"}</text><g class="ct">${etiq(x,y,t,donde||"a",-4)}</g>`; });
+  (f.pt||[]).forEach(([x,y,t,donde])=>s+=`<circle cx="${x}" cy="${y}" r="5" fill="var(--tinta)"/><g class="ct">${etiq(x,y,t,donde||"a",-2)}</g>`);
+  (f.txt||[]).forEach(([x,y,t])=>s+=`<text x="${x}" y="${y}" text-anchor="middle" class="suave">${subSVG(t)}</text>`);
+  return s+`</svg>`;
+}
+
+/* =====================  ESCRITURA DE FÓRMULAS  =====================
+   Convierte el texto de las preguntas en algo fácil de leer y copiar al cuaderno:
+   [[a::b]] → fracción, 10⁻⁶ → potencia, q₁ y F_Rx → subíndice, \n → renglón nuevo. */
+const SUP = {"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9","⁻":"−","⁺":"+"};
+const SUB = {"₀":"0","₁":"1","₂":"2","₃":"3","₄":"4","₅":"5","₆":"6","₇":"7","₈":"8","₉":"9"};
+function F(t){
+  let s = String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+  s = s.replace(/\[\[(.+?)::(.+?)\]\]/g,(m,a,b)=>`<span class="fr"><span>${a}</span><span>${b}</span></span>`);
+  s = s.replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]+/g,m=>`<sup>${[...m].map(c=>SUP[c]).join("")}</sup>`);
+  s = s.replace(/[₀₁₂₃₄₅₆₇₈₉]+/g,m=>`<sub>${[...m].map(c=>SUB[c]).join("")}</sub>`);
+  s = s.replace(/([A-Za-zθε])_([A-Za-z0-9]+)/g,"$1<sub>$2</sub>");
+  s = s.replace(/ {3,}/g,'<span class="hueco"></span>');
+  s = s.replace(/ (=|≈) (?!<span class="fr")/g,"\u00a0$1\u00a0").replace(/ (×|→) /g,"\u00a0$1\u00a0").replace(/(\d) (µC|nC|C|cm|mm|m|N\/C|N|m²)(?![A-Za-zº])/g,"$1\u00a0$2");
+  return s.replace(/\n/g,"<br>");
+}
+
+/* =====================  FÓRMULAS  ===================== */
+const FORMULAS = [
+ {tema:"b1", items:[
+  {f:"e = 1,602 × 10⁻¹⁹ C", d:"Carga elemental: la de un protón (+e) o un electrón (−e)."},
+  {f:"Q = n · e", d:"La carga siempre es un múltiplo entero de e (n = número entero)."},
+  {f:"n = [[|Q|::e]]", d:"Cuántos electrones de más (si Q < 0) o de menos (si Q > 0)."},
+  {f:"1 µC = 10⁻⁶ C     1 nC = 10⁻⁹ C\n1 cm = 10⁻² m     1 mm = 10⁻³ m", d:"Convertir siempre antes de reemplazar en una fórmula."}]},
+ {tema:"b2", items:[
+  {f:"F = k · [[|q₁ · q₂|::r²]]", d:"Módulo de la fuerza entre dos cargas puntuales. F en N, q en C, r en m."},
+  {f:"k = 8,99 × 10⁹ N·m²/C²", d:"Constante de Coulomb en el vacío (se puede usar ≈ 9 × 10⁹). También k = [[1::4πε₀]], con ε₀ = 8,854 × 10⁻¹² C²/(N·m²)."},
+  {f:"(+,+) o (−,−) → repulsión\n(+,−) → atracción", d:"Decidirlo mirando los signos, antes de hacer cuentas."},
+  {f:"2q → 2F     las dos 2q → 4F\n2r → [[F::4]]     3r → [[F::9]]     [[r::2]] → 4F", d:"Cómo cambia la fuerza (F ∝ q y F ∝ [[1::r²]])."},
+  {f:"F₁₂ = −F₂₁", d:"Tercera ley de Newton: igual módulo, sentidos opuestos, sobre cuerpos distintos."}]},
+ {tema:"b3", items:[
+  {f:"E = [[F::q₀]]", d:"Definición de campo, con una carga de prueba positiva q₀. Unidad: N/C."},
+  {f:"E = k · [[|Q|::r²]]", d:"Campo de una carga puntual a una distancia r."},
+  {f:"F = q · E", d:"Fuerza sobre una carga q puesta en un campo. Módulo: F = |q| · E."},
+  {f:"Q > 0 → E hacia afuera\nQ < 0 → E hacia la carga", d:"Sentido del campo de una carga."},
+  {f:"q > 0 → F igual que E\nq < 0 → F al revés de E", d:"Sentido de la fuerza dentro de un campo."}]},
+ {tema:"b4", items:[
+  {f:"F_R = F₁ + F₂ + F₃ + …\nE_R = E₁ + E₂ + E₃ + …", d:"Superposición: se suman como vectores, no como números."},
+  {f:"F_x = F · cos θ     F_y = F · sen θ", d:"Componentes de un vector que forma un ángulo θ con el eje +x."},
+  {f:"E_R = √(E_x² + E_y²)", d:"Módulo de la resultante (igual para fuerzas)."},
+  {f:"tan θ = [[E_y::E_x]]", d:"Dirección de la resultante. Mirar en qué cuadrante queda."},
+  {f:"[[|q₁|::r₁²]] = [[|q₂|::r₂²]]", d:"Punto de campo nulo (k se cancela). Mismo signo: entre las cargas, cerca de la menor. Signos opuestos: afuera, del lado de la menor."},
+  {f:"p = q · d", d:"Momento dipolar: dos cargas iguales y opuestas separadas una distancia d."}]}
+];
+const METODO = ["Extraer los datos (q, r, E…).","Convertir al Sistema Internacional (µC → C, cm → m).","Identificar la incógnita.","Dibujar la situación.","Decidir atracción o repulsión (o el sentido del campo).","Elegir la ecuación.","Reemplazar los datos.","Hacer la cuenta.","Interpretar: módulo + unidad + dirección + sentido."];
+
+function formulas(){
+  pararReloj(); P=null;
+  let h = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver al menú">←</button><h2>Fórmulas</h2></div>`;
+  FORMULAS.forEach(g=>{ const t=TEMAS[g.tema];
+    h += `<div class="nivel"><span class="tema" style="--tc:${t.c}">${t.nom}</span></div>`;
+    g.items.forEach(it=> h += `<div class="formula"><div class="mat">${F(it.f)}</div><p>${F(it.d)}</p></div>`); });
+  h += `<div class="nivel">Pasos para resolver un problema</div><ol class="metodo">${METODO.map(x=>`<li>${F(x)}</li>`).join("")}</ol>`;
+  app.innerHTML = h; window.scrollTo(0,0);
+  $("#volver").onclick=menu;
+}
 
 /* =====================  GUARDADO  ===================== */
 const CLAVE = "dinaFisica.v1";
@@ -373,6 +520,7 @@ function menu(){
   for(const k in TEMAS){ const t=TEMAS[k], e=datos.est[k]||0;
     h += `<button class="btn" data-modo="${k}" style="background:${t.c};--s:${t.s}"><span class="nom">${t.nom}<small>${t.sub}</small></span><span class="der"><span class="fr">${fresas(e)}</span>${datos.mejor[k]!=null?"<br>récord "+datos.mejor[k]+"/8":""}</span></button>`; }
   const hechos = EJ.filter(e=>datos.ej[e.id]==="si").length;
+  h += `<button class="btn form" id="forms"><span class="nom">📐 Fórmulas<small>todas las del material, con qué es cada letra</small></span></button>`;
   h += `<button class="btn ej" id="ejs"><span class="nom">📝 Ejercicios en papel<small>los ${EJ.length} del material, paso a paso</small></span><span class="der">${hechos}/${EJ.length} ✓</span></button>`;
   h += `</div>
   <div class="chips"><button class="chip" id="quien">👤 Juega: ${datos.nombre}</button></div>
@@ -385,6 +533,7 @@ function menu(){
   app.querySelectorAll("[data-modo]").forEach(b=>b.onclick=()=>{ audio(); empezar(b.dataset.modo); });
   $("#mudo").onclick=()=>{ datos.mudo=!datos.mudo; guardar(); menu(); };
   $("#ejs").onclick=listaEj;
+  $("#forms").onclick=formulas;
   $("#quien").onclick=()=>{
     const c=$("#quien"); c.innerHTML=`👤 <input id="nom" maxlength="16" aria-label="Nombre" value="${datos.nombre.replace(/"/g,"")}">`;
     const i=$("#nom"); i.focus(); i.select();
@@ -428,8 +577,8 @@ function mostrar(){
   P.ops = ops; P.listo=false; P.t0=performance.now();
   $("#dots").querySelectorAll("i").forEach((d,k)=>d.classList.toggle("ya",k===P.i));
   $("#tarj").innerHTML = `<span class="tema" style="--tc:${t.c}">${t.nom}</span>
-    <p class="preg">${p.q}</p>
-    <div class="opciones">${ops.map((o,k)=>`<button class="op" data-k="${k}"><b>${"ABCD"[k]}</b><span>${o.txt}</span></button>`).join("")}</div>
+    <p class="preg">${F(p.q)}</p>
+    <div class="opciones">${ops.map((o,k)=>`<button class="op" data-k="${k}"><b>${"ABCD"[k]}</b><span>${F(o.txt)}</span></button>`).join("")}</div>
     <div id="dev"></div>`;
   $("#tarj").querySelectorAll(".op").forEach(b=>b.onclick=()=>responder(+b.dataset.k));
   const dina=$("#dina"); dina.className="dina bob"; dina.src="assets/dina_corre.webp"; dina.style.transform=""; dina.style.opacity="";
@@ -488,8 +637,8 @@ function responder(k){
   const correcta = p.o[0];
   $("#dev").innerHTML = `<div class="devolucion ${bien?"si":"no"}">
      <h3>${bien?"¡Bien! Dina sale corriendo":(k<0?"Se acabó el tiempo":"Uy, Dina mordió la torta")}</h3>
-     ${bien?"":`<p><b>Correcta:</b> ${correcta}</p>`}
-     <p>${p.e}</p><span class="sec">📖 Material: ${p.s}</span></div>
+     ${bien?"":`<p><b>Correcta:</b> ${F(correcta)}</p>`}
+     <p>${F(p.e)}</p><span class="sec">📖 Material: ${p.s}</span></div>
      <button class="sig" id="sig">${P.i+1<P.qs.length?"Siguiente →":"Ver resultado"}</button>`;
   const sig=$("#sig"); sig.onclick=()=>{ P.i++; if(P.i<P.qs.length) mostrar(); else resultado(); };
   sig.scrollIntoView({behavior:"smooth",block:"nearest"});
@@ -516,8 +665,8 @@ function resultado(){
   }
   const fall = P.res.filter(r=>!r.bien);
   if(fall.length){
-    h += `<div class="falladas"><h3>Para repasar</h3>${fall.map(r=>`<div class="falla"><div class="q">${r.p.q}</div>
-      <div class="r">✓ ${r.p.o[0]}</div><div class="e">${r.p.e} · 📖 ${r.p.s}</div></div>`).join("")}</div>`;
+    h += `<div class="falladas"><h3>Para repasar</h3>${fall.map(r=>`<div class="falla"><div class="q">${F(r.p.q)}</div>
+      <div class="r">✓ ${F(r.p.o[0])}</div><div class="e">${F(r.p.e)} · 📖 ${r.p.s}</div></div>`).join("")}</div>`;
   } else h += `<p class="todo-bien">¡Ninguna fallada!</p>`;
   h += `<div class="acciones">
     ${fall.length?`<button class="sig" id="rep">Repasar solo las falladas (${fall.length})</button>`:""}
@@ -539,7 +688,7 @@ function listaEj(){
   for(const nv in NIVELES){
     h += `<div class="nivel">${NIVELES[nv]}</div>`;
     EJ.filter(e=>e.n===nv).forEach(e=>{ const i=EJ.indexOf(e), st=datos.ej[e.id];
-      h += `<button class="ej-item" data-i="${i}"><span class="n">${e.id.slice(1)}</span><span class="t">${e.t}</span><span class="st">${st?ICONO[st]:""}</span></button>`; });
+      h += `<button class="ej-item" data-i="${i}"><span class="n">${e.id.slice(1)}</span><span class="t">${F(e.t)}</span><span class="st">${st?ICONO[st]:""}</span></button>`; });
   }
   app.innerHTML = h; window.scrollTo(0,0);
   $("#volver").onclick=menu;
@@ -549,7 +698,7 @@ function verEj(i){
   const e=EJ[i]; let vistos=0;
   app.innerHTML = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver a la lista">←</button><h2>${({basico:"Básico",inter:"Intermedio",avanz:"Avanzado"})[e.n]} ${e.id.slice(1)}</h2></div>
     <div class="tarjeta"><span class="tema" style="--tc:var(--tinta)">${e.t}</span>
-      <p class="enun">${e.q}</p>
+      <p class="enun">${F(e.q)}</p>${e.fig?`<div class="marco">${dib(e.fig)}</div>`:""}
       <div class="papel">📝 Primero resolvelo en el cuaderno. Acordate: módulo + unidad + dirección + sentido.</div>
       <div class="pasos" id="pasos"></div>
       <button class="sig" id="mas">Ver el primer paso</button>
@@ -559,10 +708,10 @@ function verEj(i){
   const mas=$("#mas");
   mas.onclick=()=>{
     const cont=$("#pasos");
-    if(vistos<e.p.length){ const [et,tx]=e.p[vistos++]; cont.insertAdjacentHTML("beforeend",`<div class="paso"><b>${et}</b>${tx}</div>`);
+    if(vistos<e.p.length){ const [et,tx]=e.p[vistos++]; cont.insertAdjacentHTML("beforeend",`<div class="paso"><b>${F(et)}</b>${F(tx)}</div>`);
       mas.textContent = vistos<e.p.length ? "Ver el siguiente paso" : "Ver la respuesta"; }
     else{
-      cont.insertAdjacentHTML("beforeend",`<div class="paso final"><b>Respuesta</b>${e.r}</div>`); mas.hidden=true;
+      cont.insertAdjacentHTML("beforeend",`<div class="paso final"><b>Respuesta</b>${F(e.r)}${e.figR?`<div class="marco">${dib(e.figR)}</div>`:""}</div>`); mas.hidden=true;
       $("#fin").innerHTML=`<p class="preg" style="font-size:17px">¿Te salió?</p><div class="tal">
         <button data-r="si">✅ Sí</button><button data-r="masomenos">🟡 Más o menos</button><button data-r="no">❌ No</button></div>`;
       $("#fin").querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{
