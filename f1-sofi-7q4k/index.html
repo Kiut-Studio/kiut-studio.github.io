@@ -14,7 +14,7 @@
 <meta name="apple-mobile-web-app-title" content="Dina Física">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Andika:wght@400;700&family=Atkinson+Hyperlegible:wght@400;700&family=Nunito:wght@600;800&display=swap">
 <style>
 /* Mundo único (rosa pastel de Dina Beat): pantalla de juego de una columna, escena arriba, pregunta y respuestas abajo */
 :root{
@@ -22,7 +22,7 @@
   --sombra:#e9b6cd; --blanco:#ffffff; --bien:#2fae78; --bien-fondo:#e3f7ee; --mal:#e2496b; --mal-fondo:#fde6ec;
   --b1:#ff7eb6; --b1s:#d9579a; --b2:#ff9a3c; --b2s:#d9741c; --b3:#8a5ce0; --b3s:#6a3fbf; --b4:#2fb37e; --b4s:#1f8a5f;
   --display:"Fredoka","Baloo 2","Trebuchet MS",system-ui,sans-serif;
-  --texto:"Atkinson Hyperlegible","Verdana","Segoe UI",system-ui,sans-serif;
+  --texto:"Andika","Verdana","Segoe UI",system-ui,sans-serif;
   --pos:#e8553f; --neg:#3a7fd9; --vec:#6a4fd0; --vec2:#d9741c; --res:#1f8a5f;
   color-scheme:light;
 }
@@ -332,7 +332,7 @@ const EJ = [
  p:[["Sentido","En P, el campo de la carga de la izquierda apunta a la derecha y el de la derecha apunta a la izquierda."],["Superposición","Cargas iguales y distancias iguales → E₁ = E₂ con sentidos opuestos → se cancelan."]],
  r:"E_R = 0 en el punto medio. Cada carga produce campo, pero se anulan."},
 {id:"a1",n:"avanz",t:"Tres cargas en línea",q:"Tres cargas están en línea recta: q₁ = +3 µC, q₂ = −2 µC (en el centro) y q₃ = +4 µC. De q₁ a q₂ hay 0,10 m y de q₂ a q₃, 0,20 m. Determine la fuerza resultante sobre q₂.",
- fig:{w:360,h:110,c:[[50,50,"+","q₁ = +3 µC"],[125,50,"−","q₂ = −2 µC"],[275,50,"+","q₃ = +4 µC"]],cota:[[50,92,125,92,"0,10 m"],[125,92,275,92,"0,20 m"]]},
+ fig:{w:360,h:130,c:[[50,40,"+","q₁ = +3 µC"],[125,40,"−","q₂ = −2 µC","b",6],[275,40,"+","q₃ = +4 µC"]],cota:[[50,105,125,105,"0,10 m"],[125,105,275,105,"0,20 m"]]},
  figR:{w:360,h:160,c:[[70,40,"+","q₁"],[145,40,"−","q₂"],[295,40,"+","q₃"]],v:[[145,80,55,80,"F₁₂ = 5,39 N",1,"b"],[145,80,175,80,"F₃₂ = 1,80 N",1,"d"],[145,125,85,125,"F_R = 3,60 N",3,"b"]],l:[[145,54,145,130,2]]},
  p:[["Datos y conversión","q₁ = 3 × 10⁻⁶ C\nq₂ = −2 × 10⁻⁶ C\nq₃ = 4 × 10⁻⁶ C\nr₁₂ = 0,10 m\nr₂₃ = 0,20 m"],["Atracción o repulsión","q₁ (+) y q₂ (−) se atraen → q₂ es jalada hacia la izquierda.\nq₃ (+) y q₂ (−) se atraen → q₂ es jalada hacia la derecha."],["F₁₂",`F₁₂ = [[${K} · (3 × 10⁻⁶) · (2 × 10⁻⁶)::(0,10)²]] ≈ 5,39 N (←)`],["F₃₂",`F₃₂ = [[${K} · (4 × 10⁻⁶) · (2 × 10⁻⁶)::(0,20)²]] ≈ 1,80 N (→)`],["Superposición","Sentidos opuestos → se restan:\nF_R = 5,39 − 1,80 ≈ 3,60 N"]],
  r:"F_R ≈ 3,60 N, horizontal, hacia la izquierda (hacia q₁). Gana q₁ porque está a la mitad de distancia."},
@@ -403,8 +403,8 @@ function dib(f){
     s+=`<text x="${tx.toFixed(1)}" y="${(ty+5).toFixed(1)}" text-anchor="middle" class="cota">${t}</text>`; }
   (f.v||[]).forEach(([a,b,c,d,t,k,donde])=>{ s+=`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}" stroke="${COL[k]}" stroke-width="${k===3?4:3}" stroke-linecap="round" marker-end="url(#m${k})"/>`;
     const lx=c, ly=d; s+=`<g fill="${COL[k]}" class="vt">${etiq(lx,ly,t,donde||(Math.abs(c-a)>Math.abs(d-b)?"a":"d"))}</g>`; });
-  (f.c||[]).forEach(([x,y,sg,t,donde])=>{ const pos=sg==="+"; s+=`<circle cx="${x}" cy="${y}" r="14" fill="${pos?"var(--pos)":"var(--neg)"}"/>
-    <text x="${x}" y="${y+6}" text-anchor="middle" class="sg">${pos?"+":"−"}</text><g class="ct">${etiq(x,y,t,donde||"a",-4)}</g>`; });
+  (f.c||[]).forEach(([x,y,sg,t,donde,dy])=>{ const pos=sg==="+"; s+=`<circle cx="${x}" cy="${y}" r="14" fill="${pos?"var(--pos)":"var(--neg)"}"/>
+    <text x="${x}" y="${y+6}" text-anchor="middle" class="sg">${pos?"+":"−"}</text><g class="ct">${etiq(x,y,t,donde||"a",dy??-4)}</g>`; });
   (f.pt||[]).forEach(([x,y,t,donde])=>s+=`<circle cx="${x}" cy="${y}" r="5" fill="var(--tinta)"/><g class="ct">${etiq(x,y,t,donde||"a",-2)}</g>`);
   (f.txt||[]).forEach(([x,y,t])=>s+=`<text x="${x}" y="${y}" text-anchor="middle" class="suave">${subSVG(t)}</text>`);
   return s+`</svg>`;
@@ -468,9 +468,13 @@ function formulas(){
 
 /* =====================  GUARDADO  ===================== */
 const CLAVE = "dinaFisica.v1";
-let datos = {est:{}, mejor:{}, vistas:{}, ej:{}, apuro:true, mudo:false, nombre:"Sofi", cola:[]};
+let datos = {est:{}, mejor:{}, vistas:{}, ej:{}, apuro:true, mudo:false, nombre:"Sofi", cola:[], letra:"andika"};
 try{ const g = JSON.parse(localStorage.getItem(CLAVE)||"null"); if(g) datos = Object.assign(datos,g); }catch(_){}
 function guardar(){ try{ localStorage.setItem(CLAVE, JSON.stringify(datos)); }catch(_){} }
+/* Letra a elección: Escolar (como se escribe a mano), Muy clara y Redonda. */
+const LETRAS = {andika:{nom:"Escolar",f:'"Andika"'}, atkinson:{nom:"Muy clara",f:'"Atkinson Hyperlegible"'}, nunito:{nom:"Redonda",f:'"Nunito"'}};
+function ponerLetra(){ const l=LETRAS[datos.letra]||LETRAS.andika; document.documentElement.style.setProperty("--texto", l.f+',"Verdana","Segoe UI",system-ui,sans-serif'); }
+ponerLetra();
 
 /* =====================  HOJA DE GOOGLE  =====================
    Si config.js tiene HOJA_URL, cada partida y cada ejercicio se anota en la hoja.
@@ -530,8 +534,8 @@ function menu(){
   h += `<button class="btn form" id="forms"><span class="nom">📐 Fórmulas<small>todas las del material, con qué es cada letra</small></span></button>`;
   h += `<button class="btn ej" id="ejs"><span class="nom">📝 Ejercicios en papel<small>los ${EJ.length} del material, paso a paso</small></span><span class="der">${hechos}/${EJ.length} ✓</span></button>`;
   h += `</div>
-  <div class="chips"><button class="chip" id="quien">👤 Juega: ${datos.nombre}</button>${puedeInstalar()?`<button class="chip" id="instalar">📲 Instalar</button>`:""}</div>
-  <p class="ayuda" id="ayudaIos" hidden>En el iPhone: tocá <b>Compartir</b> (el cuadrado con la flecha) y después <b>Agregar a pantalla de inicio</b>.</p>
+  <div class="chips"><button class="chip" id="quien">👤 Juega: ${datos.nombre}</button><button class="chip" id="letra">Aa Letra: ${(LETRAS[datos.letra]||LETRAS.andika).nom}</button>${yaInstalada()?"":`<button class="chip" id="instalar">📲 Instalar</button>`}</div>
+  <p class="ayuda" id="ayudaInst" hidden></p>
   <div class="chips" role="group" aria-label="Tiempo">
     <button class="chip" id="conApuro" aria-pressed="${datos.apuro}">⏱ Con reloj</button>
     <button class="chip" id="sinApuro" aria-pressed="${!datos.apuro}">🐢 Sin apuro</button>
@@ -543,6 +547,7 @@ function menu(){
   $("#ejs").onclick=listaEj;
   $("#forms").onclick=formulas;
   if($("#instalar")) $("#instalar").onclick=instalar;
+  $("#letra").onclick=()=>{ const ks=Object.keys(LETRAS); datos.letra=ks[(ks.indexOf(datos.letra)+1)%ks.length]; guardar(); ponerLetra(); menu(); };
   $("#quien").onclick=()=>{
     const c=$("#quien"); c.innerHTML=`👤 <input id="nom" maxlength="16" aria-label="Nombre" value="${datos.nombre.replace(/"/g,"")}">`;
     const i=$("#nom"); i.focus(); i.select();
@@ -742,12 +747,13 @@ document.addEventListener("keydown",e=>{
 let avisoInstalar=null;
 const yaInstalada=()=>matchMedia("(display-mode: standalone)").matches || navigator.standalone===true;
 const esIos=()=>/iphone|ipad|ipod/i.test(navigator.userAgent);
-function puedeInstalar(){ return !yaInstalada() && (!!avisoInstalar || esIos()); }
-addEventListener("beforeinstallprompt",e=>{ e.preventDefault(); avisoInstalar=e; if($("#mudo") && !$("#instalar")) menu(); });
+addEventListener("beforeinstallprompt",e=>{ e.preventDefault(); avisoInstalar=e; });
 addEventListener("appinstalled",()=>{ avisoInstalar=null; if($("#instalar")) menu(); });
 async function instalar(){
   if(avisoInstalar){ avisoInstalar.prompt(); try{ await avisoInstalar.userChoice; }catch(_){} avisoInstalar=null; menu(); }
-  else if(esIos()){ $("#ayudaIos").hidden=false; }
+  else{ const a=$("#ayudaInst"); a.hidden=false;
+    a.innerHTML = esIos() ? "En el iPhone: tocá <b>Compartir</b> (el cuadrado con la flecha) y después <b>Agregar a pantalla de inicio</b>."
+      : "Tocá el menú <b>⋮</b> de Chrome (arriba a la derecha) y elegí <b>Agregar a pantalla principal</b> → <b>Instalar</b>."; }
 }
 if("serviceWorker" in navigator) addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 
