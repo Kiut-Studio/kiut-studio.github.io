@@ -1,5 +1,6 @@
 /**
- * Progreso de Dina Física en una hoja de Google Sheets.
+ * Progreso de Dina Estudia (Física 1, Biología, Historia, Orientación…) en una hoja de Google Sheets.
+ * Todas las materias usan esta misma hoja; la última columna de cada pestaña dice la materia.
  * Se pega en Extensiones → Apps Script de una hoja nueva
  * y se implementa como "Aplicación web" (ver README).
  *
@@ -14,11 +15,11 @@
  * → Implementar. Así la URL /exec sigue siendo la misma.
  */
 const PESTANAS = {
-  Partidas: ['fecha', 'nombre', 'modo', 'repaso de falladas', 'aciertos', 'total', '%'],
-  Respuestas: ['fecha', 'nombre', 'modo', 'tema', 'id', 'pregunta', 'resultado', 'eligió', 'correcta', 'segundos'],
-  Ejercicios: ['fecha', 'nombre', 'nivel', 'id', 'ejercicio', '¿le salió?', 'enunciado', 'respuesta'],
+  Partidas: ['fecha', 'nombre', 'modo', 'repaso de falladas', 'aciertos', 'total', '%', 'materia'],
+  Respuestas: ['fecha', 'nombre', 'modo', 'tema', 'id', 'pregunta', 'resultado', 'eligió', 'correcta', 'segundos', 'materia'],
+  Ejercicios: ['fecha', 'nombre', 'nivel', 'id', 'ejercicio', '¿le salió?', 'enunciado', 'respuesta', 'materia'],
   Simulacros: ['fecha', 'nombre', 'nota (de 100)', 'teoría', 'puntos teoría (de 40)', 'problema 1', 'puntos 1', 'problema 2', 'puntos 2',
-               'problema 3', 'puntos 3', 'minutos elegidos', 'minutos usados', '¿se acabó el tiempo?'],
+               'problema 3', 'puntos 3', 'minutos elegidos', 'minutos usados', '¿se acabó el tiempo?', 'materia'],
 };
 
 function hoja_(nombre) {
@@ -62,16 +63,17 @@ function doPost(e) {
   try { d = JSON.parse((e && e.postData && e.postData.contents) || '{}'); } catch (err) {}
   const nombre = txt_(d.nombre, 16) || 'Sofi';
   const cuando = fecha_(d.cuando);
+  const materia = txt_(d.materia, 40) || 'Física 1'; // Física 1 no manda materia
   const lock = LockService.getScriptLock();
   lock.waitLock(5000);
   try {
     if (d.tipo === 'partida') {
       const total = num_(d.total, 50), ok = num_(d.aciertos, 50);
       const modo = txt_(d.modo, 40);
-      hoja_('Partidas').appendRow([cuando, nombre, modo, d.repaso ? 'sí' : '', ok, total, total ? ok / total : 0]);
+      hoja_('Partidas').appendRow([cuando, nombre, modo, d.repaso ? 'sí' : '', ok, total, total ? ok / total : 0, materia]);
       const filas = (Array.isArray(d.respuestas) ? d.respuestas : []).slice(0, 50).map(r => [
         cuando, nombre, modo, txt_(r.tema, 40), txt_(r.id, 10), txt_(r.pregunta),
-        r.bien ? '✓ bien' : '✗ mal', txt_(r.elegida), txt_(r.correcta), num_(r.seg, 3600),
+        r.bien ? '✓ bien' : '✗ mal', txt_(r.elegida), txt_(r.correcta), num_(r.seg, 3600), materia,
       ]);
       if (filas.length) {
         const h = hoja_('Respuestas');
@@ -81,7 +83,7 @@ function doPost(e) {
     }
     if (d.tipo === 'ejercicio') {
       hoja_('Ejercicios').appendRow([cuando, nombre, txt_(d.nivel, 40), txt_(d.id, 10), txt_(d.ejercicio, 80), txt_(d.resultado, 20),
-        txt_(d.enunciado, 400), txt_(d.respuesta, 300)]);
+        txt_(d.enunciado, 400), txt_(d.respuesta, 300), materia]);
       return json_({ ok: true });
     }
     if (d.tipo === 'simulacro') {
@@ -89,7 +91,7 @@ function doPost(e) {
       const celdas = [];
       for (let i = 0; i < 3; i++) celdas.push(pr[i] ? txt_(pr[i].ejercicio, 80) : '', pr[i] ? num_(pr[i].puntos, 20) : '');
       hoja_('Simulacros').appendRow([cuando, nombre, num_(d.nota, 100), txt_(d.teoria, 20), num_(d.puntosTeoria, 40)]
-        .concat(celdas, [num_(d.minutos, 180), num_(d.usados, 600), d.seAcabo ? 'sí' : '']));
+        .concat(celdas, [num_(d.minutos, 180), num_(d.usados, 600), d.seAcabo ? 'sí' : '', materia]));
       return json_({ ok: true });
     }
     return json_({ ok: false, error: 'tipo desconocido' });
@@ -100,5 +102,5 @@ function doPost(e) {
 
 /** Para probar que la aplicación web responde: abrir la URL /exec en el navegador. */
 function doGet() {
-  return json_({ ok: true, juego: 'Dina Física' });
+  return json_({ ok: true, juego: 'Dina Estudia' });
 }
