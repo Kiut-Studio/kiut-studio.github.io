@@ -1,7 +1,7 @@
 // Dina Estudia — copia sin conexión del hub y de todas sus materias.
 // Solo maneja esta carpeta y sus propias cachés (el sitio lo comparten varios juegos).
 // Subir el número con cada versión.
-const C = 'dina-estudia-v2';
+const C = 'dina-estudia-v3';
 const BASE = [
   './', './index.html', './manifest.json', './icon-192.png', './icon-512.png',
   './fisica-1/', './fisica-1/index.html', './fisica-1/config.js',
@@ -11,6 +11,7 @@ const BASE = [
   './biologia/', './biologia/index.html', './biologia/datos.js',
   './historia/', './historia/index.html', './historia/datos.js',
   './orientacion/', './orientacion/index.html', './orientacion/datos.js',
+  './quimica-1/', './quimica-1/index.html', './quimica-1/datos.js',
 ];
 
 self.addEventListener('install', e => {

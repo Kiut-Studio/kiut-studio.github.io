@@ -319,7 +319,7 @@ function verEj(i){
   app.innerHTML = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver a la lista">←</button><h2>${F(tipo.nom)} 🎲</h2>${AA_BTN}</div>
     <div class="tarjeta"><span class="tema" style="--tc:var(--tinta)">${F(e.t)}</span>
       <p class="enun">${F(e.q)}</p>${fig(e)}
-      <div class="papel">📝 Primero resolvé en el cuaderno: alelos, gametos, cuadro de Punnett y proporciones.</div>
+      <div class="papel">📝 ${M.ejercicios.papel||"Primero resolvé en el cuaderno."}</div>
       <div class="pasos" id="pasos"></div>
       <button class="sig" id="mas">Ver el primer paso</button>
       <div id="fin"></div></div>
@@ -370,7 +370,7 @@ function simulacro(){
         :`<li><b>Corrección:</b> se corrige sola al final, con la explicación de cada una.</li>`}</ol>
       <p class="sub-t">Tiempo total</p>
       <div class="chips" role="group" aria-label="Tiempo total">${opciones.map(m=>`<button class="chip" data-min="${m}" aria-pressed="${m===min}">${m} minutos</button>`).join("")}</div>
-      ${conProblemas?`<p class="papel">📝 Tené a mano el cuaderno.</p>`:""}
+      ${conProblemas?`<p class="papel">📝 Tené a mano el cuaderno${M.calculadora?", la calculadora y la tabla periódica":""}.</p>`:""}
       <button class="sig" id="empezarSim">Empezar el simulacro</button>
     </div>
     ${hechos.length?`<div class="temas"><h3>Últimos simulacros</h3>${hechos.map(x=>`<div class="fila" style="--tc:var(--rosa)"><span>${new Date(x.f).toLocaleDateString("es-PY",{day:"numeric",month:"short"})}</span><span>${x.pct} / 100</span><div class="barra"><i style="width:${x.pct}%"></i></div></div>`).join("")}</div>`:""}`;
@@ -380,7 +380,7 @@ function simulacro(){
   $("#empezarSim").onclick=()=>{
     const qs = conProblemas ? mezclar(claves.flatMap(k=>elegir(BANCO.filter(p=>p.b===k),SIM.porTema))) : mezclar(repartir(SIM.total));
     const teoria = qs.map(p=>({p, ops:mezclar(p.o.map((txt,k)=>({txt,bien:k===0}))), elegida:-1}));
-    const probs = conProblemas ? SIM.problemas.map(id=>{ const t=TIPOS.find(x=>x.id===id); return {...t.gen(), nom:t.nom}; }) : [];
+    const probs = conProblemas ? SIM.problemas.map(x=>{ const id=Array.isArray(x)?x[Math.floor(Math.random()*x.length)]:x; const t=TIPOS.find(y=>y.id===id); return {...t.gen(), nom:t.nom}; }) : [];
     S = {fin: Date.now()+min*60000, inicio: Date.now(), min, teoria, probs, ptsT, parte:"t", i:0, notas:[]};
     simTick = setInterval(crono,1000);
     simPantalla();
@@ -451,7 +451,7 @@ function corregirProblema(){
       <div class="pasos">${e.p.map(([et,tx])=>`<div class="paso"><b>${F(et)}</b>${T(tx)}</div>`).join("")}<div class="paso final"><b>Respuesta</b>${T(e.r)}</div></div>
       <p class="preg" style="font-size:17px">Comparalo con tu cuaderno. ¿Cómo te salió?</p>
       <div class="tal"><button data-n="20">✅ Bien<br><small>20 puntos</small></button><button data-n="10">🟡 A medias<br><small>10 puntos</small></button><button data-n="0">❌ Mal<br><small>0 puntos</small></button></div>
-      <p class="ayuda" style="text-align:left;margin-top:8px">"A medias": el planteo estaba bien pero te equivocaste en un gameto, en el cuadro o en una proporción.</p></div>`;
+      <p class="ayuda" style="text-align:left;margin-top:8px">"A medias": ${M.ejercicios.aMedias||"el planteo estaba bien pero hubo un error en el camino."}</p></div>`;
   window.scrollTo(0,0);
   app.querySelectorAll("[data-n]").forEach(b=>b.onclick=()=>{
     const p=+b.dataset.n; S.notas[S.i]=p;

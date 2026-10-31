@@ -6,14 +6,18 @@ No está enlazado desde la portada y tiene `noindex`. Se comparte solo por enlac
 
 | Materia | Carpeta | Estado |
 | --- | --- | --- |
+| Química I (pH, soluciones, concentración, molaridad) | `quimica-1/` | Lista |
 | Biología (herencia y genética) | `biologia/` | Lista |
 | Física 1 (electrostática) | `fisica-1/` | Lista |
 | Historia y Geografía | `historia/` | Lista |
 | Orientación | `orientacion/` | Lista |
 | Física 2 | — | Próximamente |
 
+## Calendario de exámenes
+El hub muestra las fechas de la Prueba Global (`EXAMENES` en `index.html`). Sofi marca los que rindió y puede cambiar una fecha tocándola. Se guarda en el teléfono (`dinaEstudia.examenes`) y se anota en la pestaña **Exámenes** de la planilla.
+
 ## Motor común
-Biología, Historia y Orientación usan `comun/motor.js` y `comun/estilo.css`. Cada carpeta tiene solo un `index.html` corto y un `datos.js` con `window.MATERIA`: temas, banco de preguntas (la primera opción es la correcta), resumen, ejercicios generados (opcional) y simulacro. Los dibujos se toman de `fisica-1/assets/` y la planilla de `fisica-1/config.js`. Física 1 sigue con su propio archivo.
+Química I, Biología, Historia y Orientación usan `comun/motor.js` y `comun/estilo.css`. Cada carpeta tiene solo un `index.html` corto y un `datos.js` con `window.MATERIA`: temas, banco de preguntas (la primera opción es la correcta), resumen, ejercicios generados (opcional) y simulacro. Los dibujos se toman de `fisica-1/assets/` y la planilla de `fisica-1/config.js`. Física 1 sigue con su propio archivo.
 
 Cada envío a la planilla lleva `materia`; `fisica-1/hoja/Codigo.gs` la anota en la última columna de cada pestaña (hay que pegar el código nuevo y publicar una **nueva versión** de la implementación).
 

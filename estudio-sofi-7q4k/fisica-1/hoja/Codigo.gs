@@ -10,6 +10,7 @@
  *  - Ejercicios: una fila cada vez que marca un ejercicio en papel (Sí / Más o menos / No),
  *                con el enunciado y la respuesta (sirve para los de números nuevos).
  *  - Simulacros: una fila por simulacro terminado (nota, teoría, cada problema, tiempo).
+ *  - Exámenes:   una fila cada vez que Sofi marca un examen como rendido o le cambia la fecha (calendario del hub).
  *
  * Al cambiar este código: Implementar → Administrar implementaciones → ✏️ → Versión: Nueva versión
  * → Implementar. Así la URL /exec sigue siendo la misma.
@@ -20,6 +21,7 @@ const PESTANAS = {
   Ejercicios: ['fecha', 'nombre', 'nivel', 'id', 'ejercicio', '¿le salió?', 'enunciado', 'respuesta', 'materia'],
   Simulacros: ['fecha', 'nombre', 'nota (de 100)', 'teoría', 'puntos teoría (de 40)', 'problema 1', 'puntos 1', 'problema 2', 'puntos 2',
                'problema 3', 'puntos 3', 'minutos elegidos', 'minutos usados', '¿se acabó el tiempo?', 'materia'],
+  Exámenes: ['fecha', 'nombre', 'materia', 'fecha del examen', 'estado'],
 };
 
 function hoja_(nombre) {
@@ -92,6 +94,11 @@ function doPost(e) {
       for (let i = 0; i < 3; i++) celdas.push(pr[i] ? txt_(pr[i].ejercicio, 80) : '', pr[i] ? num_(pr[i].puntos, 20) : '');
       hoja_('Simulacros').appendRow([cuando, nombre, num_(d.nota, 100), txt_(d.teoria, 20), num_(d.puntosTeoria, 40)]
         .concat(celdas, [num_(d.minutos, 180), num_(d.usados, 600), d.seAcabo ? 'sí' : '', materia]));
+      return json_({ ok: true });
+    }
+    if (d.tipo === 'examen') {
+      // desde el calendario del hub: rendido, pendiente o fecha nueva
+      hoja_('Exámenes').appendRow([cuando, nombre, materia, txt_(d.fechaExamen, 12), txt_(d.estado, 20)]);
       return json_({ ok: true });
     }
     return json_({ ok: false, error: 'tipo desconocido' });

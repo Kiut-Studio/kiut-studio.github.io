@@ -263,6 +263,8 @@ window.MATERIA = {
   ],
   ejercicios:{titulo:"Cruzamientos", sub:"siempre nuevos, con cuadro de Punnett",
     ayuda:"Primero resolvé en el cuaderno con los pasos del resumen. Después mirá la solución paso a paso y marcá cómo te fue.",
+    papel:"Primero resolvé en el cuaderno: alelos, gametos, cuadro de Punnett y proporciones.",
+    aMedias:"el planteo estaba bien pero te equivocaste en un gameto, en el cuadro o en una proporción.",
     tipos:[
       {id:"mono", nom:"Monohíbrido", sub:"un carácter: 3 : 1 y 1 : 2 : 1", gen:mono},
       {id:"di", nom:"Dihíbrido", sub:"dos caracteres: 9 : 3 : 3 : 1", gen:dihib},

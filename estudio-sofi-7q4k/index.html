@@ -56,14 +56,45 @@ h1{font-family:var(--display);font-weight:700;font-size:46px;line-height:1;margi
 .chip:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
 .ayuda{text-align:center;color:var(--tinta-suave);font-weight:700;margin:0;text-wrap:balance}
 .pie{text-align:center;font-size:12px;color:var(--tinta-suave);line-height:1.5;margin:6px 0 0}
+/* ---------- exámenes ---------- */
+.examenes{background:var(--blanco);border-radius:22px;padding:14px 14px 10px;box-shadow:0 5px 0 var(--sombra)}
+.examenes h2{margin:0 0 4px;font-family:var(--display);font-size:22px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.examenes h2 small{font-family:var(--texto);font-size:13px;color:var(--tinta-suave);font-weight:700}
+.ex{display:flex;align-items:center;gap:10px;padding:9px 0;border-top:1px solid var(--crema)}
+.ex:first-of-type{border-top:0}
+.ex .dia{flex:none;width:52px;text-align:center;border-radius:14px;background:var(--crema);padding:5px 0;font-weight:700;line-height:1.1;cursor:pointer;border:0;font:inherit;color:inherit}
+.ex .dia b{display:block;font-family:var(--display);font-size:19px}
+.ex .dia span{font-size:11px;text-transform:uppercase;letter-spacing:.4px;color:var(--tinta-suave)}
+.ex .dia.sin b{font-size:15px}
+.ex.pronto .dia{background:var(--rosa);color:var(--blanco)}
+.ex.pronto .dia span{color:var(--blanco)}
+.ex.pasada .dia{background:#fff4e0}
+.ex .tx{flex:1;min-width:0}
+.ex .tx strong{display:block;font-size:16px;line-height:1.2}
+.ex .tx em{display:block;font-style:normal;font-size:13px;font-weight:700;color:var(--tinta-suave);margin-top:2px}
+.ex.pasada .tx em{color:#b07c0c}
+.ex .tx a{color:var(--rosa-osc);font-weight:700;font-size:13px;text-decoration:none}
+.ex .ok{flex:none;width:44px;height:44px;border-radius:50%;border:2px solid var(--sombra);background:var(--blanco);font-size:18px;cursor:pointer;color:var(--tinta-suave)}
+.ex .ok:focus-visible,.ex .dia:focus-visible,.mas-ex:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+.ex.hecho .ok{background:#2fae78;border-color:#2fae78;color:var(--blanco)}
+.ex.hecho .tx strong{text-decoration:line-through;text-decoration-thickness:2px;color:var(--tinta-suave)}
+.ex input[type=date]{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
+.mas-ex{display:block;width:100%;margin-top:4px;padding:8px;border:0;background:none;font:inherit;font-weight:700;color:var(--rosa-osc);cursor:pointer}
+.rendidos{margin-top:4px;border-top:2px dashed var(--crema);padding-top:6px}
+.rendidos summary{cursor:pointer;font-weight:700;color:var(--tinta-suave);padding:6px 0;list-style-position:inside}
+.prox{margin:0;font-weight:700;font-size:15px}
+.ayuda-ex{font-size:12.5px;color:var(--tinta-suave);font-weight:700;margin:2px 0 4px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
+<!-- misma planilla de Google que las materias -->
+<script src="fisica-1/config.js"></script>
 </head>
 <body>
 <main class="app">
   <h1>Dina Estudia</h1>
   <p class="hola" id="hola">¿Qué vamos a estudiar hoy?</p>
   <div class="duo"><img src="fisica-1/assets/sofi.webp" alt="Sofi"><img class="d" src="fisica-1/assets/dina_corre.webp" alt="Dina"></div>
+  <section class="examenes" id="examenes" aria-label="Exámenes"></section>
   <div class="materias" id="materias"></div>
   <div class="chips" id="chips"></div>
   <p class="ayuda" id="ayudaInst" hidden></p>
@@ -73,7 +104,8 @@ h1{font-family:var(--display);font-weight:700;font-size:46px;line-height:1;margi
 /* Para agregar una materia: sumar un objeto acá y crear su carpeta.
    clave = dónde guarda su progreso en el teléfono (para mostrarlo en la tarjeta). */
 const MATERIAS = [
-  {carpeta:"biologia/", nom:"Biología", sub:"Herencia y genética · examen martes 3/11", ic:"🧬", c:"#2fb37e", s:"#1f8a5f", clave:"dinaBio.v1", temas:4, ej:3, ejNom:"cruzamientos"},
+  {carpeta:"quimica-1/", nom:"Química I", sub:"pH, soluciones, concentración y molaridad", ic:"🧪", c:"#3a9bd9", s:"#24739f", clave:"dinaQuimica.v1", temas:4, ej:6, ejNom:"tipos de ejercicio"},
+  {carpeta:"biologia/", nom:"Biología", sub:"Herencia, Mendel, ligada al sexo y pedigrí", ic:"🧬", c:"#2fb37e", s:"#1f8a5f", clave:"dinaBio.v1", temas:4, ej:3, ejNom:"cruzamientos"},
   {carpeta:"fisica-1/", nom:"Física 1", sub:"Ley de Coulomb y campo eléctrico", ic:"⚡", c:"#ff7eb6", s:"#d9579a", clave:"dinaFisica.v1", temas:4, ej:18, ejNom:"ejercicios"},
   {carpeta:"historia/", nom:"Historia y Geografía", sub:"Democratización, calidad de vida, integración", ic:"🗺️", c:"#ff9a3c", s:"#d9741c", clave:"dinaHistoria.v1", temas:6},
   {carpeta:"orientacion/", nom:"Orientación", sub:"Participación, Centro de Estudiantes, empleo", ic:"🧭", c:"#8a5ce0", s:"#6a3fbf", clave:"dinaOrientacion.v1", temas:4},
@@ -96,6 +128,101 @@ document.getElementById("materias").innerHTML = MATERIAS.map(m=> m.pronto
 
 const f = MATERIAS.map(m=>m.clave&&leer(m.clave)).find(d=>d&&d.nombre);
 if(f && f.nombre) document.getElementById("hola").textContent = `¡Hola, ${f.nombre}! ¿Qué vamos a estudiar hoy?`;
+
+
+/* =====================  EXÁMENES  =====================
+   Calendario de la Prueba Global (segunda etapa, 3.º curso). f = fecha (AAAA-MM-DD) o null si está por confirmar.
+   Sofi marca los que ya rindió y puede cambiar la fecha si se posterga. Se guarda en el teléfono
+   (dinaEstudia.examenes) y se anota en la planilla (pestaña Exámenes). */
+const EXAMENES = [
+  {id:"edfis",   nom:"Educación Física",     f:"2026-10-20"},
+  {id:"ingles",  nom:"Inglés",               f:"2026-10-21"},
+  {id:"feria",   nom:"Feria Científica",     f:"2026-10-22"},
+  {id:"quim2",   nom:"Química II",           f:"2026-10-23"},
+  {id:"mate",    nom:"Matemática",           f:"2026-10-26"},
+  {id:"historia",nom:"Historia y Geografía", f:null, nota:"No la pudiste rendir: fecha a confirmar", app:"historia/"},
+  {id:"orient",  nom:"Orientación",          f:null, nota:"No la pudiste rendir: fecha a confirmar", app:"orientacion/"},
+  {id:"econ",    nom:"Economía y Gestión",   f:"2026-10-29"},
+  {id:"fis1",    nom:"Física I",             f:null, nota:"Se postergó: fecha a confirmar", app:"fisica-1/"},
+  {id:"quim1",   nom:"Química I",            f:"2026-11-02", app:"quimica-1/"},
+  {id:"bio",     nom:"Biología",             f:"2026-11-03", app:"biologia/"},
+  {id:"lit",     nom:"Literatura Castellana",f:"2026-11-04"},
+  {id:"guarani", nom:"Guaraní",              f:"2026-11-05"},
+  {id:"fis2",    nom:"Física II",            f:"2026-11-06"},
+  {id:"optativo",nom:"Plan Optativo",        f:"2026-11-09"},
+  {id:"defensa", nom:"Defensa de proyectos", f:"2026-11-17", nota:"Martes 17 o miércoles 18"}
+];
+const CLAVE_EX = "dinaEstudia.examenes";
+let estEx = leer(CLAVE_EX) || {};
+function guardarEx(){ try{ localStorage.setItem(CLAVE_EX, JSON.stringify(estEx)); }catch(_){} }
+const DIAS = ["dom","lun","mar","mié","jue","vie","sáb"];
+function fechaDe(e){ const x=estEx[e.id]; return (x && x.f!==undefined) ? x.f : e.f; }
+function rendido(e){ return !!(estEx[e.id] && estEx[e.id].r); }
+function aFecha(t){ const [a,m,d]=t.split("-").map(Number); return new Date(a,m-1,d); }
+function faltan(t){ const h=new Date(); h.setHours(0,0,0,0); return Math.round((aFecha(t)-h)/86400000); }
+function cuando(n){ return n===0?"¡Hoy!":n===1?"Mañana":n>1?`En ${n} días`:"Ya pasó la fecha: ¿la rendiste?"; }
+let verTodos=false;
+function filaEx(e){
+  const f=fechaDe(e), r=rendido(e), n=f?faltan(f):null;
+  const cl = r?"hecho":f==null?"":n<0?"pasada":n<=3?"pronto":"";
+  const d = f ? `<b>${aFecha(f).getDate()}/${aFecha(f).getMonth()+1}</b><span>${DIAS[aFecha(f).getDay()]}</span>` : `<b>?</b><span>fecha</span>`;
+  const sub = r ? "Rendido ✓" : f==null ? (e.nota||"Fecha a confirmar") : cuando(n)+(e.nota&&n>=0?" · "+e.nota:"");
+  return `<div class="ex ${cl}" data-id="${e.id}">
+    <button class="dia ${f?"":"sin"}" data-fecha="${e.id}" aria-label="Cambiar la fecha de ${e.nom}">${d}</button>
+    <input type="date" id="fd-${e.id}" value="${f||""}" tabindex="-1" aria-hidden="true">
+    <span class="tx"><strong>${e.nom}</strong><em>${sub}</em>${e.app&&!r?`<a href="${e.app}">Estudiar con Dina →</a>`:""}</span>
+    <button class="ok" data-ok="${e.id}" aria-pressed="${r}" aria-label="${r?"Desmarcar":"Marcar"} ${e.nom} como rendido">${r?"✓":""}</button></div>`;
+}
+function examenes(){
+  const pend = EXAMENES.filter(e=>!rendido(e)), hechos = EXAMENES.filter(rendido);
+  const orden = e => { const f=fechaDe(e); if(!f) return 1e9; const n=faltan(f); return n<0 ? -1e6+n : n; };
+  pend.sort((a,b)=>orden(a)-orden(b));
+  const vis = verTodos ? pend : pend.slice(0,5);
+  const prox = pend.find(e=>{ const f=fechaDe(e); return f && faltan(f)>=0; });
+  let h = `<h2>Exámenes</h2>${prox?`<p class="prox">Próximo: <b>${prox.nom}</b>, ${cuando(faltan(fechaDe(prox))).toLowerCase()}</p>`:""}
+    <p class="ayuda-ex">Tocá ○ cuando rindas. Tocá la fecha para cambiarla.</p>`;
+  h += vis.map(filaEx).join("") || `<p class="ayuda-ex">¡No queda ningún examen! 🎉</p>`;
+  if(pend.length>5) h += `<button class="mas-ex" id="masEx">${verTodos?"Ver menos":`Ver todos (${pend.length})`}</button>`;
+  if(hechos.length) h += `<details class="rendidos"><summary>Rendidos (${hechos.length})</summary>${hechos.map(filaEx).join("")}</details>`;
+  const caja=document.getElementById("examenes"), abierto = caja.querySelector("details[open]");
+  caja.innerHTML = h;
+  if(abierto && caja.querySelector("details")) caja.querySelector("details").open = true;
+  caja.querySelectorAll("[data-ok]").forEach(b=>b.onclick=()=>{
+    const e=EXAMENES.find(x=>x.id===b.dataset.ok), r=!rendido(e);
+    estEx[e.id]=Object.assign(estEx[e.id]||{}, {r, cuando:new Date().toISOString()}); guardarEx();
+    anotarEx({tipo:"examen", materia:e.nom, fechaExamen:fechaDe(e)||"", estado:r?"rendido":"pendiente"});
+    examenes();
+  });
+  caja.querySelectorAll("[data-fecha]").forEach(b=>b.onclick=()=>{
+    const i=document.getElementById("fd-"+b.dataset.fecha);
+    try{ if(i.showPicker){ i.showPicker(); return; } }catch(_){}
+    i.style.pointerEvents="auto"; i.focus(); i.click();
+  });
+  caja.querySelectorAll("input[type=date]").forEach(i=>i.onchange=()=>{
+    const id=i.id.slice(3), e=EXAMENES.find(x=>x.id===id); if(!i.value) return;
+    estEx[id]=Object.assign(estEx[id]||{}, {f:i.value}); guardarEx();
+    anotarEx({tipo:"examen", materia:e.nom, fechaExamen:i.value, estado:"fecha nueva"});
+    examenes();
+  });
+  if(document.getElementById("masEx")) document.getElementById("masEx").onclick=()=>{ verTodos=!verTodos; examenes(); };
+}
+/* Anotar en la planilla (si no hay internet, queda en cola) */
+const HOJA=(window.HOJA_URL||"").trim(), CLAVE_COLA="dinaEstudia.cola";
+let enviando=false;
+async function anotarEx(d){
+  if(!HOJA) return;
+  d.nombre=(f&&f.nombre)||"Sofi"; d.cuando=new Date().toISOString();
+  const cola=leer(CLAVE_COLA)||[]; cola.push(d); try{ localStorage.setItem(CLAVE_COLA, JSON.stringify(cola.slice(-100))); }catch(_){}
+  reenviarEx();
+}
+async function reenviarEx(){
+  if(!HOJA || enviando) return; enviando=true;
+  try{ let cola=leer(CLAVE_COLA)||[];
+    while(cola.length){ let ok=false; try{ const r=await fetch(HOJA,{method:"POST",body:JSON.stringify(cola[0])}); ok=!!(await r.json()); }catch(_){}
+      if(!ok) break; cola.shift(); try{ localStorage.setItem(CLAVE_COLA, JSON.stringify(cola)); }catch(_){} } }
+  finally{ enviando=false; }
+}
+examenes(); reenviarEx();
 
 /* Instalar como app (una sola app con todas las materias) */
 let aviso=null;
