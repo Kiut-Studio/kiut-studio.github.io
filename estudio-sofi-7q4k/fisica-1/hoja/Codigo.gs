@@ -6,12 +6,19 @@
  * Pestañas que crea solo:
  *  - Partidas:   una fila por partida terminada (tema, aciertos, porcentaje).
  *  - Respuestas: una fila por pregunta respondida (bien o mal, qué eligió, segundos).
- *  - Ejercicios: una fila cada vez que marca un ejercicio en papel (Sí / Más o menos / No).
+ *  - Ejercicios: una fila cada vez que marca un ejercicio en papel (Sí / Más o menos / No),
+ *                con el enunciado y la respuesta (sirve para los de números nuevos).
+ *  - Simulacros: una fila por simulacro terminado (nota, teoría, cada problema, tiempo).
+ *
+ * Al cambiar este código: Implementar → Administrar implementaciones → ✏️ → Versión: Nueva versión
+ * → Implementar. Así la URL /exec sigue siendo la misma.
  */
 const PESTANAS = {
   Partidas: ['fecha', 'nombre', 'modo', 'repaso de falladas', 'aciertos', 'total', '%'],
   Respuestas: ['fecha', 'nombre', 'modo', 'tema', 'id', 'pregunta', 'resultado', 'eligió', 'correcta', 'segundos'],
-  Ejercicios: ['fecha', 'nombre', 'nivel', 'id', 'ejercicio', '¿le salió?'],
+  Ejercicios: ['fecha', 'nombre', 'nivel', 'id', 'ejercicio', '¿le salió?', 'enunciado', 'respuesta'],
+  Simulacros: ['fecha', 'nombre', 'nota (de 100)', 'teoría', 'puntos teoría (de 40)', 'problema 1', 'puntos 1', 'problema 2', 'puntos 2',
+               'problema 3', 'puntos 3', 'minutos elegidos', 'minutos usados', '¿se acabó el tiempo?'],
 };
 
 function hoja_(nombre) {
@@ -22,6 +29,9 @@ function hoja_(nombre) {
     h.appendRow(PESTANAS[nombre]);
     h.setFrozenRows(1);
     h.getRange(1, 1, 1, PESTANAS[nombre].length).setFontWeight('bold');
+  } else if (h.getLastColumn() < PESTANAS[nombre].length) {
+    // pestaña creada con una versión anterior: se agregan los títulos de las columnas nuevas
+    h.getRange(1, 1, 1, PESTANAS[nombre].length).setValues([PESTANAS[nombre]]).setFontWeight('bold');
   }
   return h;
 }
@@ -70,7 +80,16 @@ function doPost(e) {
       return json_({ ok: true });
     }
     if (d.tipo === 'ejercicio') {
-      hoja_('Ejercicios').appendRow([cuando, nombre, txt_(d.nivel, 30), txt_(d.id, 10), txt_(d.ejercicio, 80), txt_(d.resultado, 20)]);
+      hoja_('Ejercicios').appendRow([cuando, nombre, txt_(d.nivel, 40), txt_(d.id, 10), txt_(d.ejercicio, 80), txt_(d.resultado, 20),
+        txt_(d.enunciado, 400), txt_(d.respuesta, 300)]);
+      return json_({ ok: true });
+    }
+    if (d.tipo === 'simulacro') {
+      const pr = (Array.isArray(d.problemas) ? d.problemas : []).slice(0, 3);
+      const celdas = [];
+      for (let i = 0; i < 3; i++) celdas.push(pr[i] ? txt_(pr[i].ejercicio, 80) : '', pr[i] ? num_(pr[i].puntos, 20) : '');
+      hoja_('Simulacros').appendRow([cuando, nombre, num_(d.nota, 100), txt_(d.teoria, 20), num_(d.puntosTeoria, 40)]
+        .concat(celdas, [num_(d.minutos, 180), num_(d.usados, 600), d.seAcabo ? 'sí' : '']));
       return json_({ ok: true });
     }
     return json_({ ok: false, error: 'tipo desconocido' });

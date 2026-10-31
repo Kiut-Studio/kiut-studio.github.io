@@ -21,7 +21,7 @@ No está enlazado desde la portada y tiene `noindex` para que no aparezca en bus
 3. **Implementar → Nueva implementación → Aplicación web**. Ejecutar como: *Yo*. Quién tiene acceso: *Cualquier usuario*. Autorizar.
 4. Copiar la URL que termina en `/exec` y pegarla en `config.js` (`window.HOJA_URL`).
 
-Se crean solas tres pestañas: **Partidas**, **Respuestas** (cada pregunta, bien o mal, qué eligió y cuántos segundos tardó) y **Ejercicios**. Si no hay internet, lo pendiente se manda la próxima vez que se abre el juego.
+Se crean solas cuatro pestañas: **Partidas**, **Respuestas** (cada pregunta, bien o mal, qué eligió y cuántos segundos tardó), **Ejercicios** (con el enunciado y la respuesta, para ver los de números nuevos) y **Simulacros** (nota, teoría, puntos de cada problema y tiempo usado). Al cambiar `Codigo.gs`: Implementar → Administrar implementaciones → ✏️ → Nueva versión, para que la URL no cambie. Si no hay internet, lo pendiente se manda la próxima vez que se abre el juego.
 
 ## Créditos
 - Dibujos: **Sofía** ©. Todos los derechos reservados.

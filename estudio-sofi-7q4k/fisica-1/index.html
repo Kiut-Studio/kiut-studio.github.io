@@ -811,7 +811,8 @@ ponerLetra();
    Si no hay internet, queda en cola y se manda la próxima vez. */
 const HOJA = (window.HOJA_URL||"").trim();
 async function mandarUno(d){
-  try{ const r = await fetch(HOJA,{method:"POST",body:JSON.stringify(d)}); const j = await r.json(); return !!(j&&j.ok); }catch(_){ return false; }
+  // true = anotado o rechazado por la hoja (se saca de la cola); false = sin conexión (se reintenta)
+  try{ const r = await fetch(HOJA,{method:"POST",body:JSON.stringify(d)}); const j = await r.json(); return !!j; }catch(_){ return false; }
 }
 async function anotar(d){
   if(!HOJA) return;
@@ -1076,7 +1077,7 @@ function verEj(i,nuevo){
         const r=b.dataset.r;
         if(nuevo){ datos.var=datos.var||{}; datos.var[e.id]=r; } else datos.ej[e.id]=r;
         guardar();
-        anotar({tipo:"ejercicio", id:e.id+(nuevo?"*":""), nivel:NIVELES[e.n]+(nuevo?" · números nuevos":""), ejercicio:e.t, resultado:{si:"Sí",masomenos:"Más o menos",no:"No"}[r]});
+        anotar({tipo:"ejercicio", id:e.id+(nuevo?"*":""), nivel:NIVELES[e.n]+(nuevo?" · números nuevos":""), ejercicio:e.t, resultado:{si:"Sí",masomenos:"Más o menos",no:"No"}[r], enunciado:e.q, respuesta:e.r});
         if(r==="si") sBien();
         $("#fin").innerHTML=`<p class="anotado">${r==="si"?"¡Muy bien! ":""}Anotado ${ICONO[r]}</p>`;
       });
@@ -1116,7 +1117,7 @@ function simulacro(){
   $("#empezarSim").onclick=()=>{
     const teoria = mezclar(Object.keys(TEMAS).flatMap(k=>elegir(BANCO.filter(p=>p.b===k),2))).map(p=>({p, ops:mezclar(p.o.map((txt,k)=>({txt,bien:k===0}))), elegida:-1}));
     const probs = SIM_PROB.map(ids=>{ const id=elegir1(ids); return variante(EJ.find(e=>e.id===id)); });
-    S = {fin: Date.now()+min*60000, min, teoria, probs, parte:"t", i:0, notas:[]};
+    S = {fin: Date.now()+min*60000, inicio: Date.now(), min, teoria, probs, parte:"t", i:0, notas:[]};
     simTick = setInterval(crono,1000);
     simPantalla();
   };
@@ -1134,6 +1135,7 @@ function salirConfirmando(){
   const b=$("#salirSim");
   b.onclick=()=>{ if(b.dataset.ok){ pararSim(); S=null; menu(); return; } b.dataset.ok=1; b.textContent="¿Salir?"; b.classList.add("ancho"); setTimeout(()=>{ if(b.isConnected){ delete b.dataset.ok; b.textContent="✕"; b.classList.remove("ancho"); } },3000); };
 }
+function contarTiempo(){ if(S && S.parte==="t" && S.tEntra){ const it=S.teoria[S.i]; it.seg=(it.seg||0)+(Date.now()-S.tEntra)/1000; } if(S) S.tEntra=Date.now(); }
 function simPantalla(){
   if(S.parte==="t"){
     const it=S.teoria[S.i], t=TEMAS[it.p.b], n=S.teoria.length;
@@ -1143,9 +1145,9 @@ function simPantalla(){
         <div class="opciones">${it.ops.map((o,k)=>`<button class="op ${k===it.elegida?"elegida":""}" data-k="${k}"><b>${"ABCD"[k]}</b><span>${F(o.txt)}</span></button>`).join("")}</div>
         <div class="nav">${S.i>0?`<button class="chip" id="ant">← Anterior</button>`:"<span></span>"}
           <button class="sig" id="sigS">${S.i+1<n?"Siguiente →":"Pasar a los problemas →"}</button></div></div>`;
-    app.querySelectorAll(".op").forEach(b=>b.onclick=()=>{ it.elegida=+b.dataset.k; simPantalla(); });
-    if($("#ant")) $("#ant").onclick=()=>{ S.i--; simPantalla(); };
-    $("#sigS").onclick=()=>{ if(S.i+1<n) S.i++; else { S.parte="p"; S.i=0; } simPantalla(); };
+    app.querySelectorAll(".op").forEach(b=>b.onclick=()=>{ it.elegida=+b.dataset.k; contarTiempo(); simPantalla(); });
+    if($("#ant")) $("#ant").onclick=()=>{ contarTiempo(); S.i--; simPantalla(); };
+    $("#sigS").onclick=()=>{ contarTiempo(); if(S.i+1<n) S.i++; else { S.parte="p"; S.i=0; } simPantalla(); };
   }else if(S.parte==="p"){
     const e=S.probs[S.i], n=S.probs.length;
     app.innerHTML = cabSim()+`<div class="tarjeta"><span class="tema" style="--tc:var(--tinta)">Problema ${S.i+1} de ${n} · ${NOMBRE_NIVEL[e.n]}</span>
@@ -1159,6 +1161,7 @@ function simPantalla(){
   salirConfirmando(); crono(); window.scrollTo(0,0);
 }
 function corregirTeoria(){
+  contarTiempo(); S.usado=Math.round((Date.now()-S.inicio)/60000);
   S.parte="c";
   const ok=S.teoria.filter(x=>x.elegida>=0 && x.ops[x.elegida].bien).length;
   S.okT=ok;
@@ -1173,7 +1176,7 @@ function corregirTeoria(){
   window.scrollTo(0,0);
   anotar({tipo:"partida", modo:"Simulacro (teoría)", repaso:false, aciertos:ok, total:S.teoria.length,
     respuestas:S.teoria.map(x=>({id:x.p.id, tema:TEMAS[x.p.b].nom, pregunta:x.p.q, bien:x.elegida>=0&&x.ops[x.elegida].bien,
-      elegida:x.elegida>=0?x.ops[x.elegida].txt:"(sin responder)", correcta:x.p.o[0], seg:0}))});
+      elegida:x.elegida>=0?x.ops[x.elegida].txt:"(sin responder)", correcta:x.p.o[0], seg:Math.round(x.seg||0)}))});
   $("#aProb").onclick=()=>{ S.i=0; corregirProblema(); };
 }
 function corregirProblema(){
@@ -1188,13 +1191,15 @@ function corregirProblema(){
   window.scrollTo(0,0);
   app.querySelectorAll("[data-n]").forEach(b=>b.onclick=()=>{
     const pts=+b.dataset.n; S.notas[S.i]=pts;
-    anotar({tipo:"ejercicio", id:e.id+"*", nivel:"Simulacro · "+NOMBRE_NIVEL[e.n], ejercicio:e.t, resultado:pts===20?"Bien":pts===10?"A medias":"Mal"});
+    anotar({tipo:"ejercicio", id:e.id+"*", nivel:"Simulacro · "+NOMBRE_NIVEL[e.n], ejercicio:e.t, resultado:pts===20?"Bien":pts===10?"A medias":"Mal", enunciado:e.q, respuesta:e.r});
     if(S.i+1<n){ S.i++; corregirProblema(); } else notaFinal();
   });
 }
 function notaFinal(){
   const pT=S.okT*5, pP=S.notas.reduce((a,b)=>a+b,0), pct=pT+pP;
   datos.simulacros=(datos.simulacros||[]).concat([{f:Date.now(), pct, teoria:S.okT, problemas:S.notas, min:S.min}]).slice(-30); guardar();
+  anotar({tipo:"simulacro", nota:pct, teoria:`${S.okT} de ${S.teoria.length}`, puntosTeoria:pT,
+    problemas:S.probs.map((e,k)=>({ejercicio:e.t, puntos:S.notas[k]})), minutos:S.min, usados:S.usado, seAcabo:!!S.seAcabo});
   const tit = pct>=80?"¡Muy bien preparada!":pct>=60?"¡Vas bien!":"Todavía falta un poco";
   const msj = pct>=80?"Seguí practicando con ejercicios sorpresa para no perder el ritmo."
     : pct>=60?"Repasá las preguntas que fallaste y practicá los problemas que salieron a medias."
