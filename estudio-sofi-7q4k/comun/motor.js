@@ -157,6 +157,7 @@ function menu(){
   if(TIPOS.length){ const bien=TIPOS.filter(t=>datos.ej[t.id]==="si").length;
     h += `<button class="btn ej" id="ejs"><span class="nom">✏️ ${M.ejercicios.titulo}<small>${M.ejercicios.sub}</small></span><span class="der">${bien}/${TIPOS.length} ✓</span></button>`; }
   h += `<button class="btn res" id="res"><span class="nom">📖 Resumen<small>${M.resumenSub||"lo más importante del cuaderno"}</small></span></button>`;
+  if(M.textos) h += `<button class="btn tex" id="tex"><span class="nom">📚 Textos para leer<small>${M.textosSub||"con guía, vocabulario y tus fotos"}</small></span></button>`;
   h += `</div>
   <div class="chips"><a class="chip" href="../progreso/#${M.clave}">📈 Mi progreso</a><button class="chip" id="quien">👤 Juega: ${datos.nombre}</button>${yaInstalada()?"":`<button class="chip" id="instalar">📲 Instalar</button>`}</div>
   <p class="ayuda" id="ayudaInst" hidden></p>
@@ -170,6 +171,7 @@ function menu(){
   $("#mudo").onclick=()=>{ datos.mudo=!datos.mudo; guardar(); menu(); };
   if($("#ejs")) $("#ejs").onclick=listaEj;
   $("#res").onclick=resumen;
+  if($("#tex")) $("#tex").onclick=listaTextos;
   $("#sim").onclick=simulacro;
   if($("#instalar")) $("#instalar").onclick=instalar;
   $("#quien").onclick=()=>{
@@ -314,6 +316,75 @@ function resultado(){
   $("#otra").onclick=()=>empezar(modo);
   $("#volver").onclick=menu;
 }
+
+/* ---------- textos para leer ----------
+   M.textos: [{id, titulo, autor, intro, enlace?, enlaceNom?, partes?:[{t,d}], lineas?:[[original, castellano]], glosario?:[[palabra, significado]]}]
+   Los textos con derechos de autor no se copian: van con guía en castellano, vocabulario y el enlace al original.
+   Sofi puede guardar fotos de su fotocopia: quedan solo en el teléfono (IndexedDB), no se suben a ningún lado. */
+function listaTextos(){
+  pararReloj(); P=null;
+  let h = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver al menú">←</button><h2>Textos para leer</h2>${AA_BTN}</div>
+    <p class="ayuda" style="text-align:left;margin:4px 0 8px">Leelos todas las veces que quieras. Tocá uno para ver la guía en castellano, las palabras y tus fotos.</p>`;
+  M.textos.forEach((t,i)=> h += `<button class="ej-item" data-t="${i}"><span class="n">${i+1}</span><span class="t">${F(t.titulo)}<br><small style="color:var(--tinta-suave)">${F(t.autor)}</small></span><span class="st">›</span></button>`);
+  app.innerHTML = h; window.scrollTo(0,0);
+  $("#volver").onclick=menu;
+  app.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>verTexto(+b.dataset.t));
+}
+function verTexto(i){
+  const t=M.textos[i];
+  let h = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver a los textos">←</button><h2>${F(t.titulo)}</h2>${AA_BTN}</div>
+    <div class="nota-res"><p style="margin:0"><b>${F(t.autor)}</b></p>${t.intro?`<p>${F(t.intro)}</p>`:""}
+      ${t.enlace?`<a class="sig enlace" href="${t.enlace}" target="_blank" rel="noopener">📄 ${t.enlaceNom||"Leer el texto completo"} ↗</a>`:""}</div>
+    <div class="nivel">📷 Mis fotos del texto</div>
+    <div class="nota-res"><p style="margin:0">Sacale foto a tu fotocopia (o elegila de la galería) y queda acá para leerla cuando quieras, aunque no haya internet. Se guarda <b>solo en este teléfono</b>.</p>
+      <div class="fotos" id="fotos"></div>
+      <label class="sig foto-btn">➕ Agregar fotos<input type="file" id="subirFoto" accept="image/*" multiple hidden></label></div>`;
+  if(t.lineas) h += `<div class="nivel">Texto y traducción</div><div class="nota-res lineas">${t.lineas.map(([o,c])=>`<p class="gn">${F(o)}</p><p class="es">${F(c)}</p>`).join("")}</div>`;
+  if(t.partes) h += `<div class="nivel">Guía de lectura en castellano</div>` + t.partes.map(n=>`<div class="nota-res">${n.t?`<h3>${F(n.t)}</h3>`:""}<p>${F(n.d)}</p></div>`).join("");
+  if(t.glosario) h += `<div class="nivel">Palabras, en el orden en que aparecen</div><div class="nota-res"><table class="tabla">${t.glosario.map(([a,b])=>`<tr><td><b>${F(a)}</b></td><td>${F(b)}</td></tr>`).join("")}</table></div>`;
+  app.innerHTML = h; window.scrollTo(0,0);
+  $("#volver").onclick=listaTextos;
+  $("#subirFoto").onchange=async e=>{ const fs=[...e.target.files]; e.target.value="";
+    for(const f of fs){ try{ await Fotos.agregar(M.clave+":"+t.id, await achicar(f)); }catch(_){ alert("No se pudo guardar la foto en el teléfono."); break; } }
+    pintarFotos(t); };
+  pintarFotos(t);
+}
+async function pintarFotos(t){
+  const caja=$("#fotos"); if(!caja) return;
+  let fs=[]; try{ fs=await Fotos.de(M.clave+":"+t.id); }catch(_){ caja.innerHTML=`<p class="ayuda">Este navegador no deja guardar fotos.</p>`; return; }
+  caja.querySelectorAll("img").forEach(im=>URL.revokeObjectURL(im.src));
+  caja.innerHTML = fs.length ? fs.map((x,k)=>`<button class="foto" data-k="${k}" aria-label="Ver foto ${k+1}"><img src="${URL.createObjectURL(x.blob)}" alt=""></button>`).join("") : `<p class="ayuda" style="margin:8px 0 0;text-align:left">Todavía no agregaste fotos.</p>`;
+  caja.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>verFoto(fs, +b.dataset.k, t));
+}
+function verFoto(fs, k, t){
+  let zoom=1; const x=fs[k], url=URL.createObjectURL(x.blob);
+  const v=document.createElement("div"); v.className="visor";
+  v.innerHTML=`<div class="visor-bar"><button id="vCerrar" aria-label="Cerrar">✕</button><span>${k+1} de ${fs.length}</span>
+    <button id="vMenos" aria-label="Achicar">−</button><button id="vMas" aria-label="Agrandar">+</button><button id="vBorrar" aria-label="Borrar foto">🗑</button></div>
+    <div class="visor-img"><img src="${url}" alt="Foto del texto"></div>
+    <div class="visor-nav">${k>0?`<button id="vAnt">← Anterior</button>`:"<span></span>"}${k<fs.length-1?`<button id="vSig">Siguiente →</button>`:"<span></span>"}</div>`;
+  document.body.appendChild(v);
+  const img=v.querySelector("img"), cerrar=()=>{ URL.revokeObjectURL(url); v.remove(); };
+  const z=d=>{ zoom=Math.min(4,Math.max(1,zoom+d)); img.style.width=(zoom*100)+"%"; };
+  v.querySelector("#vCerrar").onclick=cerrar; v.querySelector("#vMas").onclick=()=>z(.5); v.querySelector("#vMenos").onclick=()=>z(-.5);
+  if(v.querySelector("#vAnt")) v.querySelector("#vAnt").onclick=()=>{ cerrar(); verFoto(fs,k-1,t); };
+  if(v.querySelector("#vSig")) v.querySelector("#vSig").onclick=()=>{ cerrar(); verFoto(fs,k+1,t); };
+  const borrar=v.querySelector("#vBorrar");
+  borrar.onclick=async()=>{ if(!borrar.dataset.ok){ borrar.dataset.ok=1; borrar.textContent="¿Borrar?"; return; } await Fotos.borrar(x.id); cerrar(); pintarFotos(t); };
+}
+/* fotos más livianas: máximo 2000 px de lado, en JPEG */
+function achicar(f){ return new Promise(ok=>{ const u=URL.createObjectURL(f), im=new Image();
+  im.onload=()=>{ const r=Math.min(1,2000/Math.max(im.width,im.height)), c=document.createElement("canvas"); c.width=Math.round(im.width*r); c.height=Math.round(im.height*r);
+    c.getContext("2d").drawImage(im,0,0,c.width,c.height); URL.revokeObjectURL(u); c.toBlob(b=>ok(b||f),"image/jpeg",.85); };
+  im.onerror=()=>{ URL.revokeObjectURL(u); ok(f); }; im.src=u; }); }
+const Fotos = (()=>{
+  let base=null;
+  const abrir=()=> base || (base=new Promise((ok,mal)=>{ const r=indexedDB.open("dinaFotos",1);
+    r.onupgradeneeded=()=>r.result.createObjectStore("fotos",{keyPath:"id",autoIncrement:true}).createIndex("texto","texto");
+    r.onsuccess=()=>ok(r.result); r.onerror=()=>mal(r.error); }));
+  const op=(modo,fn)=>abrir().then(d=>new Promise((ok,mal)=>{ const q=fn(d.transaction("fotos",modo).objectStore("fotos")); q.onsuccess=()=>ok(q.result); q.onerror=()=>mal(q.error); }));
+  return { de:t=>op("readonly",s=>s.index("texto").getAll(t)), agregar:(t,blob)=>op("readwrite",s=>s.add({texto:t,blob,f:Date.now()})), borrar:id=>op("readwrite",s=>s.delete(id)) };
+})();
 
 /* ---------- resumen ---------- */
 function resumen(){
