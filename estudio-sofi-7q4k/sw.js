@@ -1,13 +1,14 @@
 // Dina Estudia — copia sin conexión del hub y de todas sus materias.
 // Solo maneja esta carpeta y sus propias cachés (el sitio lo comparten varios juegos).
 // Subir el número con cada versión.
-const C = 'dina-estudia-v3';
+const C = 'dina-estudia-v4';
 const BASE = [
   './', './index.html', './manifest.json', './icon-192.png', './icon-512.png',
   './fisica-1/', './fisica-1/index.html', './fisica-1/config.js',
   './fisica-1/assets/dina.webp', './fisica-1/assets/dina_corre.webp', './fisica-1/assets/torta.webp',
   './fisica-1/assets/frutilla.webp', './fisica-1/assets/sofi.webp', './fisica-1/assets/nubes.webp',
-  './comun/estilo.css', './comun/motor.js',
+  './comun/estilo.css', './comun/motor.js', './comun/nube.js', './comun/materias.js',
+  './progreso/', './progreso/index.html',
   './biologia/', './biologia/index.html', './biologia/datos.js',
   './historia/', './historia/index.html', './historia/datos.js',
   './orientacion/', './orientacion/index.html', './orientacion/datos.js',
@@ -26,7 +27,7 @@ self.addEventListener('activate', e => {
 
 self.addEventListener('fetch', e => {
   const r = e.request;
-  if (r.method !== 'GET') return; // los envíos a la hoja van directo
+  if (r.method !== 'GET') return; // los envíos a la hoja van directo (y la copia de la nube, que es de otro sitio)
   const u = new URL(r.url);
   const propio = u.origin === location.origin && u.pathname.startsWith(new URL('./', self.registration.scope).pathname);
   const letra = u.hostname === 'fonts.googleapis.com' || u.hostname === 'fonts.gstatic.com';

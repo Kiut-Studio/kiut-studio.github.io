@@ -11,6 +11,10 @@
  *                con el enunciado y la respuesta (sirve para los de números nuevos).
  *  - Simulacros: una fila por simulacro terminado (nota, teoría, cada problema, tiempo).
  *  - Exámenes:   una fila cada vez que Sofi marca un examen como rendido o le cambia la fecha (calendario del hub).
+ *  - Respaldo:   la copia en la nube del progreso de cada materia (una fila por materia). La app la baja al abrirse
+ *                y la une con lo del teléfono, así no se pierde nada si se borran los datos o se cambia de teléfono.
+ *                No hace falta tocarla: el texto está partido en varias celdas porque es largo.
+ *  - Respaldo anterior: una copia por día de cada materia, por si alguna vez hay que volver atrás.
  *
  * Al cambiar este código: Implementar → Administrar implementaciones → ✏️ → Versión: Nueva versión
  * → Implementar. Así la URL /exec sigue siendo la misma.
@@ -96,6 +100,9 @@ function doPost(e) {
         .concat(celdas, [num_(d.minutos, 180), num_(d.usados, 600), d.seAcabo ? 'sí' : '', materia]));
       return json_({ ok: true });
     }
+    if (d.tipo === 'respaldo') {
+      return json_(guardarRespaldo_(d));
+    }
     if (d.tipo === 'examen') {
       // desde el calendario del hub: rendido, pendiente o fecha nueva
       hoja_('Exámenes').appendRow([cuando, nombre, materia, txt_(d.fechaExamen, 12), txt_(d.estado, 20)]);
@@ -107,7 +114,72 @@ function doPost(e) {
   }
 }
 
-/** Para probar que la aplicación web responde: abrir la URL /exec en el navegador. */
-function doGet() {
-  return json_({ ok: true, juego: 'Dina Estudia' });
+/* =====================  RESPALDO (copia en la nube)  ===================== */
+const RESPALDO = ['perfil', 'clave', 'materia', 'actualizado', 'caracteres'];
+const PARTE = 45000;            // una celda admite hasta 50 000 caracteres
+const perfilOk_ = p => /^[a-z0-9-]{2,30}$/.test(String(p || ''));
+const claveOk_ = c => /^dina[A-Za-z]+\.v\d+$/.test(String(c || ''));
+
+function hojaRespaldo_(nombre) {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  let h = ss.getSheetByName(nombre);
+  if (!h) {
+    h = ss.insertSheet(nombre);
+    h.appendRow(RESPALDO.concat(['datos (parte 1)']));
+    h.setFrozenRows(1);
+    h.getRange(1, 1, 1, RESPALDO.length + 1).setFontWeight('bold');
+  }
+  return h;
+}
+
+function guardarRespaldo_(d) {
+  const perfil = String(d.perfil || ''), clave = String(d.clave || ''), texto = String(d.datos || '');
+  if (!perfilOk_(perfil) || !claveOk_(clave) || texto.length < 2 || texto.length > 900000) return { ok: false, error: 'respaldo inválido' };
+  let obj;
+  try { obj = JSON.parse(texto); } catch (err) { return { ok: false, error: 'respaldo inválido' }; }
+  // cada parte empieza con "~" para que la hoja nunca la tome como número o fórmula
+  const partes = [];
+  for (let i = 0; i < texto.length; i += PARTE) partes.push('~' + texto.slice(i, i + PARTE));
+  const fila = [perfil, clave, txt_(obj.materia, 40), new Date(), texto.length].concat(partes);
+  const h = hojaRespaldo_('Respaldo');
+  const filas = h.getLastRow() > 1 ? h.getRange(2, 1, h.getLastRow() - 1, 2).getValues() : [];
+  const i = filas.findIndex(f => f[0] === perfil && f[1] === clave);
+  if (i < 0) {
+    h.getRange(h.getLastRow() + 1, 1, 1, fila.length).setValues([fila]);
+  } else {
+    const n = i + 2, ancho = h.getLastColumn();
+    const vieja = h.getRange(n, 1, 1, ancho).getValues()[0];
+    // una copia por día en "Respaldo anterior"
+    const antes = vieja[3] instanceof Date ? vieja[3] : null;
+    if (antes && Utilities.formatDate(antes, 'America/Asuncion', 'yyyy-MM-dd') !== Utilities.formatDate(new Date(), 'America/Asuncion', 'yyyy-MM-dd')) {
+      const ant = hojaRespaldo_('Respaldo anterior');
+      const usada = vieja.filter((v, k) => k < 5 || v !== '');
+      ant.getRange(ant.getLastRow() + 1, 1, 1, usada.length).setValues([usada]);
+    }
+    if (ancho > fila.length) h.getRange(n, fila.length + 1, 1, ancho - fila.length).clearContent();
+    h.getRange(n, 1, 1, fila.length).setValues([fila]);
+  }
+  return { ok: true };
+}
+
+function leerRespaldo_(perfil) {
+  const h = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Respaldo');
+  const datos = {};
+  if (!h || h.getLastRow() < 2) return datos;
+  h.getRange(2, 1, h.getLastRow() - 1, h.getLastColumn()).getValues().forEach(f => {
+    if (f[0] !== perfil || !claveOk_(f[1])) return;
+    const texto = f.slice(5).filter(v => v !== '').map(v => String(v).replace(/^~/, '')).join('');
+    try { datos[f[1]] = JSON.parse(texto); } catch (err) {}
+  });
+  return datos;
+}
+
+/** La app baja la copia con ?accion=respaldo&perfil=sofi. Sin parámetros, sirve para probar que la aplicación web responde. */
+function doGet(e) {
+  const p = (e && e.parameter) || {};
+  if (p.accion === 'respaldo') {
+    if (!perfilOk_(p.perfil)) return json_({ ok: false, error: 'perfil inválido' });
+    return json_({ ok: true, datos: leerRespaldo_(p.perfil) });
+  }
+  return json_({ ok: true, juego: 'Dina Estudia', respaldo: true });
 }

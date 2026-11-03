@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Mi progreso · Dina Estudia</title>
+<link rel="icon" href="../icon-192.png">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#ff7eb6">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Andika:wght@400;700&display=swap">
+<style>
+/* Mi progreso — mismo mundo rosa de Dina. Todo sale de lo guardado por cada materia (teléfono + nube). */
+:root{
+  --crema:#fff7fb; --rosa:#ff7eb6; --rosa-osc:#e2559a; --tinta:#4a2a3f; --tinta-suave:#7b5a6f; --sombra:#e9b6cd; --blanco:#fff;
+  --bien:#2fae78; --bien-fondo:#e3f7ee; --mal:#e2496b; --mal-fondo:#fde6ec; --medio:#e0a21b;
+  --b1:#ff7eb6; --b1s:#d9579a; --b2:#ff9a3c; --b2s:#d9741c; --b3:#8a5ce0; --b3s:#6a3fbf; --b4:#2fb37e; --b4s:#1f8a5f;
+  --display:"Fredoka","Baloo 2","Trebuchet MS",system-ui,sans-serif;
+  --texto:"Andika","Verdana","Segoe UI",system-ui,sans-serif;
+  color-scheme:light;
+}
+html,body{min-height:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
+body{margin:0;background:var(--crema);color:var(--tinta);font-family:var(--texto);font-size:16px;overflow-x:hidden;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));-webkit-tap-highlight-color:transparent}
+body::after{content:"";position:fixed;inset:0;background:url(../fisica-1/assets/nubes.webp) 0 0/220px repeat;opacity:.18;pointer-events:none;z-index:-1}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+.app{max-width:460px;margin:0 auto;padding-block:12px 28px;display:flex;flex-direction:column;gap:14px}
+.top{display:flex;align-items:center;gap:10px}
+.redondo{width:46px;height:46px;border-radius:50%;background:var(--blanco);box-shadow:0 3px 0 var(--sombra);font-size:20px;display:grid;place-items:center;flex:none;text-decoration:none;color:inherit}
+h1{font-family:var(--display);font-weight:700;font-size:34px;line-height:1;margin:0;color:var(--blanco);
+  text-shadow:0 2px 0 var(--rosa-osc),0 4px 0 var(--rosa),0 6px 10px rgba(226,85,154,.25)}
+.nube{font-size:13px;font-weight:700;color:var(--tinta-suave);margin:-4px 0 0;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.nube button{color:var(--rosa-osc);font-weight:700;text-decoration:underline;padding:4px 0}
+.card{background:var(--blanco);border-radius:22px;padding:14px;box-shadow:0 5px 0 var(--sombra)}
+.card h2{margin:0 0 8px;font-family:var(--display);font-size:21px;line-height:1.15}
+.card h2 small{font-family:var(--texto);font-size:13px;color:var(--tinta-suave);font-weight:700;margin-left:6px}
+.sub{margin:0 0 10px;font-size:14px;color:var(--tinta-suave);font-weight:700}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stat{background:var(--crema);border-radius:16px;padding:10px 6px;text-align:center}
+.stat b{display:block;font-family:var(--display);font-size:24px;line-height:1.1}
+.stat span{font-size:12px;font-weight:700;color:var(--tinta-suave);line-height:1.2;display:block}
+.dias{display:grid;grid-template-columns:repeat(14,1fr);gap:4px;align-items:end;height:70px;margin-top:12px}
+.dia{display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end}
+.dia i{display:block;width:100%;border-radius:5px 5px 2px 2px;background:var(--rosa);min-height:3px}
+.dia i.cero{background:var(--sombra);opacity:.5}
+.dia span{font-size:10px;font-weight:700;color:var(--tinta-suave)}
+.dia.hoy span{color:var(--rosa-osc)}
+.materias{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;margin:0 -2px;scrollbar-width:none}
+.materias::-webkit-scrollbar{display:none}
+.mat{flex:none;padding:9px 14px;border-radius:999px;background:var(--blanco);box-shadow:0 2px 0 var(--sombra);font-weight:700;white-space:nowrap}
+.mat[aria-pressed="true"]{background:var(--c);color:var(--blanco);box-shadow:0 3px 0 var(--s)}
+.grafico{width:100%;height:auto;display:block;overflow:visible}
+.grafico text{font-family:var(--texto);font-weight:700}
+.tendencia{margin:6px 0 0;font-weight:700;font-size:15px}
+.vacio{margin:0;color:var(--tinta-suave);font-weight:700}
+.vacio a,.ir{color:var(--rosa-osc);font-weight:700}
+details.sim{border-top:1px solid var(--crema)}
+details.sim summary{list-style:none;display:flex;align-items:center;gap:10px;padding:10px 0;cursor:pointer}
+details.sim summary::-webkit-details-marker{display:none}
+.notab{flex:none;width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-family:var(--display);font-size:22px;font-weight:700;color:var(--blanco)}
+.simtx{flex:1;min-width:0}
+.simtx b{display:block}
+.simtx span{display:block;font-size:13px;font-weight:700;color:var(--tinta-suave)}
+.flecha{flex:none;color:var(--tinta-suave);transition:transform .15s}
+details[open] .flecha{transform:rotate(90deg)}
+.det{padding:0 0 12px}
+.fila{display:grid;grid-template-columns:1fr auto;gap:2px 8px;align-items:center;margin:8px 0;font-size:14px;font-weight:700}
+.barra{grid-column:1/-1;height:10px;border-radius:99px;background:var(--crema);overflow:hidden}
+.barra i{display:block;height:100%;border-radius:99px;background:var(--tc,var(--rosa))}
+.flojo{font-size:12px;color:var(--mal);margin-left:4px;white-space:nowrap}
+.preg{border-radius:14px;padding:9px 11px;margin:6px 0;background:var(--bien-fondo);font-size:14px;line-height:1.35}
+.preg.mal{background:var(--mal-fondo)}
+.preg .q{font-weight:700}
+.preg .el,.preg .r{margin-top:4px}
+.preg .r{color:#1f7a52;font-weight:700}
+.preg .el{color:#b3304f}
+.preg .cuenta{font-size:12px;color:var(--tinta-suave);font-weight:700;margin-top:4px}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.1;margin:0 2px}
+.fr>span:first-child{border-bottom:1.5px solid currentColor;padding:0 2px}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 14px;border-radius:18px;font-weight:700;font-size:16px;
+  background:var(--rosa);color:var(--blanco);box-shadow:0 4px 0 var(--rosa-osc);text-decoration:none;margin-top:10px;text-align:center}
+.btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--rosa-osc)}
+.btn.claro{background:var(--crema);color:var(--tinta);box-shadow:0 3px 0 var(--sombra)}
+.ejs{display:flex;gap:8px;flex-wrap:wrap}
+.ejs span{background:var(--crema);border-radius:999px;padding:6px 11px;font-weight:700;font-size:14px}
+.lista-ej{margin:8px 0 0;padding:0;list-style:none;font-size:14px}
+.lista-ej li{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid var(--crema)}
+.lista-ej li span:last-child{flex:none;color:var(--tinta-suave);font-weight:700}
+.aviso{font-size:13px;font-weight:700;color:var(--tinta-suave);margin:8px 0 0;line-height:1.4}
+.ok-msg{font-weight:700;color:#1f7a52;margin:8px 0 0}
+.pie{text-align:center;font-size:12px;color:var(--tinta-suave);line-height:1.5;margin:4px 0 0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<script src="../fisica-1/config.js"></script>
+<script src="../comun/nube.js"></script>
+<script src="../comun/materias.js"></script>
+</head>
+<body>
+<main class="app" id="app">
+  <div class="top"><a class="redondo" href="../" aria-label="Volver a las materias">🏠</a><h1>Mi progreso</h1></div>
+  <p class="nube" id="nube"></p>
+  <section class="card" id="general"></section>
+  <div class="materias" id="mats" role="group" aria-label="Materia"></div>
+  <div id="materia" style="display:flex;flex-direction:column;gap:14px"></div>
+  <section class="card">
+    <h2>Guardar y compartir</h2>
+    <p class="sub">Todo se guarda solo en la nube. Esto es por si querés una copia aparte.</p>
+    <button class="btn" id="imagen">🖼️ Guardar imagen del progreso</button>
+    <button class="btn claro" id="bajar">💾 Descargar copia de mis datos</button>
+    <button class="btn claro" id="restaurar">📂 Recuperar una copia</button>
+    <input type="file" id="archivo" accept=".json,application/json" hidden>
+    <p class="ok-msg" id="msgCopia" hidden></p>
+  </section>
+  <p class="pie">Dibujos de Sofía · Kiut Studio</p>
+</main>
+<script>
+(function(){
+"use strict";
+const MATS = window.DINA_MATERIAS.filter(m=>m.clave);
+const leer = k => { try{ return JSON.parse(localStorage.getItem(k)||"null"); }catch(_){ return null; } };
+const esc = s => String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
+const $ = id => document.getElementById(id);
+
+/* Escritura de las materias: [[a::b]] fracción, potencias, subíndices, **negrita**, \n renglón */
+const SUP={"⁰":"0","¹":"1","²":"2","³":"3","⁴":"4","⁵":"5","⁶":"6","⁷":"7","⁸":"8","⁹":"9","⁻":"−","⁺":"+"};
+const SUB={"₀":"0","₁":"1","₂":"2","₃":"3","₄":"4","₅":"5","₆":"6","₇":"7","₈":"8","₉":"9"};
+function F(t){
+  let s=String(t==null?"":t).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+  s=s.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>");
+  s=s.replace(/\[\[(.+?)::(.+?)\]\]/g,(m,a,b)=>`<span class="fr"><span>${a}</span><span>${b}</span></span>`);
+  s=s.replace(/[⁰¹²³⁴⁵⁶⁷⁸⁹⁻⁺]+/g,m=>`<sup>${[...m].map(c=>SUP[c]).join("")}</sup>`);
+  s=s.replace(/[₀₁₂₃₄₅₆₇₈₉]+/g,m=>`<sub>${[...m].map(c=>SUB[c]).join("")}</sub>`);
+  s=s.replace(/([A-Za-z])\^([A-Za-z])/g,"$1<sup>$2</sup>").replace(/_([A-Za-z0-9]+)/g,"<sub>$1</sub>");
+  return s.replace(/\n/g,"<br>");
+}
+const plano = t => String(t==null?"":t).replace(/\[\[(.+?)::(.+?)\]\]/g,"$1/$2").replace(/\*\*/g,"").replace(/\n/g," ");
+
+/* ---------- fechas y tiempos ---------- */
+const clave = d => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const fecha = f => new Date(f).toLocaleDateString("es-PY",{weekday:"short", day:"numeric", month:"short"});
+const corta = f => { const d=new Date(f); return d.getDate()+"/"+(d.getMonth()+1); };
+function tiempo(seg){ const m=Math.round(seg/60); if(m<60) return m+" min"; const h=Math.floor(m/60), r=m%60; return h+" h"+(r?" "+r+" min":""); }
+function hace(t){ if(!t) return ""; const s=(Date.now()-t)/1000; if(s<60) return "recién"; if(s<3600) return "hace "+Math.round(s/60)+" min";
+  if(s<86400) return "hace "+Math.round(s/3600)+" h"; return "el "+corta(t); }
+/* color del número de nota */
+const colorNota = p => p>=80?"var(--bien)":p>=60?"var(--medio)":"var(--mal)";
+
+/* ---------- datos ---------- */
+let todo = {};
+function cargar(){ todo = {}; MATS.forEach(m=>{ const d=leer(m.clave); if(d) todo[m.clave]=d; }); }
+function diasTodos(){ const r={}; for(const k in todo) for(const d in (todo[k].dias||{})) r[d]=(r[d]||0)+todo[k].dias[d]; return r; }
+function racha(dias){ let n=0; const x=new Date(); if(!dias[clave(x)]) x.setDate(x.getDate()-1); while(dias[clave(x)]){ n++; x.setDate(x.getDate()-1); } return n; }
+function respondidas(d){ let b=0,m=0; for(const id in (d.vistas||{})){ b+=d.vistas[id].bien||0; m+=d.vistas[id].mal||0; } return {b,m,n:b+m}; }
+/* % de aciertos por tema, con todas las respuestas de siempre */
+function temasDe(d){
+  const info = d.temasInfo || {}, t = {};
+  for(const k in info) t[k] = {nom:info[k].nom, c:info[k].c, b:0, m:0};
+  for(const id in (d.vistas||{})){ const v=d.vistas[id]; if(!v.b) continue; const x = t[v.b] || (t[v.b]={nom:v.b, c:"var(--rosa)", b:0, m:0}); x.b+=v.bien||0; x.m+=v.mal||0; }
+  return t;
+}
+function ultimoUso(d){ return Math.max(0, ...(d.hist||[]).map(x=>x.f), ...(d.simulacros||[]).map(x=>x.f), ...(d.ejHist||[]).map(x=>x.f)); }
+
+/* ---------- nube ---------- */
+function pintarNube(){
+  const e = Nube.estado(), el = $("nube");
+  if(!window.HOJA_URL){ el.textContent = "📱 Guardado en este teléfono"; return; }
+  if(e.error==="planilla") el.innerHTML = "☁️ La copia en la nube todavía no está activa. Por ahora se guarda en el teléfono.";
+  else if(e.error==="sin conexión") el.innerHTML = `📴 Sin conexión: se guarda en el teléfono y se sube cuando vuelva internet. <button id="reint">Probar de nuevo</button>`;
+  else if(e.ok) el.textContent = "☁️ Guardado en la nube " + hace(Math.max(e.subido||0, e.bajado||0));
+  else el.textContent = "☁️ Buscando la copia en la nube…";
+  if($("reint")) $("reint").onclick = sincronizar;
+}
+async function sincronizar(){
+  pintarNube();
+  const cambio = await Nube.sincronizarTodo(MATS.map(m=>m.clave));
+  pintarNube();
+  if(cambio){ cargar(); pintarTodo(); }
+}
+addEventListener("dina-nube", pintarNube);
+
+/* ---------- resumen general ---------- */
+function general(){
+  const dias = diasTodos(), r = racha(dias);
+  let resp = {b:0,n:0}, sims = 0;
+  for(const k in todo){ const x=respondidas(todo[k]); resp.b+=x.b; resp.n+=x.n; sims += (todo[k].simulacros||[]).length; }
+  const hoy = new Date(); hoy.setHours(0,0,0,0);
+  let semana = 0; const barras = [];
+  for(let i=13;i>=0;i--){ const d=new Date(hoy); d.setDate(d.getDate()-i); const s=dias[clave(d)]||0; if(i<7) semana+=s;
+    barras.push({s, l:"dlmmjvs"[d.getDay()], hoy:i===0, f:d}); }
+  const max = Math.max(600, ...barras.map(b=>b.s));
+  $("general").innerHTML = `<h2>${r>=2?`🔥 ${r} días seguidos`:"Resumen"}</h2>
+    <div class="stats">
+      <div class="stat"><b>${tiempo(semana)}</b><span>estudiando esta semana</span></div>
+      <div class="stat"><b>${resp.n}</b><span>preguntas respondidas</span></div>
+      <div class="stat"><b>${resp.n?Math.round(100*resp.b/resp.n)+"%":"–"}</b><span>bien en total</span></div>
+    </div>
+    <div class="dias" role="img" aria-label="Minutos de estudio de los últimos 14 días">${barras.map(b=>`<div class="dia ${b.hoy?"hoy":""}" title="${corta(b.f)}: ${tiempo(b.s)}">
+      <i class="${b.s?"":"cero"}" style="height:${b.s?Math.max(8,b.s/max*52):3}px"></i><span>${b.l}</span></div>`).join("")}</div>
+    <p class="aviso">${sims?`${sims} simulacro${sims>1?"s":""} hechos en total. `:""}Las barras son los minutos de estudio de cada día (las últimas dos semanas).${Object.keys(dias).length<7?" Se empezaron a contar el 3 de noviembre.":""}</p>`;
+}
+
+/* ---------- selector de materia ---------- */
+let actual = null;
+function mats(){
+  const con = MATS.filter(m=>todo[m.clave]);
+  if(!con.length){ $("mats").innerHTML=""; return; }
+  const desdeLink = location.hash.slice(1);
+  if(!actual || !todo[actual]) actual = (con.find(m=>m.clave===desdeLink) || con.slice().sort((a,b)=>ultimoUso(todo[b.clave])-ultimoUso(todo[a.clave]))[0]).clave;
+  $("mats").innerHTML = con.map(m=>`<button class="mat" data-k="${m.clave}" aria-pressed="${m.clave===actual}" style="--c:${m.c};--s:${m.s}">${m.ic} ${esc(m.nom)}</button>`).join("");
+  $("mats").querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{ actual=b.dataset.k; history.replaceState(null,"","#"+actual); mats(); materia(); });
+}
+
+/* ---------- gráfico de notas ---------- */
+function grafico(lista, val, etiqueta){
+  const W=320, H=150, x0=30, x1=W-12, y0=12, y1=H-24;
+  const n=lista.length, X=i=> n===1?(x0+x1)/2 : x0+(x1-x0)*i/(n-1), Y=v=> y1-(y1-y0)*v/100;
+  const pts = lista.map((s,i)=>[X(i),Y(val(s))]);
+  const linea = pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join(" ");
+  const area = n>1 ? linea+` L${pts[n-1][0].toFixed(1)} ${y1} L${pts[0][0].toFixed(1)} ${y1} Z` : "";
+  const marcas = n<=8 ? lista.map((_,i)=>i) : [0, Math.floor(n/2), n-1];
+  return `<svg class="grafico" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(etiqueta)}">
+    ${[0,60,80,100].map(v=>`<line x1="${x0}" x2="${x1}" y1="${Y(v)}" y2="${Y(v)}" stroke="${v===60?"#e0a21b":v===80?"#2fae78":"#f1dbe6"}" stroke-width="1" ${v===60||v===80?'stroke-dasharray="4 4" opacity=".55"':""}/>
+      <text x="${x0-6}" y="${Y(v)+4}" text-anchor="end" font-size="10" fill="#7b5a6f">${v}</text>`).join("")}
+    ${area?`<path d="${area}" fill="#ff7eb6" opacity=".12"/>`:""}
+    <path d="${linea}" fill="none" stroke="#e2559a" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
+    ${pts.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="${i===n-1?5.5:4}" fill="${i===n-1?"#e2559a":"#fff"}" stroke="#e2559a" stroke-width="2.5"/>`).join("")}
+    ${marcas.map(i=>`<text x="${pts[i][0]}" y="${pts[i][1]-10}" text-anchor="middle" font-size="12" fill="#4a2a3f">${Math.round(val(lista[i]))}</text>
+      <text x="${pts[i][0]}" y="${H-6}" text-anchor="middle" font-size="10" fill="#7b5a6f">${corta(lista[i].f)}</text>`).join("")}
+  </svg>`;
+}
+function tendencia(lista, val){
+  if(lista.length<2) return "";
+  const a=val(lista[0]), b=val(lista[lista.length-1]), d=Math.round(b-a);
+  const mejor = Math.max(...lista.map(val));
+  return d>0 ? `📈 Subiste ${d} puntos desde el primero. Mejor nota: ${Math.round(mejor)}.`
+    : d<0 ? `El último salió ${-d} puntos más bajo que el primero. Mejor nota: ${Math.round(mejor)}. ¡Repasá los temas flojos y probá otra vez!`
+    : `Igual que el primero. Mejor nota: ${Math.round(mejor)}.`;
+}
+
+/* ---------- una materia ---------- */
+function materia(){
+  const caja = $("materia");
+  const m = MATS.find(x=>x.clave===actual), d = todo[actual];
+  if(!m || !d){ caja.innerHTML = `<section class="card"><p class="vacio">Todavía no hay nada guardado. Entrá a una materia y jugá una partida: acá vas a ver cómo te va.</p><a class="btn" href="../">Ir a las materias</a></section>`; return; }
+  const temas = temasDe(d), sims = (d.simulacros||[]).slice(), ir = "../"+m.carpeta;
+  let h = "";
+
+  /* simulacros */
+  h += `<section class="card"><h2>📋 Simulacros <small>${sims.length?sims.length+" hecho"+(sims.length>1?"s":""):""}</small></h2>`;
+  if(!sims.length) h += `<p class="vacio">Todavía no hiciste ningún simulacro de ${esc(m.nom)}. Es la mejor forma de practicar el examen.</p><a class="btn" href="${ir}">Hacer un simulacro</a>`;
+  else{
+    h += grafico(sims, s=>s.pct, "Notas de los simulacros") + `<p class="tendencia">${tendencia(sims, s=>s.pct)}</p>`;
+    h += sims.slice().reverse().map((s,i)=>simulacro(s, temas, i===0)).join("");
+  }
+  h += `</section>`;
+
+  /* temas */
+  const lt = Object.entries(temas).filter(([,t])=>t.b+t.m>0);
+  h += `<section class="card"><h2>🎯 Cómo te va por tema</h2><p class="sub">Todas las preguntas que respondiste, en partidas y simulacros.</p>`;
+  if(!lt.length) h += `<p class="vacio">Todavía no respondiste preguntas de esta materia.</p>`;
+  else{
+    const peor = lt.filter(([,t])=>t.b+t.m>=4).sort((a,b)=>a[1].b/(a[1].b+a[1].m)-b[1].b/(b[1].b+b[1].m))[0];
+    h += Object.entries(temas).map(([k,t])=>{ const n=t.b+t.m, p=n?Math.round(100*t.b/n):0, est=(d.est||{})[k]||0;
+      return `<div class="fila" style="--tc:${t.c}"><span>${esc(t.nom)}${peor&&peor[0]===k&&p<80?`<span class="flojo">← repasá este</span>`:""}</span>
+        <span>${n?p+"% ":"–"}<small style="color:var(--tinta-suave)">${n?`(${t.b}/${n})`:""}</small> ${"🍓".repeat(est)}</span>
+        <div class="barra"><i style="width:${p}%"></i></div></div>`; }).join("");
+  }
+  h += `</section>`;
+
+  /* partidas */
+  const hist = (d.hist||[]).filter(x=>x.n>0);
+  if(hist.length){
+    const mix = hist.filter(x=>x.m==="mix" && !x.rep);
+    h += `<section class="card"><h2>🎮 Partidas <small>${hist.length} jugada${hist.length>1?"s":""}</small></h2>`;
+    if(mix.length>=2) h += `<p class="sub">Prueba mezclada (% de aciertos):</p>` + grafico(mix.slice(-15), x=>100*x.ok/x.n, "Aciertos en la prueba mezclada");
+    h += `<ul class="lista-ej">${hist.slice(-6).reverse().map(x=>`<li><span>${esc(x.m==="mix"?(x.rep?"Repaso de falladas":"Prueba mezclada"):((d.temasInfo||{})[x.m]||{}).nom||x.m)}</span>
+      <span>${x.ok}/${x.n} · ${corta(x.f)}</span></li>`).join("")}</ul></section>`;
+  }
+
+  /* más falladas */
+  const fall = Object.entries(d.vistas||{}).filter(([,v])=>v.mal>0 && v.q)
+    .sort((a,b)=> (b[1].mal/(b[1].bien+b[1].mal)+(b[1].ultimaMal?1:0)) - (a[1].mal/(a[1].bien+a[1].mal)+(a[1].ultimaMal?1:0)) || b[1].mal-a[1].mal).slice(0,5);
+  h += `<section class="card"><h2>🔁 Para repasar</h2>`;
+  if(!fall.length) h += `<p class="vacio">¡No hay preguntas falladas por ahora!</p>`;
+  else h += `<p class="sub">Las que más te cuestan:</p>` + fall.map(([,v])=>`<div class="preg mal"><div class="q">${F(v.q)}</div><div class="r">✓ ${F(v.c)}</div>
+      <div class="cuenta">Bien ${v.bien||0} · Mal ${v.mal}${v.ultimaMal?" · la última vez salió mal":""}</div></div>`).join("")
+    + `<a class="btn" href="${ir}#falladas">Repasar con Dina las que más fallo</a>`;
+  h += `</section>`;
+
+  /* ejercicios */
+  const eh = d.ejHist||[], marcas = Object.values(d.ej||{});
+  if(eh.length || marcas.length){
+    const c = r => eh.length ? eh.filter(x=>x.r===r).length : marcas.filter(x=>x===r).length;
+    h += `<section class="card"><h2>✏️ Ejercicios en el cuaderno</h2>
+      <div class="ejs"><span>✅ ${c("si")} sí</span><span>🟡 ${c("masomenos")} más o menos</span><span>❌ ${c("no")} no</span></div>
+      ${eh.length?`<ul class="lista-ej">${eh.slice(-6).reverse().map(x=>`<li><span>${F(x.nom)}</span><span>${{si:"✅",masomenos:"🟡",no:"❌"}[x.r]||""} ${corta(x.f)}</span></li>`).join("")}</ul>`:""}
+    </section>`;
+  }
+  caja.innerHTML = h;
+}
+function simulacro(s, temas, abierto){
+  const nT = s.nT || (s.det?s.det.length:null);
+  const probs = s.problemas||[];
+  let h = `<details class="sim" ${abierto?"open":""}><summary><span class="notab" style="background:${colorNota(s.pct)}">${s.pct}</span>
+    <span class="simtx"><b>${fecha(s.f)}</b><span>Teoría ${s.teoria}${nT?"/"+nT:""}${probs.length?" · Problemas "+probs.reduce((a,b)=>a+(b||0),0)+"/"+probs.length*20:""}${s.usado!=null?" · "+s.usado+" de "+s.min+" min":s.min?" · "+s.min+" min":""}${s.acabo?" · ⏱ se acabó el tiempo":""}</span></span>
+    <span class="flecha">›</span></summary><div class="det">`;
+  if(s.t){ h += Object.entries(s.t).map(([k,[ok,n]])=>{ const t=temas[k]||{nom:k,c:"var(--rosa)"};
+    return `<div class="fila" style="--tc:${t.c}"><span>${esc(t.nom)}</span><span>${ok}/${n}</span><div class="barra"><i style="width:${100*ok/n}%"></i></div></div>`; }).join(""); }
+  if(probs.length) h += probs.map((p,i)=>`<div class="fila" style="--tc:var(--b3)"><span>Problema ${i+1}${s.probs&&s.probs[i]?": "+F(s.probs[i]):""}</span><span>${p??"–"}/20</span><div class="barra"><i style="width:${(p||0)*5}%"></i></div></div>`).join("");
+  if(s.det){
+    const mal = s.det.filter(x=>!x.ok);
+    h += mal.length ? `<p class="sub" style="margin-top:10px">Las que fallaste:</p>`+mal.map(x=>`<div class="preg mal"><div class="q">${F(x.q)}</div>
+      <div class="el">Elegiste: ${x.el?F(x.el):"(sin responder)"}</div><div class="r">✓ ${F(x.c)}</div></div>`).join("")
+      : `<p class="ok-msg">¡Toda la teoría bien!</p>`;
+  } else if(!s.t) h += `<p class="aviso">De este simulacro solo se guardó la nota. Desde ahora se guarda también qué respondiste en cada pregunta.</p>`;
+  return h + `</div></details>`;
+}
+
+function pintarTodo(){ general(); mats(); materia(); }
+
+/* =====================  IMAGEN PARA GUARDAR O MANDAR  ===================== */
+function cargarImg(src){ return new Promise(r=>{ const i=new Image(); i.onload=()=>r(i); i.onerror=()=>r(null); i.src=src; }); }
+async function imagen(){
+  const b=$("imagen"); b.disabled=true; b.textContent="Armando la imagen…";
+  try{
+    await document.fonts.ready;
+    const W=1080, filas = MATS.filter(m=>todo[m.clave]), H = 560 + Math.max(1,filas.length)*250;
+    const cv=document.createElement("canvas"); cv.width=W; cv.height=H; const g=cv.getContext("2d");
+    const D="Fredoka, 'Trebuchet MS', sans-serif", T="Andika, Verdana, sans-serif";
+    g.fillStyle="#fff7fb"; g.fillRect(0,0,W,H);
+    const nubes = await cargarImg("../fisica-1/assets/nubes.webp");
+    if(nubes){ g.globalAlpha=.18; for(let y=0;y<H;y+=330) for(let x=0;x<W;x+=330) g.drawImage(nubes,x,y,330,330); g.globalAlpha=1; }
+    const [sofi,dina] = await Promise.all([cargarImg("../fisica-1/assets/sofi.webp"), cargarImg("../fisica-1/assets/dina_corre.webp")]);
+    if(sofi) g.drawImage(sofi, 60, 50, 190*sofi.width/sofi.height, 190);
+    if(dina) g.drawImage(dina, W-60-150*dina.width/dina.height, 90, 150*dina.width/dina.height, 150);
+    const nombre = (Object.values(todo).find(d=>d.nombre)||{}).nombre || "Sofi";
+    g.textAlign="center"; g.fillStyle="#e2559a"; g.font=`700 76px ${D}`; g.fillText("Mi progreso",W/2,135);
+    g.fillStyle="#4a2a3f"; g.font=`600 38px ${D}`; g.fillText(`${nombre} · ${new Date().toLocaleDateString("es-PY",{day:"numeric",month:"long",year:"numeric"})}`,W/2,195);
+    // resumen
+    const dias=diasTodos(), r=racha(dias); let resp={b:0,n:0}, sem=0; const hoy=new Date(); hoy.setHours(0,0,0,0);
+    for(const k in todo){ const x=respondidas(todo[k]); resp.b+=x.b; resp.n+=x.n; }
+    for(let i=0;i<7;i++){ const d=new Date(hoy); d.setDate(d.getDate()-i); sem+=dias[clave(d)]||0; }
+    const st=[[r?`🔥 ${r}`:"–","días seguidos"],[tiempo(sem),"esta semana"],[String(resp.n),"preguntas"],[resp.n?Math.round(100*resp.b/resp.n)+"%":"–","bien"]];
+    st.forEach((s,i)=>{ const x=60+i*250; caja(g,x,260,230,170,"#ffffff"); g.fillStyle="#4a2a3f"; g.font=`700 50px ${D}`; g.fillText(s[0],x+115,340);
+      g.fillStyle="#7b5a6f"; g.font=`700 28px ${T}`; g.fillText(s[1],x+115,390); });
+    // materias
+    let y=480;
+    filas.forEach(m=>{ const d=todo[m.clave], sims=d.simulacros||[], x=respondidas(d);
+      caja(g,60,y,W-120,220,"#ffffff"); g.fillStyle=m.c; redondo(g,60,y,22,220,22); g.fill();
+      g.textAlign="left"; g.fillStyle="#4a2a3f"; g.font=`700 44px ${D}`; g.fillText(`${m.ic} ${m.nom}`,105,y+65);
+      g.fillStyle="#7b5a6f"; g.font=`700 28px ${T}`;
+      const ult=sims[sims.length-1], mejor=sims.length?Math.max(...sims.map(s=>s.pct)):null;
+      g.fillText(sims.length?`Último simulacro: ${ult.pct}/100`:"Sin simulacros todavía",105,y+112);
+      if(sims.length) g.fillText(`Mejor: ${mejor} · ${sims.length} simulacro${sims.length>1?"s":""}`,105,y+152);
+      g.fillText(x.n?`${x.n} preguntas · ${Math.round(100*x.b/x.n)}% bien · 🍓 ${Object.values(d.est||{}).reduce((a,b)=>a+b,0)}`:"Sin preguntas todavía",105,y+192);
+      if(sims.length>=2){ const ls=sims.slice(-10), gx=W-120-240, gw=220, gy=y+40, gh=150;
+        g.strokeStyle="#f1dbe6"; g.lineWidth=2; g.strokeRect(gx,gy,gw,gh);
+        g.strokeStyle="#e2559a"; g.lineWidth=6; g.lineJoin="round"; g.beginPath();
+        ls.forEach((s,i)=>{ const px=gx+10+(gw-20)*i/(ls.length-1), py=gy+gh-10-(gh-20)*s.pct/100; i?g.lineTo(px,py):g.moveTo(px,py); }); g.stroke(); }
+      g.textAlign="center"; y+=250; });
+    if(!filas.length){ g.fillStyle="#7b5a6f"; g.font=`700 32px ${T}`; g.fillText("Todavía no hay partidas guardadas",W/2,y+80); }
+    g.fillStyle="#7b5a6f"; g.font=`700 24px ${T}`; g.fillText("Dina Estudia · dibujos de Sofía",W/2,H-30);
+    const blob = await new Promise(r=>cv.toBlob(r,"image/png"));
+    const nom = `progreso-${clave(new Date())}.png`, file = new File([blob], nom, {type:"image/png"});
+    if(navigator.canShare && navigator.canShare({files:[file]})){ try{ await navigator.share({files:[file], title:"Mi progreso"}); return; }catch(e){ if(e.name==="AbortError") return; } }
+    descargar(blob, nom);
+  } finally { b.disabled=false; b.textContent="🖼️ Guardar imagen del progreso"; }
+}
+function redondo(g,x,y,w,h,r){ g.beginPath(); g.moveTo(x+r,y); g.arcTo(x+w,y,x+w,y+h,r); g.arcTo(x+w,y+h,x,y+h,r); g.arcTo(x,y+h,x,y,r); g.arcTo(x,y,x+w,y,r); g.closePath(); }
+function caja(g,x,y,w,h,c){ g.fillStyle="#e9b6cd"; redondo(g,x,y+8,w,h,30); g.fill(); g.fillStyle=c; redondo(g,x,y,w,h,30); g.fill(); }
+function descargar(blob, nom){ const a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download=nom; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),4000); }
+
+/* =====================  COPIA EN UN ARCHIVO  ===================== */
+function bajarCopia(){
+  const datos = {};
+  for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(/^dina[A-Za-z]+\.v\d+$/.test(k) || k==="dinaEstudia.examenes") datos[k]=leer(k); }
+  const blob = new Blob([JSON.stringify({app:"Dina Estudia", fecha:new Date().toISOString(), datos},null,1)], {type:"application/json"});
+  descargar(blob, `dina-estudia-copia-${clave(new Date())}.json`);
+  aviso("Listo: la copia quedó en Descargas.");
+}
+async function recuperar(file){
+  try{
+    const j = JSON.parse(await file.text()); if(!j || j.app!=="Dina Estudia" || !j.datos) throw 0;
+    let n=0;
+    for(const k in j.datos){
+      if(k==="dinaEstudia.examenes"){ const a=leer(k)||{}, b=j.datos[k]||{}; for(const id in b) if(!a[id] || (b[id].cuando||"")>(a[id].cuando||"")) a[id]=b[id];
+        localStorage.setItem(k, JSON.stringify(a)); n++; continue; }
+      if(!/^dina[A-Za-z]+\.v\d+$/.test(k)) continue;
+      const m = Nube.unir(leer(k), j.datos[k]); localStorage.setItem(k, JSON.stringify(m)); Nube.subir(k, m, true); n++;
+    }
+    cargar(); pintarTodo(); aviso(`Listo: se juntó la copia con lo que ya tenías (${n} materia${n===1?"":"s"}). No se borró nada.`);
+  }catch(_){ aviso("Ese archivo no es una copia de Dina Estudia."); }
+}
+function aviso(t){ const p=$("msgCopia"); p.hidden=false; p.textContent=t; }
+$("imagen").onclick=imagen;
+$("bajar").onclick=bajarCopia;
+$("restaurar").onclick=()=>$("archivo").click();
+$("archivo").onchange=e=>{ const f=e.target.files[0]; if(f) recuperar(f); e.target.value=""; };
+
+cargar(); pintarTodo(); pintarNube(); sincronizar();
+addEventListener("pageshow",e=>{ if(e.persisted){ cargar(); pintarTodo(); } });
+if("serviceWorker" in navigator) addEventListener("load",()=>navigator.serviceWorker.register("../sw.js",{scope:"../"}).catch(()=>{}));
+})();
+</script>
+</body>
+</html>

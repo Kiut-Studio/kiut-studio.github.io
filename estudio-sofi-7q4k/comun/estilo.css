@@ -244,3 +244,4 @@ sub{font-size:.72em;line-height:0;vertical-align:-.3em}
 .ped text{fill:var(--tinta-suave)}
 .ped .gen{fill:var(--tinta);font-family:var(--display);font-size:15px}
 .btn .der .frs{font-size:17px;letter-spacing:-2px}
+a.chip{text-decoration:none;color:inherit;display:inline-block}

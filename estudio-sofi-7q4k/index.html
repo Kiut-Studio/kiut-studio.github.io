@@ -55,6 +55,14 @@ h1{font-family:var(--display);font-weight:700;font-size:46px;line-height:1;margi
 .chip{font:inherit;border:0;cursor:pointer;padding:9px 16px;border-radius:999px;background:var(--blanco);box-shadow:0 2px 0 var(--sombra);font-weight:700;color:var(--tinta)}
 .chip:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
 .ayuda{text-align:center;color:var(--tinta-suave);font-weight:700;margin:0;text-wrap:balance}
+.progreso{display:flex;gap:14px;align-items:center;padding:14px 16px;border-radius:22px;background:var(--blanco);color:var(--tinta);text-decoration:none;
+  box-shadow:0 5px 0 var(--sombra);transition:transform .08s}
+.progreso:active{transform:translateY(3px);box-shadow:0 2px 0 var(--sombra)}
+.progreso:focus-visible{outline:3px solid var(--tinta);outline-offset:3px}
+.progreso .ic{flex:none;width:52px;height:52px;border-radius:16px;background:var(--crema);display:grid;place-items:center;font-size:28px}
+.progreso h2{margin:0;font-family:var(--display);font-size:22px;line-height:1.1}
+.progreso p{margin:3px 0 0;font-size:14px;font-weight:700;color:var(--tinta-suave)}
+.progreso .fl{margin-left:auto;font-size:22px;color:var(--rosa-osc);font-weight:700}
 .pie{text-align:center;font-size:12px;color:var(--tinta-suave);line-height:1.5;margin:6px 0 0}
 /* ---------- exámenes ---------- */
 .examenes{background:var(--blanco);border-radius:22px;padding:14px 14px 10px;box-shadow:0 5px 0 var(--sombra)}
@@ -88,6 +96,8 @@ h1{font-family:var(--display);font-weight:700;font-size:46px;line-height:1;margi
 </style>
 <!-- misma planilla de Google que las materias -->
 <script src="fisica-1/config.js"></script>
+<script src="comun/nube.js"></script>
+<script src="comun/materias.js"></script>
 </head>
 <body>
 <main class="app">
@@ -95,22 +105,15 @@ h1{font-family:var(--display);font-weight:700;font-size:46px;line-height:1;margi
   <p class="hola" id="hola">¿Qué vamos a estudiar hoy?</p>
   <div class="duo"><img src="fisica-1/assets/sofi.webp" alt="Sofi"><img class="d" src="fisica-1/assets/dina_corre.webp" alt="Dina"></div>
   <section class="examenes" id="examenes" aria-label="Exámenes"></section>
+  <a class="progreso" href="progreso/"><span class="ic">📈</span><span><h2>Mi progreso</h2><p id="resProg">Simulacros, temas y días de estudio</p></span><span class="fl">→</span></a>
   <div class="materias" id="materias"></div>
   <div class="chips" id="chips"></div>
   <p class="ayuda" id="ayudaInst" hidden></p>
   <p class="pie">Dibujos de Sofía · Kiut Studio</p>
 </main>
 <script>
-/* Para agregar una materia: sumar un objeto acá y crear su carpeta.
-   clave = dónde guarda su progreso en el teléfono (para mostrarlo en la tarjeta). */
-const MATERIAS = [
-  {carpeta:"quimica-1/", nom:"Química I", sub:"pH, soluciones, concentración y molaridad", ic:"🧪", c:"#3a9bd9", s:"#24739f", clave:"dinaQuimica.v1", temas:4, ej:6, ejNom:"tipos de ejercicio"},
-  {carpeta:"biologia/", nom:"Biología", sub:"Herencia, Mendel, ligada al sexo y pedigrí", ic:"🧬", c:"#2fb37e", s:"#1f8a5f", clave:"dinaBio.v1", temas:4, ej:3, ejNom:"cruzamientos"},
-  {carpeta:"fisica-1/", nom:"Física 1", sub:"Ley de Coulomb y campo eléctrico", ic:"⚡", c:"#ff7eb6", s:"#d9579a", clave:"dinaFisica.v1", temas:4, ej:18, ejNom:"ejercicios"},
-  {carpeta:"historia/", nom:"Historia y Geografía", sub:"Democratización, calidad de vida, integración", ic:"🗺️", c:"#ff9a3c", s:"#d9741c", clave:"dinaHistoria.v1", temas:6},
-  {carpeta:"orientacion/", nom:"Orientación", sub:"Participación, Centro de Estudiantes, empleo", ic:"🧭", c:"#8a5ce0", s:"#6a3fbf", clave:"dinaOrientacion.v1", temas:4},
-  {nom:"Física 2", sub:"Próximamente", ic:"🔋", pronto:true}
-];
+/* Las materias están en comun/materias.js */
+const MATERIAS = window.DINA_MATERIAS;
 
 function leer(clave){ try{ return JSON.parse(localStorage.getItem(clave)||"null"); }catch(_){ return null; } }
 function progreso(m){
@@ -122,12 +125,21 @@ function progreso(m){
   if(sim!=null) chips.push(`📋 último simulacro: ${sim}/100`);
   return `<div class="prog">${chips.map(c=>`<span>${c}</span>`).join("")}</div>`;
 }
-document.getElementById("materias").innerHTML = MATERIAS.map(m=> m.pronto
-  ? `<div class="materia pronto" aria-disabled="true"><span class="ic">${m.ic}</span><span class="tx"><h2>${m.nom}</h2><p>${m.sub}</p></span></div>`
-  : `<a class="materia" href="${m.carpeta}" style="--c:${m.c};--s:${m.s}"><span class="ic">${m.ic}</span><span class="tx"><h2>${m.nom}</h2><p>${m.sub}</p>${progreso(m)}</span></a>`).join("");
-
-const f = MATERIAS.map(m=>m.clave&&leer(m.clave)).find(d=>d&&d.nombre);
-if(f && f.nombre) document.getElementById("hola").textContent = `¡Hola, ${f.nombre}! ¿Qué vamos a estudiar hoy?`;
+let f = null;
+function pintarMaterias(){
+  document.getElementById("materias").innerHTML = MATERIAS.map(m=> m.pronto
+    ? `<div class="materia pronto" aria-disabled="true"><span class="ic">${m.ic}</span><span class="tx"><h2>${m.nom}</h2><p>${m.sub}</p></span></div>`
+    : `<a class="materia" href="${m.carpeta}" style="--c:${m.c};--s:${m.s}"><span class="ic">${m.ic}</span><span class="tx"><h2>${m.nom}</h2><p>${m.sub}</p>${progreso(m)}</span></a>`).join("");
+  f = MATERIAS.map(m=>m.clave&&leer(m.clave)).find(d=>d&&d.nombre);
+  if(f && f.nombre) document.getElementById("hola").textContent = `¡Hola, ${f.nombre}! ¿Qué vamos a estudiar hoy?`;
+  // racha de días seguidos estudiando (cualquier materia)
+  const dias = new Set(); MATERIAS.forEach(m=>{ const d=m.clave&&leer(m.clave); if(d&&d.dias) Object.keys(d.dias).forEach(k=>dias.add(k)); });
+  let racha=0; const x=new Date(); const k=()=>x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0");
+  if(!dias.has(k())) x.setDate(x.getDate()-1);
+  while(dias.has(k())){ racha++; x.setDate(x.getDate()-1); }
+  document.getElementById("resProg").textContent = racha>=2 ? `🔥 ${racha} días seguidos estudiando` : "Simulacros, temas y días de estudio";
+}
+pintarMaterias();
 
 
 /* =====================  EXÁMENES  =====================
@@ -154,7 +166,7 @@ const EXAMENES = [
 ];
 const CLAVE_EX = "dinaEstudia.examenes";
 let estEx = leer(CLAVE_EX) || {};
-function guardarEx(){ try{ localStorage.setItem(CLAVE_EX, JSON.stringify(estEx)); }catch(_){} }
+function guardarEx(){ try{ localStorage.setItem(CLAVE_EX, JSON.stringify(estEx)); }catch(_){} if(window.Nube) Nube.subir("dinaExamenes.v1", {tipo:"examenes", ex:estEx}, true); }
 const DIAS = ["dom","lun","mar","mié","jue","vie","sáb"];
 function fechaDe(e){ const x=estEx[e.id]; return (x && x.f!==undefined) ? x.f : e.f; }
 function rendido(e){ return !!(estEx[e.id] && estEx[e.id].r); }
@@ -200,7 +212,7 @@ function examenes(){
   });
   caja.querySelectorAll("input[type=date]").forEach(i=>i.onchange=()=>{
     const id=i.id.slice(3), e=EXAMENES.find(x=>x.id===id); if(!i.value) return;
-    estEx[id]=Object.assign(estEx[id]||{}, {f:i.value}); guardarEx();
+    estEx[id]=Object.assign(estEx[id]||{}, {f:i.value, cuando:new Date().toISOString()}); guardarEx();
     anotarEx({tipo:"examen", materia:e.nom, fechaExamen:i.value, estado:"fecha nueva"});
     examenes();
   });
@@ -223,6 +235,18 @@ async function reenviarEx(){
   finally{ enviando=false; }
 }
 examenes(); reenviarEx();
+
+/* Copia en la nube: materias y calendario. Si llega algo nuevo (otro teléfono, datos borrados), se vuelve a pintar. */
+(async()=>{
+  if(!window.Nube) return;
+  const cambio = await Nube.sincronizarTodo(MATERIAS.filter(m=>m.clave).map(m=>m.clave));
+  const n = await Nube.bajar(); if(!n) return;
+  const remoto = (n["dinaExamenes.v1"]||{}).ex||{}; let c=false;
+  for(const id in remoto){ const a=estEx[id], b=remoto[id]; if(!a || (b.cuando||"")>(a.cuando||"")){ estEx[id]=b; c=true; } }
+  if(c){ try{ localStorage.setItem(CLAVE_EX, JSON.stringify(estEx)); }catch(_){} examenes(); }
+  if(JSON.stringify(remoto)!==JSON.stringify(estEx)) Nube.subir("dinaExamenes.v1", {tipo:"examenes", ex:estEx}, true);
+  if(cambio) pintarMaterias();
+})();
 
 /* Instalar como app (una sola app con todas las materias) */
 let aviso=null;

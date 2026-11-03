@@ -61,6 +61,7 @@ h1{font-family:var(--display);font-weight:700;font-size:44px;line-height:1;margi
 .btn .der .fr{font-size:17px;letter-spacing:-2px}
 .btn.mix{background:var(--blanco);color:var(--tinta);--s:var(--sombra);border:2px solid var(--rosa)}
 .chips{display:flex;gap:8px;justify-content:center;margin:14px 0 4px;flex-wrap:wrap}
+a.chip{text-decoration:none;color:inherit;display:inline-block}
 .chip{padding:8px 14px;border-radius:999px;background:var(--blanco);box-shadow:0 2px 0 var(--sombra);font-weight:800;font-size:14px}
 .chip[aria-pressed="true"]{background:var(--tinta);color:var(--blanco);box-shadow:none}
 .pie{text-align:center;font-size:12px;color:var(--tinta-suave);margin-top:14px;line-height:1.5}
@@ -236,6 +237,7 @@ sub{font-size:.72em;line-height:0;vertical-align:-.3em}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 <script src="config.js"></script>
+<script src="../comun/nube.js"></script>
 </head>
 <body>
 <div class="app" id="app"></div>
@@ -780,7 +782,7 @@ function formulas(){
 const CLAVE = "dinaFisica.v1";
 let datos = {est:{}, mejor:{}, vistas:{}, ej:{}, apuro:true, mudo:false, nombre:"Sofi", cola:[], letra:"andika", escala:1};
 try{ const g = JSON.parse(localStorage.getItem(CLAVE)||"null"); if(g) datos = Object.assign(datos,g); }catch(_){}
-function guardar(){ try{ localStorage.setItem(CLAVE, JSON.stringify(datos)); }catch(_){} }
+function guardar(ya){ try{ localStorage.setItem(CLAVE, JSON.stringify(datos)); }catch(_){} if(window.Nube) Nube.subir(CLAVE, datos, ya); }
 /* Letra y tamaño a elección (botón Aa en cada pantalla). Las letras se bajan solo cuando hacen falta. */
 const LETRAS = {
   andika:  {nom:"Escolar",   f:"Andika",                g:"Andika:wght@400;700"},
@@ -851,6 +853,26 @@ const $ = s => app.querySelector(s);
 const fresas = n => "🍓".repeat(n) + "<span style='opacity:.3'>" + "🍓".repeat(3-n) + "</span>";
 function estrellasDe(ok,tot){ const p=ok/tot; return p>=.99?3:p>=.75?2:p>=.5?1:0; }
 
+/* una pregunta respondida: cuenta para que las falladas vuelvan más seguido y para el progreso */
+function marcarVista(p, bien){
+  const v = datos.vistas[p.id] || {bien:0,mal:0}; v[bien?"bien":"mal"]++; v.ultimaMal=!bien;
+  v.b=p.b; v.q=p.q; v.c=p.o[0]; datos.vistas[p.id]=v;
+}
+/* simulacro terminado, con el detalle de cada pregunta (se ve después en Mi progreso) */
+function guardarSim(S, pct, pT, nombres){
+  const fila = {f:Date.now(), pct, teoria:S.okT, nT:S.teoria.length, pT, problemas:S.notas, probs:nombres, min:S.min, usado:S.usado, acabo:S.seAcabo||undefined,
+    t:Nube.porTema(S.teoria.map(x=>({b:x.p.b, ok:x.elegida>=0&&x.ops[x.elegida].bien}))),
+    det:S.teoria.map(x=>({id:x.p.id, b:x.p.b, ok:(x.elegida>=0&&x.ops[x.elegida].bien)?1:0, q:x.p.q, c:x.p.o[0], el:x.elegida>=0?x.ops[x.elegida].txt:"", seg:Math.round(x.seg||0)}))};
+  if(window.Nube){ Nube.simulacro(datos, fila); Nube.sumarTiempo(datos, (Date.now()-S.inicio)/1000 - S.teoria.reduce((a,x)=>a+(x.seg||0),0), S.min*60); }
+  else datos.simulacros=(datos.simulacros||[]).concat([fila]).slice(-60);
+  guardar(true);
+}
+function masFalladas(n){
+  return BANCO.filter(p=>{ const v=datos.vistas[p.id]; return v && v.mal>0; })
+    .sort((a,b)=>{ const x=datos.vistas[a.id], y=datos.vistas[b.id]; return (y.mal/(y.bien+y.mal)+(y.ultimaMal?1:0)) - (x.mal/(x.bien+x.mal)+(x.ultimaMal?1:0)) || y.mal-x.mal; })
+    .slice(0,n);
+}
+
 function menu(){
   pararReloj(); pararSim(); S=null;
   let h = `<div class="top"><span class="izq"><a class="redondo" href="../" aria-label="Volver a las materias">🏠</a><button class="redondo aa" aria-label="Cambiar letra y tamaño">Aa</button></span><button class="redondo" id="mudo" aria-label="Sonido">${datos.mudo?"🔇":"🔊"}</button></div>
@@ -867,7 +889,7 @@ function menu(){
   h += `<button class="btn form" id="forms"><span class="nom">📐 Fórmulas<small>todas las del material, con qué es cada letra</small></span></button>`;
   h += `<button class="btn ej" id="ejs"><span class="nom">📝 Ejercicios en papel<small>los ${EJ.length} del material, paso a paso</small></span><span class="der">${hechos}/${EJ.length} ✓</span></button>`;
   h += `</div>
-  <div class="chips"><button class="chip" id="quien">👤 Juega: ${datos.nombre}</button>${yaInstalada()?"":`<button class="chip" id="instalar">📲 Instalar</button>`}</div>
+  <div class="chips"><a class="chip" href="../progreso/#${CLAVE}">📈 Mi progreso</a><button class="chip" id="quien">👤 Juega: ${datos.nombre}</button>${yaInstalada()?"":`<button class="chip" id="instalar">📲 Instalar</button>`}</div>
   <p class="ayuda" id="ayudaInst" hidden></p>
   <div class="chips" role="group" aria-label="Tiempo">
     <button class="chip" id="conApuro" aria-pressed="${datos.apuro}">⏱ Con reloj</button>
@@ -960,14 +982,15 @@ function gotas(){
     g.style.setProperty("--dx",(dx*(.6+Math.random()*.5))+"px"); g.style.setProperty("--dy",(dy*(.6+Math.random()*.5)+(Math.random()*30-15))+"px");
     g.style.animationDelay=(k*.02)+"s"; esc.appendChild(g); setTimeout(()=>g.remove(),900); }
 }
-function globo(txt,color){ const g=document.createElement("div"); g.className="globo"; g.textContent=txt; g.style.color=color; $("#esc").appendChild(g); setTimeout(()=>g.remove(),950); }
+function globo(txt,color){ if(!$("#esc")) return; const g=document.createElement("div"); g.className="globo"; g.textContent=txt; g.style.color=color; $("#esc").appendChild(g); setTimeout(()=>g.remove(),950); }
 
 function responder(k){
   if(P.listo) return; P.listo=true; pararReloj();
   const p=P.qs[P.i], bien = k>=0 && P.ops[k].bien, dina=$("#dina");
   $("#tarj").querySelectorAll(".op").forEach((b,j)=>{ b.disabled=true; if(P.ops[j].bien) b.classList.add("bien"); else if(j===k) b.classList.add("mal"); });
-  const v = datos.vistas[p.id] || {bien:0,mal:0}; v[bien?"bien":"mal"]++; v.ultimaMal=!bien; datos.vistas[p.id]=v; guardar();
-  P.res.push({p,bien,elegida:k>=0?P.ops[k].txt:null,seg:Math.round((performance.now()-P.t0)/1000)});
+  const crudo = (performance.now()-P.t0)/1000, seg = Math.round(crudo);
+  marcarVista(p, bien); if(window.Nube) Nube.sumarTiempo(datos, crudo); guardar();
+  P.res.push({p,bien,elegida:k>=0?P.ops[k].txt:null,seg});
   $("#dots").querySelectorAll("i")[P.i].classList.add(bien?"ok":"no");
   if(bien){
     P.ok++; P.racha++; sBien(); gotas(); globo(P.racha>=3?"¡Psst! ×"+P.racha:"¡Psst!", "var(--b4s)");
@@ -976,7 +999,7 @@ function responder(k){
   }else{
     P.racha=0; sMal(); P.torta=Math.max(0,P.torta-1);
     dina.classList.remove("bob"); const esc=$("#esc"); dina.style.transition="top .35s ease-in"; dina.style.top=(esc.clientHeight-64-48)+"px";
-    setTimeout(()=>{ dina.style.transition=""; dina.classList.add("come"); dina.src="assets/dina.webp"; $("#torta").classList.add("tiembla"); globo(k<0?"¡Ñam! Se acabó el tiempo":"¡Ñam!","var(--mal)"); },350);
+    setTimeout(()=>{ dina.style.transition=""; dina.classList.add("come"); dina.src="assets/dina.webp"; if(!$("#torta")) return; $("#torta").classList.add("tiembla"); globo(k<0?"¡Ñam! Se acabó el tiempo":"¡Ñam!","var(--mal)"); },350);
     setTimeout(()=>$("#torta") && $("#torta").classList.remove("tiembla"),800);
   }
   $("#pts").textContent=P.ok;
@@ -997,8 +1020,11 @@ function resultado(){
   const n=P.qs.length, est=estrellasDe(P.ok,n), mix=P.modo==="mix";
   if(!P.repaso){
     if(!mix) datos.est[P.modo]=Math.max(datos.est[P.modo]||0,est);
-    datos.mejor[P.modo]=Math.max(datos.mejor[P.modo]??0,P.ok); guardar();
+    datos.mejor[P.modo]=Math.max(datos.mejor[P.modo]??0,P.ok);
   }
+  if(window.Nube) Nube.partida(datos, {f:Date.now(), m:P.modo, rep:P.repaso||undefined, ok:P.ok, n, seg:P.res.reduce((a,r)=>a+r.seg,0),
+    t:Nube.porTema(P.res.map(r=>({b:r.p.b, ok:r.bien}))), mal:P.res.filter(r=>!r.bien).map(r=>r.p.id)});
+  guardar(true);
   anotar({tipo:"partida", modo: mix?"Prueba mezclada":TEMAS[P.modo].nom, repaso:P.repaso, aciertos:P.ok, total:n,
     respuestas:P.res.map(r=>({id:r.p.id, tema:TEMAS[r.p.b].nom, pregunta:r.p.q, bien:r.bien, elegida:r.elegida||"(se acabó el tiempo)", correcta:r.p.o[0], seg:r.seg}))});
   const tit = est===3?"¡Torta intacta!":est===2?"¡Muy bien!":est===1?"¡Vas bien!":"Dina se comió casi toda la torta";
@@ -1076,7 +1102,8 @@ function verEj(i,nuevo){
       $("#fin").querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{
         const r=b.dataset.r;
         if(nuevo){ datos.var=datos.var||{}; datos.var[e.id]=r; } else datos.ej[e.id]=r;
-        guardar();
+        if(window.Nube) Nube.ejercicio(datos, {f:Date.now(), id:e.id+(nuevo?"*":""), nom:e.t, r});
+        guardar(true);
         anotar({tipo:"ejercicio", id:e.id+(nuevo?"*":""), nivel:NIVELES[e.n]+(nuevo?" · números nuevos":""), ejercicio:e.t, resultado:{si:"Sí",masomenos:"Más o menos",no:"No"}[r], enunciado:e.q, respuesta:e.r});
         if(r==="si") sBien();
         $("#fin").innerHTML=`<p class="anotado">${r==="si"?"¡Muy bien! ":""}Anotado ${ICONO[r]}</p>`;
@@ -1165,6 +1192,7 @@ function corregirTeoria(){
   S.parte="c";
   const ok=S.teoria.filter(x=>x.elegida>=0 && x.ops[x.elegida].bien).length;
   S.okT=ok;
+  S.teoria.forEach(x=>marcarVista(x.p, x.elegida>=0 && x.ops[x.elegida].bien)); guardar();
   app.innerHTML = `<div class="cab-ej"><span></span><h2>Corrección</h2>${AA_BTN}</div>
     ${S.seAcabo?`<p class="aviso">⏱ Se terminó el tiempo. Corregimos lo que hiciste.</p>`:""}
     <div class="tarjeta"><span class="tema" style="--tc:var(--rosa-osc)">Teoría</span>
@@ -1197,7 +1225,7 @@ function corregirProblema(){
 }
 function notaFinal(){
   const pT=S.okT*5, pP=S.notas.reduce((a,b)=>a+b,0), pct=pT+pP;
-  datos.simulacros=(datos.simulacros||[]).concat([{f:Date.now(), pct, teoria:S.okT, problemas:S.notas, min:S.min}]).slice(-30); guardar();
+  guardarSim(S, pct, pT, S.probs.map(e=>e.t));
   anotar({tipo:"simulacro", nota:pct, teoria:`${S.okT} de ${S.teoria.length}`, puntosTeoria:pT,
     problemas:S.probs.map((e,k)=>({ejercicio:e.t, puntos:S.notas[k]})), minutos:S.min, usados:S.usado, seAcabo:!!S.seAcabo});
   const tit = pct>=80?"¡Muy bien preparada!":pct>=60?"¡Vas bien!":"Todavía falta un poco";
@@ -1274,8 +1302,20 @@ async function instalar(){
 }
 if("serviceWorker" in navigator) addEventListener("load",()=>navigator.serviceWorker.register("../sw.js",{scope:"../"}).catch(()=>{}));
 
-menu();
+/* arranque: "#falladas" abre directo el repaso de las más falladas (botón de Mi progreso) */
+if(window.Nube) Nube.meta(datos, "Física 1", TEMAS, BANCO);
+(function(){
+  const f = location.hash==="#falladas" ? masFalladas(10) : [];
+  history.replaceState(null,"",location.pathname);
+  if(f.length) empezar("mix", f); else menu();
+})();
 reenviar();
+/* copia en la nube: unir con lo que haya (por si se usó en otro teléfono o se borraron los datos) */
+if(window.Nube) Nube.abrir(CLAVE, ()=>datos, m=>{
+  Object.assign(datos, m); Nube.meta(datos, "Física 1", TEMAS, BANCO);
+  try{ localStorage.setItem(CLAVE, JSON.stringify(datos)); }catch(_){}
+  if(!P && !S && app.querySelector(".lista")) menu();
+});
 </script>
 </body>
 </html>
