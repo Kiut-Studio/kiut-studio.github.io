@@ -82,6 +82,9 @@ const PALABRAS = [
   ["Jasypateĩ","Noviembre","jasy = mes · pa = diez · teĩ = uno → mes 11"],
   ["Jasypa","Octubre","mes 10"],
   // palabras chiquitas que aparecen siempre
+  ["Ñe'ẽpoty","Poesía","ñe'ẽ = palabra · poty = flor"],["Ñe'ẽpapára","Poeta",""],["Haihára","Autor, escritor",""],["Ruguy","Sangre","«López ruguy» = la sangre de López"],
+  ["Che ru","Mi papá",""],["Oñorairõva'ekue","El que peleó en la guerra",""],["Tetã rayhupápe","Por amor a la patria",""],["Tatatĩ","Humo","en el poema: tatatĩna = la amenaza"],
+  ["-kuéra / -nguéra","Plural","kavajukuéra = los caballos · mitãnguéra = los niños"],["-kue","Lo que fue","rogakue = su antigua casa"],["-rã","Lo que va a ser, para","tembi'urã = para comer"],
   ["Ha","Y",""],["Avei","También",""],["Ko","Este, esta",""],["Umi","Esos, esas",""],
   ["Heta","Mucho, muchos",""],["Peteĩ","Uno, una",""],["Ndaha'éi","No es",""],["Ikatu","Puede, se puede",""],
   ["Tapicha","Persona, gente",""],["Óga","Casa",""],["Mitã","Niño, niña",""],["Ára","Día, tiempo",""]
@@ -181,7 +184,8 @@ window.MATERIA = {
     g2:{nom:"Káso ñemombe'u", sub:"los casos de la clase", c:"var(--b2)", s:"var(--b2s)"},
     g3:{nom:"Palabras de los casos", sub:"significado contextual", c:"var(--b3)", s:"var(--b3s)"},
     g4:{nom:"Hecho, opinión y modos", sub:"oje'éva, oñeimo'ãva, gua'u, mo'ã", c:"var(--b4)", s:"var(--b4s)"},
-    g5:{nom:"Afiche, carta, CV y entrevista", sub:"marandu'anga, kuatiañe'ẽ…", c:"#3a9bd9", s:"#24739f"}
+    g5:{nom:"Afiche, carta, CV y entrevista", sub:"marandu'anga, kuatiañe'ẽ…", c:"#3a9bd9", s:"#24739f"},
+    g6:{nom:"Ñe'ẽpoty: Kangue rekyi", sub:"el poema de Félix Fernández (1.ª etapa)", c:"#e0a21b", s:"#a87806"}
   },
   banco:[
 /* ---------- Consignas y preguntas ---------- */
@@ -281,7 +285,26 @@ window.MATERIA = {
 {id:"f17",b:"g5",q:"Mba'épa he'ise **ñe'ẽjovake**?",es:"¿Qué significa «ñe'ẽjovake»?",o:["Entrevista","Carta","Debate","Cuento"],e:"La usan los periodistas en la tele, la radio y el celular para saber lo que piensa otra persona.",s:"Cuaderno: Ñe'ẽjovake"},
 {id:"f18",b:"g5",q:"¿Cuál es una regla para conversar bien en una entrevista?",o:["Escuchar al que habla y hablar de a uno","Hablar todos al mismo tiempo","Mover mucho los brazos","No dar nunca la opinión"],e:"Del cuaderno: ñahendu va'erã oñe'ẽvape (escuchar al que habla), ñañe'ẽ peteĩva'erã (hablar de a uno), ja'e avei ñane remimo'ã (decir nuestra opinión), sin mover demasiado brazos y boca.",s:"Cuaderno: Ñe'ẽjovake"},
 {id:"f19",b:"g5",q:"En una entrevista, **«Moõpa reiko?»** pregunta…",o:["¿Dónde vivís?","¿Cómo te llamás?","¿Qué hacés?","¿Cuántos años tenés?"],e:"Moõpa = dónde · reiko = vivís. Respuesta: «Aiko Villarrica-pe».",s:"Cuaderno: Ñe'ẽjovake"},
-{id:"f20",b:"g5",q:"¿Qué significa **Aguyje**?",o:["Gracias","Perdón","Hola","Chau"],e:"Aguyje = gracias. Para despedirse: «Jajotopata peve» (hasta la próxima).",s:"Ñe'ẽjovake"}
+{id:"h18",b:"g4",q:"¿Qué hacen las palabras **ombohetáva**?",o:["Hacen plural: indican que son muchos","Indican el tiempo","Indican el lugar","Niegan"],e:"Ombohetáva viene de heta = mucho. Plural con -kuéra (oral) o -nguéra (nasal): kavajukuéra (los caballos), mitãnguéra (los niños). Para decir «muchos»: -eta / -ita (yvotyeta = muchas flores).",s:"Clase de conectores (10/9) · ABC Color"},
+{id:"h19",b:"g4",q:"¿Cuál de estas palabras está en **plural**?",o:["Mitãnguéra","Mitã","Mitãme","Mitãrã"],e:"-nguéra se usa después de un sonido nasal (mitã); -kuéra después de uno oral (kavajukuéra).",s:"Plural"},
+{id:"h20",b:"g4",q:"En el caso aparece **«rogakue»** (Bernardino Caballero rogakue). ¿Qué indica **-kue**?",o:["Que ya no es, que fue (su antigua casa)","Que va a ser","Que son muchas","Que es grande"],e:"-kue = lo que fue: rogakue = su antigua casa. -rã = lo que va a ser: ogarã = futura casa. Son palabras de tiempo (ára).",s:"Káso póra rehegua"},
+{id:"h21",b:"g4",q:"¿Qué indica **-rã** en «tembi'urã» (para comer)?",o:["Lo que va a ser, para el futuro","Lo que ya pasó","Plural","Negación"],e:"-rã = futuro, «para»: tembi'urã = lo que va a ser comida. -kue = pasado: rogakue = antigua casa.",s:"Mboriahu ryguatã káso"},
+{id:"f20",b:"g5",q:"¿Qué significa **Aguyje**?",o:["Gracias","Perdón","Hola","Chau"],e:"Aguyje = gracias. Para despedirse: «Jajotopata peve» (hasta la próxima).",s:"Ñe'ẽjovake"},
+/* ---------- Ñe'ẽpoty: Kangue rekyi (1.ª etapa, 23/6) ---------- */
+{id:"p1",b:"g6",q:"Mávapa ohai ñe'ẽpoty «Kangue rekyi»?",es:"¿Quién escribió el poema «Kangue rekyi»?",o:["Félix Fernández","David Galeano Olivera","Mariscal López","Bernardino Caballero"],e:"Félix Fernández, poeta y músico de Itauguá. Ñe'ẽpoty = poesía.",s:"Cuaderno (23/6)"},
+{id:"p2",b:"g6",q:"Mba'épa he'ise **ñe'ẽpoty**?",es:"¿Qué significa «ñe'ẽpoty»?",o:["Poesía, poema","Cuento","Carta","Entrevista"],e:"Ñe'ẽ = palabra · poty = flor: «palabra florida». El poeta es el ñe'ẽpapára.",s:"Cuaderno (23/6)"},
+{id:"p3",b:"g6",q:"Mba'épa he'ise **ñe'ẽpapára**?",es:"¿Qué significa «ñe'ẽpapára»?",o:["Poeta","Soldado","Lector","Maestro"],e:"El que escribe poesía. Haihára = escritor, autor.",s:"Cuaderno (23/6)"},
+{id:"p4",b:"g6",q:"¿A quién está dedicado el poema «Kangue rekyi»?",o:["Al Mariscal Francisco Solano López","A Bernardino Caballero","A una abuela","A un curandero"],e:"El poema homenajea al Mariscal López y recuerda la Guerra Grande, los veteranos y Cerro Corá.",s:"Portal Guaraní"},
+{id:"p5",b:"g6",q:"Mba'épa ohechaukase haihára ko ñe'ẽpoty rupive?",es:"¿Qué quiere mostrar el autor con este poema?",o:["Quiere homenajear al Mariscal López","Quiere contar un caso de fantasmas","Quiere vender algo","Quiere explicar cómo escribir una carta"],e:"Respuesta del cuaderno: «Oipota oñemomba'e Mariscal López-pe» = quiere que se honre al Mariscal López.",s:"Cuaderno (23/6), ítem 3"},
+{id:"p6",b:"g6",q:"Mávapa ojapo pe mba'e guasu oñemombe'úva ñe'ẽpotýpe?",es:"¿Quién hizo la gran cosa que se cuenta en el poema?",o:["Mariscal López, que llevó adelante la patria y peleó por amor a ella","El poeta Félix Fernández","El papá veterano del poeta","Los vecinos del pueblo"],e:"Respuesta del cuaderno: «Mariscal López omotenondéva tetã rekove ha oñorairõ tetã rayhupápe».",s:"Cuaderno (23/6), ítem 4"},
+{id:"p7",b:"g6",q:"En el poema, ¿quién dice que la **sangre de López** (López ruguy) corre por su cuerpo (che retépe)?",o:["La voz del poema (el poeta), hijo de un veterano","El Mariscal López","Los enemigos","Una abuela"],e:"El que habla en primera persona («che» = yo) no es López: a López lo nombra. En la última estrofa le habla a su papá veterano («che Ru»). Ojo: en el cuaderno estaba marcado «Mariscal López».",s:"Cuaderno (23/6), ítem 2"},
+{id:"p8",b:"g6",q:"Mba'épa he'ise **tatatĩna** ñe'ẽpotýpe?",es:"¿Qué significa «tatatĩna» en el poema?",o:["Ñemongyhyje (amenaza, miedo)","Yvytu (viento)","Tatarendy (llamarada)","Pytu'u (descanso)"],e:"Tatatĩ es humo. En el poema es algo que llega sobre nuestra tierra y hace daño: la amenaza de la guerra. Significado contextual: ñemongyhyje (lo que marcó Sofi).",s:"Cuaderno (23/6), ítem 1"},
+{id:"p9",b:"g6",q:"Mba'épa he'ise **ruguy**?",es:"¿Qué significa «ruguy»?",o:["Sangre","Corazón","Patria","Cuerpo"],e:"Tuguy / ruguy = sangre. «López ruguy» = la sangre de López. «Che retépe» = en mi cuerpo.",s:"Kangue rekyi"},
+{id:"p10",b:"g6",q:"En el poema, ¿a quién llama **«che Ru»**?",o:["A su papá, un veterano de guerra","Al Mariscal López","A Dios","Al poeta"],e:"Che ru = mi padre. Le habla a su padre veterano (que peleó en la guerra).",s:"Kangue rekyi"},
+{id:"p11",b:"g6",q:"¿Qué es **Cerro Corá**, que nombra el poema?",o:["El lugar donde murió el Mariscal López al final de la Guerra Grande (1870)","Un cerro de Villarrica","La casa de Bernardino Caballero","Un pueblo de Brasil"],e:"Cerro Corá (Amambay): ahí terminó la Guerra Grande el 1 de marzo de 1870, con la muerte de López.",s:"Kangue rekyi"},
+{id:"p12",b:"g6",q:"Mba'épa he'ise **tetã rayhupápe**?",es:"¿Qué significa «tetã rayhupápe»?",o:["Por amor a la patria","Lejos de la patria","Contra la patria","En la casa"],e:"Tetã = patria · mborayhu = amor. «Oñorairõ tetã rayhupápe» = peleó por amor a la patria.",s:"Cuaderno (23/6)"},
+{id:"p13",b:"g6",q:"¿Qué es **oñorairõva'ekue**?",o:["El que peleó en la guerra (excombatiente)","El que escribe poemas","El que cura","El que vende"],e:"Ñorairõ = guerra, pelear · -va'ekue = el que (lo hizo en el pasado).",s:"Cuaderno (23/6)"},
+{id:"p14",b:"g6",q:"¿Qué sentimiento busca despertar el poema?",o:["Amor y orgullo por la patria, y respeto por los que pelearon","Miedo a los fantasmas","Ganas de viajar","Risa"],e:"El ítem 5 pide contar cómo el poema despierta sentimientos (temiandu) y cosas lindas que sentimos por nuestro país.",s:"Cuaderno (23/6), ítem 5"}
   ],
   resumen:[
     {titulo:"Antes de empezar", notas:[
@@ -334,7 +357,9 @@ window.MATERIA = {
       {t:"Realidad y fantasía", d:"**Añetegua** (realidad): puede pasar de verdad. Hilario fue a Brasil a vender.\n**Añetegua'ỹ** (fantasía): no puede pasar. Una carreta que desaparece, un caballo sin cabeza."},
       {t:"Modos (según el cuaderno)", d:"**Aparencial:** la acción es fingida o de mentira → **gua'u**. «Oke gua'u» = se hace el dormido.\n**Intencional:** muestra la intención → **mo'ã**. «Ahupytymo'ã» = iba a alcanzar.\n**Apelativo:** → **nga'u**."},
       {t:"Térava (nominales)", d:"Palabras que nombran: el sustantivo. Ejemplos del cuaderno: Hilario, ña Carmen, mitã."},
-      {t:"Ojo", ojo:true, d:"En la clase también se clasificaron palabras como **ombohetáva**, **tenondegua** y **ára**, pero en la foto del cuaderno no está la explicación. Preguntale a la profe o a una compañera qué anotaron."}]},
+      {t:"Ombohetáva (plural)", d:"heta = mucho. **-kuéra** después de sonido oral: kavajukuéra (los caballos), hogayguakuéra. **-nguéra** después de sonido nasal: mitãnguéra (los niños).\nPara decir «muchos»: **-eta / -ita**: yvotyeta (muchas flores), mymbaita (muchos animales)."},
+      {t:"Ára (tiempo)", d:"**-kuri** = pasó hace poco: ojuhúkuri (encontró).\n**-va'ekue** = pasó: oikova'ekue (vivían).\n**-kue** = lo que fue: rogakue (su antigua casa).\n**-rã** = lo que va a ser, para: tembi'urã (para comer)."},
+      {t:"Ojo", ojo:true, d:"**Tenondegua** también estaba en la consigna, pero su explicación no está en las fotos del cuaderno. Preguntale a la profe o a una compañera qué anotaron."}]},
     {tema:"g5", notas:[
       {t:"Marandu'anga (afiche)", d:"Se hace en papel grande, con **imágenes y pocas palabras**, para informar o hacer publicidad.\nPartes: título llamativo · imagen · mensaje corto · datos (quién, dónde, cuándo).\nEjemplos del cuaderno: «Sapatu porã» (zapatos lindos), «Karu Porã · Ña Chela», «Paraguái ojejapova'ekue» (hecho en Paraguay)."},
       {t:"Kuatiañe'ẽ (carta)", d:"**Sobre:** Mávapa guarã (para quién) · tenda (dirección) · tetã ha táva (país y ciudad).\n**Carta:**\n1. Lugar y fecha: «Paraguarí, 22 jasypa 2014-pe»\n2. Para quién: «Karai Kalo Báez, Mbo'ehao Carlos Antonio López sãmbyhyhára»\n3. Saludo: «Karai marangatu» (Estimado señor)\n4. Cuerpo: «Ahai ndéve ko kuatiañe'ẽ…» (Te escribo esta carta…)\n5. Despedida: «Maitei» (Saludos)\n6. Firma"},
@@ -347,7 +372,12 @@ window.MATERIA = {
         <tr><td></td><td></td><td>Jasypateĩ</td><td>noviembre</td></tr>
         <tr><td></td><td></td><td>Jasypakõi</td><td>diciembre</td></tr></table>`},
       {t:"Tekove arandupy (currículum)", d:"**A. Mávapa che** (datos personales): terakuéra (nombres), terajoapy (apellido), che retã (nacionalidad), óga renda (domicilio), pumbyry (teléfono).\n**Ã. Arandupy** (estudios): tekombo'e ñepyrũ (primaria), tekombo'e mokõiha (secundaria).\n**Ch. Che rembiapokue** (experiencia laboral).\n**E. Tapicha techakuaáva** (referencias personales)."},
-      {t:"Ñe'ẽjovake (entrevista)", d:"La usan los periodistas en la tele, la radio y el celular para saber lo que otro piensa.\n**Para conversar bien:** escuchar al que habla (ñahendu va'erã oñe'ẽvape) · hablar de a uno (ñañe'ẽ peteĩva'erã) · decir nuestra opinión (ja'e avei ñane remimo'ã) · no mover demasiado brazos y boca.\n**Frases:** Mba'éichapa? (¿Cómo estás?) · Iporã, ha nde? (Bien, ¿y vos?) · Mba'éichapa nde réra? · Che réra… · Moõpa reiko? · Aiko…-pe · Aguyje (gracias) · Jajotopata peve (hasta la próxima)."}]}
+      {t:"Ñe'ẽjovake (entrevista)", d:"La usan los periodistas en la tele, la radio y el celular para saber lo que otro piensa.\n**Para conversar bien:** escuchar al que habla (ñahendu va'erã oñe'ẽvape) · hablar de a uno (ñañe'ẽ peteĩva'erã) · decir nuestra opinión (ja'e avei ñane remimo'ã) · no mover demasiado brazos y boca.\n**Frases:** Mba'éichapa? (¿Cómo estás?) · Iporã, ha nde? (Bien, ¿y vos?) · Mba'éichapa nde réra? · Che réra… · Moõpa reiko? · Aiko…-pe · Aguyje (gracias) · Jajotopata peve (hasta la próxima)."}]},
+    {tema:"g6", notas:[
+      {t:"Kangue rekyi (Félix Fernández)", d:"**Ñe'ẽpoty** = poesía · **ñe'ẽpapára** = poeta · **haihára** = autor.\nEs un poema de homenaje al **Mariscal Francisco Solano López**. Recuerda la Guerra Grande, a los que pelearon (oñorairõva'ekue) y **Cerro Corá**, donde murió López en 1870."},
+      {t:"Lo que dice, estrofa por estrofa", d:"1. Algo llega sobre nuestra tierra (ñande ári) y trae daño al país: la guerra.\n2. Nombra a un jefe (mburuvicha) y pide que se recuerde al Mariscal; el dolor se siente en Paraguay.\n3. La voz del poema (yo, «che») dice que no le alcanzan las palabras para su dolor, y que la sangre de López (López ruguy) corre por su cuerpo (che retépe).\n4. Le habla a su papá veterano («che Ru, Veterano») y termina nombrando Cerro Corá."},
+      {t:"Respuestas del cuaderno (23/6)", d:"1. Tatatĩna (contexto) → **ñemongyhyje**, la amenaza (tatatĩ = humo).\n2. ¿Quién dice que la sangre de López corre por su cuerpo? → la **voz del poema**, el hijo de un veterano (no es López: a López lo nombra).\n3. ¿Qué quiere mostrar? → **homenajear al Mariscal López**.\n4. ¿Quién hizo la gran cosa? → **Mariscal López**, que llevó adelante la patria y peleó por amor a ella (tetã rayhupápe).\n5. Tu respuesta: «Félix Fernández omombe'u Mariscal López rekove ha hembiapokue: oñorairõ hague tetã rayhupápe ha omotenonde hague Paraguái.»"},
+      {t:"Ojo", ojo:true, d:"En el ítem 2 del cuaderno estaba marcado «Mariscal López», pero en el poema el que habla es el hijo de un veterano. Si en el examen preguntan quién habla, mirá quién dice «che» (yo)."}]}
   ],
   textosSub:"los casos de la clase y tu entrevista",
   textos:[
@@ -381,6 +411,18 @@ window.MATERIA = {
      glosario:[["ehendumína","escuchá, por favor"],["póra rehegua","sobre fantasmas"],["nde taita térã nde jaryi","tu papá o tu abuela"],["tapicha oikóva","la gente que vive"],["jerére","alrededor"],
        ["omombe'u","cuentan"],["ára ivaietéva","días muy feos"],["kavaju ári","a caballo"],["ñe'ẽ pohýi","voz fuerte, palabra pesada"],["ojokuái","manda, da órdenes"],
        ["tetã rembiguái","soldados"],["ñanihápe","corriendo, al trote"],["naiñakãi","sin cabeza"],["rogakue","su antigua casa"],["oje'e","se dice"]]},
+    {id:"kangue", titulo:"Kangue rekyi (poema)", autor:"Félix Fernández · 1.ª etapa (23/6)",
+     intro:"El poema completo está publicado en Portal Guaraní, junto con otros del autor. Buscá «Kangue rekyi» en esa página.",
+     enlace:"https://portalguarani.com/772_felix_fernandez/13822_poesias_en_guarani_de_felix_fernandez.html", enlaceNom:"Leer el poema (Portal Guaraní)",
+     partes:[
+      {t:"De qué se trata", d:"Un homenaje al **Mariscal Francisco Solano López** y a los que pelearon en la Guerra Grande."},
+      {t:"Estrofa 1", d:"Algo llega sobre nuestra tierra (ñande ári) y trae daño al país. Ahí aparece **tatatĩna** (humo): la amenaza de la guerra."},
+      {t:"Estrofa 2", d:"Nombra a un jefe (mburuvicha) y pide que se recuerde al Mariscal. El dolor se siente en todo Paraguay."},
+      {t:"Estrofa 3", d:"La voz del poema habla en primera persona (che): no le alcanzan las palabras para su dolor, y la **sangre de López** (López ruguy) corre por su cuerpo (che retépe)."},
+      {t:"Estrofa 4", d:"Le habla a su **papá veterano** (che Ru) y termina nombrando **Cerro Corá**, donde murió López."}],
+     glosario:[["kangue","hueso, huesos"],["ñe'ẽpoty","poesía"],["ñe'ẽpapára","poeta"],["haihára","autor"],["ñande ári","sobre nosotros, sobre nuestra tierra"],["tatatĩna","humo (en el poema: amenaza)"],
+       ["tetã","patria, país"],["mburuvicha","jefe, líder"],["py'a","corazón, pecho"],["ruguy","sangre"],["che retépe","en mi cuerpo"],["oñani","corre"],
+       ["che ru","mi papá"],["oñorairõva'ekue","el que peleó en la guerra"],["tetã rayhupápe","por amor a la patria"],["omotenonde","llevó adelante"],["Cerro Corá","lugar donde murió López (1870)"]]},
     {id:"entrevista", titulo:"Mi entrevista (1/10)", autor:"Sofi y Tamara, del cuaderno",
      intro:"Es tu entrevista, un poco ordenada, con la traducción de cada línea. Sirve de modelo para el examen.",
      lineas:[["— Mba'éichapa?","— ¿Cómo estás?"],["— Iporãnte, ha nde?","— Bien nomás, ¿y vos?"],["— Che aime porã avei.","— Yo también estoy bien."],
