@@ -245,3 +245,9 @@ sub{font-size:.72em;line-height:0;vertical-align:-.3em}
 .ped .gen{fill:var(--tinta);font-family:var(--display);font-size:15px}
 .btn .der .frs{font-size:17px;letter-spacing:-2px}
 a.chip{text-decoration:none;color:inherit;display:inline-block}
+
+/* ayuda en castellano (Guaraní) */
+.ayuda-es{margin:-4px 0 10px;font-size:calc(15px*var(--escala))}
+.ayuda-es summary{cursor:pointer;font-weight:700;color:var(--rosa-osc);list-style:none;display:inline-block;padding:4px 10px;border-radius:999px;background:var(--crema)}
+.ayuda-es summary::-webkit-details-marker{display:none}
+.ayuda-es p{margin:6px 0 0;padding:8px 10px;border-radius:12px;background:var(--crema);font-weight:700}

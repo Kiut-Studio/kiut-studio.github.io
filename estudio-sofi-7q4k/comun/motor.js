@@ -116,6 +116,8 @@ const fresas = n => "🍓".repeat(n) + "<span style='opacity:.3'>" + "🍓".repe
 function estrellasDe(ok,tot){ const p=ok/tot; return p>=.99?3:p>=.75?2:p>=.5?1:0; }
 const AA_BTN = `<button class="redondo aa" aria-label="Cambiar letra y tamaño">Aa</button>`;
 const fig = p => p.fig ? `<div class="marco">${p.fig}</div>` : "";
+/* preguntas escritas en otro idioma (Guaraní): "es" es la ayuda en castellano, se abre con un toque */
+const ayudaEs = p => p.es ? `<details class="ayuda-es"><summary>💬 Ver en castellano</summary><p>${F(p.es)}</p></details>` : "";
 const SIM = M.simulacro || {total:20};
 const conProblemas = !!(SIM.problemas && SIM.problemas.length && TIPOS.length);
 
@@ -212,7 +214,7 @@ function mostrar(){
   P.ops = ops; P.listo=false; P.t0=performance.now(); P.f=0; P.pausa=0;
   $("#dots").querySelectorAll("i").forEach((d,k)=>d.classList.toggle("ya",k===P.i));
   $("#tarj").innerHTML = `<span class="tema" style="--tc:${t.c}">${t.nom}</span>
-    <p class="preg">${F(p.q)}</p>${fig(p)}
+    <p class="preg">${F(p.q)}</p>${ayudaEs(p)}${fig(p)}
     <div class="opciones">${ops.map((o,k)=>`<button class="op" data-k="${k}"><b>${"ABCD"[k]}</b><span>${F(o.txt)}</span></button>`).join("")}</div>
     <div id="dev"></div>`;
   $("#tarj").querySelectorAll(".op").forEach(b=>b.onclick=()=>responder(+b.dataset.k));
@@ -430,7 +432,7 @@ function simPantalla(){
     const it=S.teoria[S.i], t=TEMAS[it.p.b], n=S.teoria.length, ult=S.i+1>=n;
     app.innerHTML = cabSim()+`<div class="puntitos">${S.teoria.map((x,k)=>`<i class="${x.elegida>=0?"ok":""} ${k===S.i?"ya":""}"></i>`).join("")}</div>
       <div class="tarjeta"><span class="tema" style="--tc:${t.c}">Teoría · ${S.i+1} de ${n}</span>
-        <p class="preg">${F(it.p.q)}</p>${fig(it.p)}
+        <p class="preg">${F(it.p.q)}</p>${ayudaEs(it.p)}${fig(it.p)}
         <div class="opciones">${it.ops.map((o,k)=>`<button class="op ${k===it.elegida?"elegida":""}" data-k="${k}"><b>${"ABCD"[k]}</b><span>${F(o.txt)}</span></button>`).join("")}</div>
         <div class="nav">${S.i>0?`<button class="chip" id="ant">← Anterior</button>`:"<span></span>"}
           <button class="sig" id="sigS">${!ult?"Siguiente →":S.probs.length?"Pasar a los problemas →":"Terminar y corregir"}</button></div></div>`;
