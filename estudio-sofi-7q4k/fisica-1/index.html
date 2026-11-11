@@ -20,7 +20,7 @@
 :root{
   --crema:#fff7fb; --rosa:#ff7eb6; --rosa-osc:#e2559a; --tinta:#4a2a3f; --tinta-suave:#7b5a6f;
   --sombra:#e9b6cd; --blanco:#ffffff; --bien:#2fae78; --bien-fondo:#e3f7ee; --mal:#e2496b; --mal-fondo:#fde6ec;
-  --b1:#ff7eb6; --b1s:#d9579a; --b2:#ff9a3c; --b2s:#d9741c; --b3:#8a5ce0; --b3s:#6a3fbf; --b4:#2fb37e; --b4s:#1f8a5f;
+  --b1:#ff7eb6; --b1s:#d9579a; --b2:#ff9a3c; --b2s:#d9741c; --b3:#8a5ce0; --b3s:#6a3fbf; --b4:#2fb37e; --b4s:#1f8a5f; --b5:#22a7c4; --b5s:#13809b;
   --display:"Fredoka","Baloo 2","Trebuchet MS",system-ui,sans-serif;
   --texto:"Andika","Verdana","Segoe UI",system-ui,sans-serif;
   --escala:1; --pos:#e8553f; --neg:#3a7fd9; --vec:#6a4fd0; --vec2:#d9741c; --res:#1f8a5f;
@@ -217,6 +217,16 @@ sub{font-size:.72em;line-height:0;vertical-align:-.3em}
 /* ---------- números nuevos y simulacro ---------- */
 .btn.dado{background:var(--blanco);color:var(--tinta);--s:var(--sombra);border:2px dashed var(--b3);margin-top:12px}
 .btn.sim{background:var(--b3s);--s:#4b2a8f}
+.btn.examen{background:linear-gradient(135deg,#ff5fa2,#ff9a3c);--s:#c23f74;border:3px solid #fff3a6}
+.btn.examen .nom{font-size:21px}
+.cuenta{display:inline-block;margin-top:4px;padding:3px 10px;border-radius:999px;background:#fff3a6;color:var(--tinta);font-size:14px;font-weight:700}
+.ojo{margin-top:12px;padding:12px 14px;border-radius:16px;background:#fff3d6;border:2px solid #ffc94d;text-align:left}
+.ojo h3{margin:0 0 6px;font-size:18px}
+.ojo li{margin:4px 0}
+.animo{display:flex;gap:10px;align-items:center;text-align:left;background:var(--blanco);border-radius:18px;padding:10px 12px;margin-top:10px;box-shadow:0 3px 0 var(--sombra)}
+.animo img{width:64px;height:64px;object-fit:contain;flex:none}
+.animo p{margin:0}
+.ej-item .vez{font-size:13px;color:var(--tinta-suave);white-space:nowrap}
 .nuevo{display:inline-block;margin-left:6px;font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--b3s);background:#efe7ff;padding:3px 10px;border-radius:999px}
 .anotado{margin:12px 0 0;text-align:center;font-weight:800;color:var(--bien);font-size:17px}
 .sub-t{font-weight:700;color:var(--tinta-suave);margin:14px 0 6px}
@@ -247,12 +257,47 @@ sub{font-size:.72em;line-height:0;vertical-align:-.3em}
    La primera opción de cada pregunta es la correcta (se mezclan al mostrarlas).
    s = sección del material del Prof. Riveros donde está explicado. */
 const TEMAS = {
+  b5:{nom:"Ondas", sub:"λ, frecuencia, cualidades del sonido, fenómenos", c:"var(--b5)", s:"var(--b5s)"},
   b1:{nom:"Carga eléctrica", sub:"electrones, cuantización, conservación", c:"var(--b1)", s:"var(--b1s)"},
   b2:{nom:"Ley de Coulomb", sub:"fuerza entre dos cargas", c:"var(--b2)", s:"var(--b2s)"},
   b3:{nom:"Campo eléctrico", sub:"sentido, F = qE, líneas, conductores", c:"var(--b3)", s:"var(--b3s)"},
   b4:{nom:"Superposición", sub:"varias cargas y campo nulo", c:"var(--b4)", s:"var(--b4s)"}
 };
 const BANCO = [
+/* ---------- Bloque 5: ondas (repaso del 30/10 y lo que mostró el profe) ---------- */
+{id:"o1",b:"b5",q:"¿En qué unidad se mide la longitud de onda (λ)?",o:["Metro (m)","Hertz (Hz)","Segundo (s)","Radián por segundo (rad/s)"],e:"λ es una distancia: la que hay entre dos crestas seguidas. Se mide en metros.",s:"Repaso del 30/10"},
+{id:"o2",b:"b5",q:"¿En qué unidad se mide la frecuencia (f)?",o:["Hertz (Hz)","Metro (m)","Segundo (s)","Watt por metro cuadrado (W/m²)"],e:"f = cuántas vibraciones hay en un segundo. 1 Hz = 1 vibración por segundo.",s:"Repaso del 30/10"},
+{id:"o3",b:"b5",q:"¿En qué unidad se mide la frecuencia angular (ω)?",o:["rad/s","Hz","m/s","s"],e:"ω = 2π · f y se mide en radianes por segundo.",s:"Repaso del 30/10"},
+{id:"o4",b:"b5",q:"¿En qué unidad se mide el período (T)?",o:["Segundo (s)","Hertz (Hz)","Metro (m)","rad/s"],e:"T es el tiempo que tarda una vibración completa. Se mide en segundos.",s:"Repaso del 30/10"},
+{id:"o5",b:"b5",q:"¿Cuál es la fórmula de la longitud de onda con la velocidad y la frecuencia?",o:["λ = [[v::f]]","λ = v · f","λ = [[f::v]]","λ = v + f"],e:"λ = v · T y T = [[1::f]], entonces λ = [[v::f]].",s:"Repaso del 30/10"},
+{id:"o6",b:"b5",q:"¿Cómo se relacionan el período (T) y la frecuencia (f)?",o:["T = [[1::f]]","T = f²","T = 2 · f","T = f − 1"],e:"Son inversos: si la frecuencia es alta, cada vibración dura menos.",s:"Repaso del 30/10"},
+{id:"o7",b:"b5",q:"Una bocina emite 686 Hz y el sonido viaja a 343 m/s. ¿Cuál es la longitud de onda?",o:["0,5 m","2 m","235 298 m","1 029 m"],e:"λ = [[v::f]] = [[343::686]] = 0,5 m. Es el ejercicio que mostró el profe.",s:"Ejercicio del profe"},
+{id:"o8",b:"b5",q:"Si la velocidad no cambia y la frecuencia se duplica, ¿qué pasa con la longitud de onda?",o:["Se reduce a la mitad","Se duplica","No cambia","Se cuadruplica"],e:"λ = [[v::f]]: si f está abajo y se duplica, λ queda a la mitad.",s:"Repaso del 30/10"},
+{id:"o9",b:"b5",q:"Una onda tiene λ = 2 m y f = 170 Hz. ¿Cuál es su velocidad?",o:["340 m/s","85 m/s","172 m/s","0,012 m/s"],e:"v = λ · f = 2 · 170 = 340 m/s.",s:"Repaso del 30/10"},
+{id:"o10",b:"b5",q:"El tono o altura de un sonido depende de…",o:["La frecuencia fundamental (Hz)","La amplitud (W/m²)","El espectro armónico","El tiempo de persistencia"],e:"Frecuencia alta = sonido agudo. Frecuencia baja = sonido grave.",s:"Repaso del 30/10"},
+{id:"o11",b:"b5",q:"La intensidad de un sonido depende de…",o:["La amplitud o potencia por área (W/m² o dB)","La frecuencia fundamental (Hz)","El espectro armónico","El tiempo de persistencia (s)"],e:"Intensidad = sonido fuerte o débil. Se mide en W/m² o en decibeles (dB).",s:"Repaso del 30/10"},
+{id:"o12",b:"b5",q:"El timbre de un sonido depende de…",o:["El espectro armónico (no tiene unidad)","La frecuencia fundamental (Hz)","La potencia por área (W/m²)","El tiempo de persistencia (s)"],e:"El timbre permite distinguir una guitarra de un piano que tocan la misma nota. Es adimensional.",s:"Repaso del 30/10"},
+{id:"o13",b:"b5",q:"La duración de un sonido se relaciona con…",o:["El tiempo de persistencia (s)","La frecuencia fundamental (Hz)","El espectro armónico","La amplitud (dB)"],e:"Cuánto tiempo se escucha el sonido. Se mide en segundos.",s:"Repaso del 30/10"},
+{id:"o14",b:"b5",q:"¿Qué cualidad del sonido permite distinguir una guitarra de un piano que tocan la misma nota?",o:["El timbre","El tono","La intensidad","La duración"],e:"Misma nota = mismo tono. Lo que cambia es el timbre (el espectro armónico).",s:"Repaso del 30/10"},
+{id:"o15",b:"b5",q:"Un sonido agudo tiene…",o:["Frecuencia alta","Frecuencia baja","Mucha intensidad","Poca duración"],e:"Agudo o grave es el tono, y el tono depende de la frecuencia.",s:"Repaso del 30/10"},
+{id:"o16",b:"b5",q:"Un parlante de 10 W reparte su potencia en un área de 2 m². ¿Cuál es la intensidad?",o:["5 W/m²","20 W/m²","12 W/m²","0,2 W/m²"],e:"I = [[P::A]] = [[10::2]] = 5 W/m². P es la potencia y A el área.",s:"Repaso del 30/10"},
+{id:"o17",b:"b5",q:"¿Qué es la reflexión?",o:["Una onda llega a una frontera y regresa al medio de donde venía","Una onda pasa a otro medio donde cambia su rapidez","Dos ondas coinciden en el mismo lugar","La onda vibra en un solo plano"],e:"El eco es un ejemplo: el sonido rebota y vuelve.",s:"Repaso del 30/10"},
+{id:"o18",b:"b5",q:"¿Qué es la refracción?",o:["Una onda pasa de un medio a otro donde su rapidez es diferente","Una onda rebota en una frontera y vuelve","Dos ondas coinciden en el mismo lugar","La onda vibra en un solo plano"],e:"Ejemplo: una cuchara en un vaso de agua parece quebrada.",s:"Repaso del 30/10"},
+{id:"o19",b:"b5",q:"¿Qué es la interferencia?",o:["Dos o más ondas coinciden al mismo tiempo en una región del espacio","Una onda rebota en una frontera","Una onda cambia de medio","Una onda pierde energía"],e:"Las ondas se suman: pueden reforzarse o anularse.",s:"Repaso del 30/10"},
+{id:"o20",b:"b5",q:"¿Qué es la polarización?",o:["Cuando la vibración de una onda transversal queda en un solo plano","Cuando una onda rebota y vuelve","Cuando una onda cambia de medio","Cuando dos ondas se suman"],e:"Ejemplo: los lentes de sol polarizados dejan pasar la luz que vibra en un solo plano.",s:"Repaso del 30/10"},
+{id:"o21",b:"b5",q:"¿Se puede polarizar el sonido en el aire?",o:["No, porque es una onda longitudinal","Sí, como la luz","Sí, pero solo en el agua","No, porque no tiene frecuencia"],e:"Solo se polarizan las ondas transversales, como la luz. El sonido es longitudinal.",s:"Repaso del 30/10"},
+{id:"o22",b:"b5",q:"¿Cuál es la diferencia entre ondas mecánicas y electromagnéticas?",o:["Las mecánicas necesitan un medio; las electromagnéticas viajan también en el vacío","Las mecánicas viajan en el vacío; las electromagnéticas no","Las mecánicas no tienen frecuencia","No hay diferencia"],e:"El sonido (mecánica) no viaja en el vacío. La luz (electromagnética) sí.",s:"Repaso del 30/10"},
+{id:"o23",b:"b5",q:"¿Cuál de estas es una onda electromagnética?",o:["La luz","El sonido","Una ola del mar","Una onda en una cuerda"],e:"Luz, radio, rayos X y microondas son electromagnéticas. Las otras son mecánicas.",s:"Repaso del 30/10"},
+{id:"o24",b:"b5",q:"El eco es un ejemplo de…",o:["Reflexión","Refracción","Interferencia","Polarización"],e:"El sonido rebota en una pared y vuelve.",s:"Repaso del 30/10"},
+{id:"o25",b:"b5",q:"Para pasar de centímetros a metros…",o:["Se divide por 100","Se multiplica por 100","Se divide por 1 000","Se multiplica por 10"],e:"30 cm ÷ 100 = 0,30 m. Siempre en metros antes de usar una fórmula.",s:"Repaso del 30/10"},
+/* ---------- lo que mostró el profe (Coulomb y triángulo) ---------- */
+{id:"x1",b:"b2",q:"q₁ = +4 µC y q₂ = +6 µC están separadas 30 cm. ¿La fuerza es de atracción o de repulsión?",o:["Repulsión","Atracción","No hay fuerza","Depende de la distancia"],e:"Las dos son positivas: mismo signo → se repelen. F ≈ 2,4 N.",s:"Ejercicio del profe"},
+{id:"x2",b:"b2",q:"q₁ = +4 µC y q₂ = +6 µC están a 0,30 m. Con k = 9 × 10⁹, ¿cuánto vale F?",o:["2,4 N","0,72 N","7,2 N","24 N"],e:"F = [[(9 × 10⁹) · (4 × 10⁻⁶) · (6 × 10⁻⁶)::(0,30)²]] = [[0,216::0,09]] = 2,4 N.",s:"Ejercicio del profe"},
+{id:"x3",b:"b4",q:"En el triángulo del profe (q₁ = +2 µC, q₂ = −4 µC, q₃ = +7 µC), ¿qué ángulo forman F₁₃ y F₂₃?",o:["120°","60°","90°","180°"],e:"F₁₃ se aleja de q₁ (repulsión) y F₂₃ va hacia q₂ (atracción). Entre las dos flechas quedan 120°.",s:"Ejercicio del profe"},
+{id:"x4",b:"b4",q:"¿Cuánto vale cos 120°?",o:["−0,5","0,5","−0,87","0,87"],e:"cos 120° = −0,5. La calculadora tiene que estar en grados (DEG o D en la pantalla).",s:"Ejercicio del profe"},
+{id:"x5",b:"b4",q:"¿Cuál es la fórmula de la resultante de dos fuerzas que forman un ángulo α?",o:["F_R = √(F₁₃² + F₂₃² + 2 · F₁₃ · F₂₃ · cos α)","F_R = F₁₃ + F₂₃","F_R = √(F₁₃² + F₂₃ + 2 · F₁₃ · F₂₃ · cos α)","F_R = F₁₃² + F₂₃² · cos α"],e:"Las dos fuerzas van al cuadrado. Si α = 120°, el último término resta porque cos 120° es negativo.",s:"Ejercicio del profe"},
+{id:"x6",b:"b4",q:"Para calcular F₂₃ (la fuerza de q₂ sobre q₃), ¿qué cargas se multiplican?",o:["q₂ · q₃","q₁ · q₃","q₁ · q₂","q₁ · q₂ · q₃"],e:"Los subíndices te dicen cuáles: F₂₃ → q₂ y q₃. La distancia es el lado del triángulo.",s:"Ejercicio del profe"},
+{id:"x7",b:"b4",q:"En el triángulo del profe, F₁₃ = 0,504 N y F₂₃ = 1,008 N forman 120°. ¿Cuánto vale F_R?",o:["≈ 0,87 N","≈ 1,51 N","≈ 1,33 N","≈ 0,50 N"],e:"F_R = √(0,504² + 1,008² + 2 · 0,504 · 1,008 · (−0,5)) = √0,762 ≈ 0,87 N.",s:"Ejercicio del profe"},
 /* ---------- Bloque 1: carga eléctrica ---------- */
 {id:"c1",b:"b1",q:"¿Qué es la carga eléctrica?",o:["Una propiedad de la materia responsable de las interacciones eléctricas","La cantidad de átomos que tiene un cuerpo","La fuerza que hacen dos cuerpos entre sí","La energía que guarda un átomo"],e:"Es una propiedad física de la materia. Se representa con q o Q y hay dos tipos: positiva y negativa.",s:"Sección 4"},
 {id:"c2",b:"b1",q:"¿Cuál es la unidad de carga en el Sistema Internacional?",o:["El coulomb (C)","El newton (N)","El newton por coulomb (N/C)","El electrón (e)"],e:"[q] = C. El newton es de fuerza y el N/C es de campo.",s:"Sección 4"},
@@ -336,7 +381,7 @@ const BANCO = [
    se usan los mismos datos que en el PDF de ejercicios resueltos.
    Escritura: [[arriba::abajo]] = fracción · q₁, F_Rx = subíndice · 10⁻⁶ = potencia · \n = renglón nuevo.
    fig = dibujo del enunciado · figR = dibujo con los vectores de la respuesta. */
-const NIVELES = {basico:"Nivel básico", inter:"Nivel intermedio", avanz:"Nivel avanzado"};
+const NIVELES = {examen:"⭐ Lo que va a salir (los del profe)", basico:"Nivel básico", inter:"Nivel intermedio", avanz:"Nivel avanzado"};
 const K = "(8,99 × 10⁹)";
 const EJ = [
 {id:"b1",n:"basico",t:"Número de electrones",q:"Determine el número de electrones correspondiente a una carga Q = −3,2 µC.",
@@ -500,7 +545,73 @@ function textoDir(fx,fy){
   return {al, txt:`${num(al,3)}° ${fy>0?"por encima":"por debajo"} del eje ${fx>0?"+x":"−x"}`, desdeX:num(angulo(fx,fy),4)};
 }
 
+const limpio = x => { const t=num(x); return /,\d*$/.test(t) ? t.replace(/0+$/,"").replace(/,$/,"") : t; };
 const GEN = {
+ /* ---- los tres que mostró el profe (k = 9 × 10⁹, como en su hoja). Con o = datos fijos; sin o = números nuevos ---- */
+ onda(o){
+  o = o || (()=>{ const v=elegir1([340,343,343,1500]), lam=elegir1(v===1500?[0.5,1,1.5,2,3,5]:[0.2,0.25,0.4,0.5,0.8,1,1.25,2]);
+    return {v, f:+(v/lam).toFixed(2), obj:elegir1(["Una bocina","Un parlante","Un diapasón","Un silbato","Una sirena"]), agua:v===1500}; })();
+  const lam=o.v/o.f, T=1/o.f, nom=o.obj||"Una bocina", medio=o.agua?" en el agua":"";
+  return {t:"Longitud de onda", q:`${nom} emite una frecuencia de ${exacto(o.f)} Hz${medio}. Si la velocidad es de ${o.v} m/s, determine la longitud de onda.`,
+   p:[["Datos",`f = ${exacto(o.f)} Hz\nv = ${o.v} m/s\nλ = ?`],
+      ["Fórmula","λ = v · T   y   T = [[1::f]]\nentonces   λ = [[v::f]]"],
+      ["Cálculo",`λ = [[${o.v}::${exacto(o.f)}]] = ${limpio(lam)} m`],
+      ["Si piden el período",`T = [[1::f]] = [[1::${exacto(o.f)}]] ≈ ${num(T)} s`]],
+   r:`λ = ${limpio(lam)} m. Escribí la unidad: metros.`};
+ },
+ fuerzaEx(o){
+  o = o || {q1:sg()*rnd(1,9), q2:sg()*rnd(1,9), cm:rnd(10,60)};
+  const {q1,q2,cm}=o, r=cm/100, rep=q1*q2>0, F=9e9*Math.abs(q1*q2)*1e-12/(r*r);
+  const lab=(x,q,i)=>[x,50,q>0?"+":"−",`q${"₁₂"[i]} = ${microC(q)}`];
+  return {t:`Fuerza entre ${microC(q1)} y ${microC(q2)}`,
+   q:`Dos cargas puntuales q₁ = ${microC(q1)} y q₂ = ${microC(q2)} están separadas ${cm} cm en el vacío. Determine el módulo de la fuerza eléctrica y establezca si la interacción es atractiva o repulsiva. Use k = 9 × 10⁹ N·m²/C².`,
+   fig:{w:360,h:110,c:[lab(90,q1,0),lab(270,q2,1)],cota:[[90,92,270,92,`${cm} cm`]]},
+   figR:{w:360,h:110,c:[[90,50,q1>0?"+":"−","q₁"],[270,50,q2>0?"+":"−","q₂"]],
+     v: rep ? [[90,50,30,50,"F₂₁",1],[270,50,330,50,"F₁₂",1]] : [[90,50,150,50,"F₂₁",1],[270,50,210,50,"F₁₂",1]],cota:[[90,92,270,92,metros(r)]]},
+   p:[["Datos y conversión",`q₁ = ${enC(q1)}\nq₂ = ${enC(q2)}\nr = ${cm} cm ÷ 100 = ${metros(r)}\nk = 9 × 10⁹ N·m²/C²`],
+      ["Atracción o repulsión", rep?"Mismo signo → repulsión. Cada carga empuja a la otra hacia afuera.":"Signos opuestos → atracción. Cada carga tira de la otra."],
+      ["Ecuación","F = k · [[|q₁ · q₂|::r²]]"],
+      ["Cálculo",`F = [[(9 × 10⁹) · ${absC(q1)} · ${absC(q2)}::(${d2(r)})²]]\nF = [[${num(9e9*Math.abs(q1*q2)*1e-12)}::${exacto(r*r)}]] ≈ ${limpio(F)} N`]],
+   r:`F ≈ ${limpio(F)} N, de ${rep?"repulsión":"atracción"}.`};
+ },
+ triEx(o){
+  o = o || (()=>{ let q1,q2,q3; do{ q1=sg()*rnd(1,9); q2=sg()*rnd(1,9); q3=sg()*rnd(1,9); }while(Math.abs(q1)===Math.abs(q2)); return {q1,q2,q3,a:rnd(2,10)/10}; })();
+  const {q1,q2,q3,a}=o, k9=9e9, F13=k9*Math.abs(q1*q3)*1e-12/(a*a), F23=k9*Math.abs(q2*q3)*1e-12/(a*a);
+  const rep13=q1*q3>0, rep23=q2*q3>0, u13=rep13?60:240, u23=rep23?120:300, alfa=q1*q2<0?120:60, ca=Math.cos(alfa*Math.PI/180);
+  const rad=g=>g*Math.PI/180, fx=F13*Math.cos(rad(u13))+F23*Math.cos(rad(u23)), fy=F13*Math.sin(rad(u13))+F23*Math.sin(rad(u23));
+  const FR=Math.sqrt(F13*F13+F23*F23+2*F13*F23*ca);
+  const casi0=x=>Math.abs(x)<1e-9*FR;
+  const dir = casi0(fx) ? `vertical, hacia ${fy>0?"arriba":"abajo"}` : casi0(fy) ? `horizontal, hacia la ${fx>0?"derecha":"izquierda"}` : textoDir(fx,fy).txt;
+  const lado = casi0(fx) ? "" : ` (hacia el lado ${fx>0?"de q₂":"de q₁"})`;
+  const nom = q=>sgn(q)==="+"?"(+)":"(−)";
+  /* dibujos */
+  const lab=(x,y,q,i,d)=>[x,y,sgn(q),`q${"₁₂₃"[i]} = ${microC(q)}`,d];
+  const fig={w:360,h:205,c:[lab(110,160,q1,0,"b"),lab(250,160,q2,1,"b"),lab(180,40,q3,2,"d")],l:[[180,40,110,160,1],[180,40,250,160,1],[110,160,250,160,1]],txt:[[180,200,`lado = ${coma(String(a))} m`]]};
+  const O=[180,128], mx=Math.max(F13,F23,FR), L=f=>Math.max(34,100*f/mx), P=(g,f)=>[O[0]+L(f)*Math.cos(rad(g)), O[1]-L(f)*Math.sin(rad(g))];
+  const [ax,ay]=P(u13,F13), [bx,by]=P(u23,F23), rx=O[0]+(ax-O[0])+(bx-O[0]), ry=O[1]+(ay-O[1])+(by-O[1]);
+  const r2=x=>+x.toFixed(1), numS=x=>num(x).replace("-","−");
+  let d=((u23-u13)%360+360)%360, g1=u13, g2=u13+d; if(d>180){ g1=u23; g2=u23+(360-d); }
+  const lad=128, Q1=[r2(O[0]-lad*Math.cos(rad(60))),r2(O[1]+lad*Math.sin(rad(60)))], Q2=[r2(O[0]+lad*Math.cos(rad(60))),r2(O[1]+lad*Math.sin(rad(60)))];
+  const figR={w:360,h:262,c:[[Q1[0],Q1[1],sgn(q1),"q₁","b"],[Q2[0],Q2[1],sgn(q2),"q₂","b"],[O[0],O[1],sgn(q3),"q₃",Math.cos(rad((g1+g2)/2))<0?"d":"i"]],
+    l:[[O[0],O[1],Q1[0],Q1[1],1],[O[0],O[1],Q2[0],Q2[1],1],[Q1[0],Q1[1],Q2[0],Q2[1],1],
+       [r2(ax),r2(ay),r2(rx),r2(ry),2],[r2(bx),r2(by),r2(rx),r2(ry),2]],
+    ang:[O[0],O[1],g1,g2,`${alfa}°`,30],
+    v:[[O[0],O[1],r2(ax),r2(ay),"F₁₃",1,"auto"],[O[0],O[1],r2(bx),r2(by),"F₂₃",1,"auto"],[O[0],O[1],r2(rx),r2(ry),"F_R",3,"auto"]]};
+  return {t:"Fuerza neta en el triángulo",
+   q:`Tres cargas están en los vértices de un triángulo equilátero de lado ${coma(String(a))} m: q₁ = ${microC(q1)}, q₂ = ${microC(q2)} y q₃ = ${microC(q3)}. Explique con un dibujo las fuerzas que actúan sobre la carga q₃ y calcule la fuerza neta sobre esta carga.`,
+   fig, figR,
+   p:[["Datos y conversión",`q₁ = ${enC(q1)}\nq₂ = ${enC(q2)}\nq₃ = ${enC(q3)}\nr = ${coma(String(a))} m (es el lado: las dos distancias son iguales)\nk = 9 × 10⁹ N·m²/C²`],
+      ["Dibujo de las fuerzas sobre q₃",`q₁ ${nom(q1)} y q₃ ${nom(q3)}: ${rep13?"mismo signo → repulsión → F₁₃ se aleja de q₁ (sigue la línea de q₁ a q₃, hacia afuera).":"signos opuestos → atracción → F₁₃ apunta hacia q₁."}\nq₂ ${nom(q2)} y q₃ ${nom(q3)}: ${rep23?"mismo signo → repulsión → F₂₃ se aleja de q₂.":"signos opuestos → atracción → F₂₃ apunta hacia q₂."}`],
+      ["F₁₃ (usa q₁ y q₃)",`F₁₃ = [[(9 × 10⁹) · ${absC(q1)} · ${absC(q3)}::(${coma(String(a))})²]] = [[${num(9e9*Math.abs(q1*q3)*1e-12)}::${exacto(a*a)}]] ≈ ${num(F13)} N`],
+      ["F₂₃ (usa q₂ y q₃)",`F₂₃ = [[(9 × 10⁹) · ${absC(q2)} · ${absC(q3)}::(${coma(String(a))})²]] = [[${num(9e9*Math.abs(q2*q3)*1e-12)}::${exacto(a*a)}]] ≈ ${num(F23)} N`],
+      ["Ángulo entre las fuerzas", alfa===120
+        ? "Cada ángulo del triángulo mide 60°. Una fuerza se aleja de su carga y la otra va hacia su carga, así que entre las dos flechas quedan 180° − 60° = 120°."
+        : "Cada ángulo del triángulo mide 60°. Las dos fuerzas son del mismo tipo (las dos se alejan o las dos van hacia las cargas), así que entre las flechas quedan 60°."],
+      ["Fórmula de la resultante",`F_R = √(F₁₃² + F₂₃² + 2 · F₁₃ · F₂₃ · cos ${alfa}°)\ncos ${alfa}° = ${alfa===120?"−0,5":"0,5"}   (calculadora en grados: DEG)`],
+      ["Cálculo",`F_R = √(${num(F13,4)}² + ${num(F23,4)}² + 2 · ${num(F13,4)} · ${num(F23,4)} · ${alfa===120?"(−0,5)":"0,5"})\nF_R = √(${num(F13*F13,4)} + ${num(F23*F23,4)} ${alfa===120?"−":"+"} ${num(F13*F23,4)})\nF_R = √${num(F13*F13+F23*F23+2*F13*F23*ca,4)} ≈ ${num(FR)} N`],
+      ["Hacia dónde apunta",`Sumando las componentes:\nF_Rx ≈ ${numS(fx)} N   y   F_Ry ≈ ${numS(fy)} N\nLa resultante apunta ${casi0(fx)||casi0(fy)?dir:"a "+dir}.`]],
+   r:`F_R ≈ ${num(FR)} N sobre q₃, ${casi0(fx)||casi0(fy)?dir:"a "+dir}${lado}. En el dibujo, F_R es la diagonal del paralelogramo que forman F₁₃ y F₂₃.`};
+ },
  electrones(){
   const Q = sg()*rnd(11,95)/10, n = Math.abs(Q)*1e-6/1.602e-19;
   return {t:"Número de electrones", q:`Determine el número de electrones correspondiente a una carga Q = ${microC(Q)}.`,
@@ -719,8 +830,20 @@ const GEN = {
  }
 };
 const GEN_DE = {b1:"electrones",b2:"fuerza",b3:"fuerza",b4:"campo",b5:"campo",i1:"iguales",i2:"distancia",i3:"campoFuerza",i4:"cargaF",i5:"medio",
-                a1:"tres",a2:"tri",a3:"medio",a4:"equi",a5:"nulo1",a6:"perp",a7:"cuad",a8:"nulo2"};
+                a1:"tres",a2:"tri",a3:"medio",a4:"equi",a5:"nulo1",a6:"perp",a7:"cuad",a8:"nulo2",
+                x1:"onda",x2:"fuerzaEx",x3:"triEx"};
 function variante(base){ const g=GEN[GEN_DE[base.id]](); return {...g, id:base.id, n:base.n, nuevo:true}; }
+
+/* ---------- lo que va a salir: los 3 ejercicios que mostró el profe (hoja del 10/11) ---------- */
+const FECHA_EXAMEN = "2026-11-13";
+const EXAMEN = [
+ {...GEN.onda({f:686, v:343, obj:"Una bocina"}), id:"x1", n:"examen", t:"Longitud de onda (bocina)", pts:"2 puntos",
+  q:"Una bocina emite una frecuencia de 686 Hz. Si la velocidad es de 343 m/s, determine la longitud de onda."},
+ {...GEN.fuerzaEx({q1:4, q2:6, cm:30}), id:"x2", n:"examen", t:"Fuerza entre +4 µC y +6 µC"},
+ {...GEN.triEx({q1:2, q2:-4, q3:7, a:0.5}), id:"x3", n:"examen", t:"Fuerza neta en el triángulo"}
+];
+EXAMEN[2].p.push(["Ojo con el cuaderno","F₂₃ también va al cuadrado dentro de la raíz.\nF₂₃ usa q₂ · q₃ (no q₁ · q₃).\nF_R no queda horizontal: como F₂₃ es el doble de F₁₃, baja 30°."]);
+EJ.unshift(...EXAMEN);
 
 /* =====================  ESCRITURA DE FÓRMULAS  =====================
    Convierte el texto de las preguntas en algo fácil de leer y copiar al cuaderno:
@@ -739,15 +862,28 @@ function F(t){
 }
 
 /* =====================  FÓRMULAS  ===================== */
-const FORMULAS = [
- {tema:"b1", items:[
+ const FORMULAS = [
+ {tema:"b5", items:[
+  {f:"λ = v · T     T = [[1::f]]\nλ = [[v::f]]", d:"Longitud de onda. Despejando: v = λ · f y f = [[v::λ]]."},
+  {f:"λ → m     f → Hz     ω → rad/s     T → s", d:"Unidades del repaso. 1 Hz = una vibración por segundo."},
+  {f:"ω = 2π · f", d:"Frecuencia angular."},
+  {f:"I = [[P::A]]", d:"Intensidad: P = potencia (W), A = área (m²). Unidad: W/m² (o decibeles, dB)."},
+  {f:"Tono o altura → frecuencia fundamental (Hz)", d:"Frecuencia alta = agudo. Frecuencia baja = grave."},
+  {f:"Intensidad → amplitud / potencia por área (W/m², dB)", d:"Sonido fuerte o débil."},
+  {f:"Timbre → espectro armónico (adimensional)", d:"Distingue una guitarra de un piano que tocan la misma nota."},
+  {f:"Duración → tiempo de persistencia (s)", d:"Cuánto tiempo se escucha el sonido."},
+  {f:"Reflexión", d:"La onda llega a una frontera y regresa al medio de donde venía. Ejemplo: el eco."},
+  {f:"Refracción", d:"La onda pasa de un medio a otro donde su rapidez es diferente. Ejemplo: la cuchara que parece quebrada en el agua."},
+  {f:"Interferencia", d:"Dos o más ondas coinciden al mismo tiempo en una región del espacio y se suman."},
+  {f:"Polarización", d:"La vibración de una onda transversal queda en un solo plano. Ejemplo: lentes de sol polarizados. El sonido no se polariza porque es longitudinal."},
+  {f:"Mecánicas: necesitan un medio\nElectromagnéticas: viajan en el vacío", d:"Sonido = mecánica. Luz = electromagnética."}]}, {tema:"b1", items:[
   {f:"e = 1,602 × 10⁻¹⁹ C", d:"Carga elemental: la de un protón (+e) o un electrón (−e)."},
   {f:"Q = n · e", d:"La carga siempre es un múltiplo entero de e (n = número entero)."},
   {f:"n = [[|Q|::e]]", d:"Cuántos electrones de más (si Q < 0) o de menos (si Q > 0)."},
   {f:"1 µC = 10⁻⁶ C     1 nC = 10⁻⁹ C\n1 cm = 10⁻² m     1 mm = 10⁻³ m", d:"Siempre convertí antes de reemplazar en una fórmula."}]},
  {tema:"b2", items:[
   {f:"F = k · [[|q₁ · q₂|::r²]]", d:"Módulo de la fuerza entre dos cargas puntuales. F en N, q en C, r en m."},
-  {f:"k = 8,99 × 10⁹ N·m²/C²", d:"Constante de Coulomb en el vacío (se puede usar ≈ 9 × 10⁹). También k = [[1::4πε₀]], con ε₀ = 8,854 × 10⁻¹² C²/(N·m²)."},
+  {f:"k = 9 × 10⁹ N·m²/C²", d:"Constante de Coulomb. El profe usa 9 × 10⁹ en el examen (el material dice 8,99 × 10⁹). También k = [[1::4πε₀]], con ε₀ = 8,854 × 10⁻¹² C²/(N·m²)."},
   {f:"(+,+) o (−,−) → repulsión\n(+,−) → atracción", d:"Mirá los signos antes de hacer las cuentas."},
   {f:"2q → 2F     las dos 2q → 4F\n2r → [[F::4]]     3r → [[F::9]]     [[r::2]] → 4F", d:"Cómo cambia la fuerza (F ∝ q y F ∝ [[1::r²]])."},
   {f:"F₁₂ = −F₂₁", d:"Tercera ley de Newton: igual módulo, sentidos opuestos, sobre cuerpos distintos."}]},
@@ -761,21 +897,22 @@ const FORMULAS = [
   {f:"F_R = F₁ + F₂ + F₃ + …\nE_R = E₁ + E₂ + E₃ + …", d:"Superposición: se suman como vectores, no como números."},
   {f:"F_x = F · cos θ     F_y = F · sen θ", d:"Componentes de un vector que forma un ángulo θ con el eje +x."},
   {f:"E_R = √(E_x² + E_y²)", d:"Módulo de la resultante (igual para fuerzas)."},
+  {f:"F_R = √(F₁₃² + F₂₃² + 2 · F₁₃ · F₂₃ · cos α)", d:"Resultante de dos fuerzas que forman un ángulo α (el del triángulo del profe: α = 120°, cos 120° = −0,5). Calculadora en grados (DEG)."},
   {f:"tan θ = [[E_y::E_x]]", d:"Dirección de la resultante. Mirá en qué cuadrante queda."},
   {f:"[[|q₁|::r₁²]] = [[|q₂|::r₂²]]", d:"Punto de campo nulo (k se cancela). Mismo signo: entre las cargas, cerca de la menor. Signos opuestos: afuera, del lado de la menor."},
   {f:"p = q · d", d:"Momento dipolar: dos cargas iguales y opuestas separadas una distancia d."}]}
 ];
 const METODO = ["Anotá los datos (q, r, E…).","Pasá todo al Sistema Internacional (µC → C, cm → m).","Escribí qué hay que calcular (la incógnita).","Hacé un dibujo.","Decidí si hay atracción o repulsión (o hacia dónde va el campo).","Elegí la fórmula.","Reemplazá los datos.","Hacé la cuenta.","Escribí la respuesta: módulo + unidad + dirección + sentido."];
 
-function formulas(){
+function formulas(solo){
   pararReloj(); P=null;
   let h = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver al menú">←</button><h2>Fórmulas</h2><button class="redondo aa" aria-label="Cambiar letra y tamaño">Aa</button></div>`;
-  FORMULAS.forEach(g=>{ const t=TEMAS[g.tema];
+  FORMULAS.filter(g=>!solo||g.tema===solo).forEach(g=>{ const t=TEMAS[g.tema];
     h += `<div class="nivel"><span class="tema" style="--tc:${t.c}">${t.nom}</span></div>`;
     g.items.forEach(it=> h += `<div class="formula"><div class="mat">${F(it.f)}</div><p>${F(it.d)}</p></div>`); });
-  h += `<div class="nivel">Pasos para resolver un problema</div><ol class="metodo">${METODO.map(x=>`<li>${F(x)}</li>`).join("")}</ol>`;
+  if(!solo) h += `<div class="nivel">Pasos para resolver un problema</div><ol class="metodo">${METODO.map(x=>`<li>${F(x)}</li>`).join("")}</ol>`;
   app.innerHTML = h; window.scrollTo(0,0);
-  $("#volver").onclick=menu;
+  $("#volver").onclick = solo ? examen : menu;
 }
 
 /* =====================  GUARDADO  ===================== */
@@ -880,14 +1017,15 @@ function menu(){
   <div class="duo"><img src="assets/sofi.webp" alt="Sofi"><img class="d" src="assets/dina_corre.webp" alt="Dina"></div>
   <p class="ayuda">Mientras pensás, Dina baja hacia la torta. Si tocás la respuesta correcta, Sofi le echa agua y Dina se escapa.</p>
   <div class="lista">
+   <button class="btn examen" id="examen"><span class="nom">⭐ Lo que va a salir<small>los 3 ejercicios que mostró el profe + ondas</small><span class="cuenta">${cuentaExamen()}</span></span></button>
    <button class="btn mix" data-modo="mix"><span class="nom">🎯 Prueba mezclada<small>12 preguntas de todos los temas · empezá por esta</small></span><span class="der">${datos.mejor.mix!=null?"récord "+datos.mejor.mix+"/12":""}</span></button>`;
   for(const k in TEMAS){ const t=TEMAS[k], e=datos.est[k]||0;
     h += `<button class="btn" data-modo="${k}" style="background:${t.c};--s:${t.s}"><span class="nom">${t.nom}<small>${t.sub}</small></span><span class="der"><span class="fr">${fresas(e)}</span>${datos.mejor[k]!=null?"<br>récord "+datos.mejor[k]+"/8":""}</span></button>`; }
   const hechos = EJ.filter(e=>datos.ej[e.id]==="si").length;
   const ultSim=(datos.simulacros||[]).slice(-1)[0];
   h += `<button class="btn sim" id="sim"><span class="nom">📋 Simulacro de examen<small>teoría + problemas, con tiempo</small></span><span class="der">${ultSim?"último: "+ultSim.pct+"/100":""}</span></button>`;
-  h += `<button class="btn form" id="forms"><span class="nom">📐 Fórmulas<small>todas las del material, con qué es cada letra</small></span></button>`;
-  h += `<button class="btn ej" id="ejs"><span class="nom">📝 Ejercicios en papel<small>los ${EJ.length} del material, paso a paso</small></span><span class="der">${hechos}/${EJ.length} ✓</span></button>`;
+  h += `<button class="btn form" id="forms"><span class="nom">📐 Fórmulas<small>ondas, Coulomb y campo, con qué es cada letra</small></span></button>`;
+  h += `<button class="btn ej" id="ejs"><span class="nom">📝 Ejercicios en papel<small>los del profe y los del material, paso a paso</small></span><span class="der">${hechos}/${EJ.length} ✓</span></button>`;
   h += `</div>
   <div class="chips"><a class="chip" href="../progreso/#${CLAVE}">📈 Mi progreso</a><button class="chip" id="quien">👤 Juega: ${datos.nombre}</button>${yaInstalada()?"":`<button class="chip" id="instalar">📲 Instalar</button>`}</div>
   <p class="ayuda" id="ayudaInst" hidden></p>
@@ -895,13 +1033,14 @@ function menu(){
     <button class="chip" id="conApuro" aria-pressed="${datos.apuro}">⏱ Con reloj</button>
     <button class="chip" id="sinApuro" aria-pressed="${!datos.apuro}">🐢 Sin apuro</button>
   </div>
-  <p class="pie">Preguntas del material «Ley de Coulomb y Campo Eléctrico» (Prof. Riveros)<br>Dibujos de Sofía · Kiut Studio</p>`;
+  <p class="pie">Preguntas del material «Ley de Coulomb y Campo Eléctrico» (Prof. Riveros) y del repaso de ondas<br>Dibujos de Sofía · Kiut Studio</p>`;
   app.innerHTML = h;
   app.querySelectorAll("[data-modo]").forEach(b=>b.onclick=()=>{ audio(); empezar(b.dataset.modo); });
   $("#mudo").onclick=()=>{ datos.mudo=!datos.mudo; guardar(); menu(); };
   $("#ejs").onclick=listaEj;
   $("#forms").onclick=formulas;
   $("#sim").onclick=simulacro;
+  $("#examen").onclick=examen;
   if($("#instalar")) $("#instalar").onclick=instalar;
   $("#quien").onclick=()=>{
     const c=$("#quien"); c.innerHTML=`👤 <input id="nom" maxlength="16" aria-label="Nombre" value="${datos.nombre.replace(/"/g,"")}">`;
@@ -920,7 +1059,7 @@ const DURA = 40; // segundos que tarda Dina en llegar a la torta
 function empezar(modo, soloEstas){
   let qs;
   if(soloEstas) qs = mezclar(soloEstas);
-  else if(modo==="mix") qs = mezclar(Object.keys(TEMAS).flatMap(k=>elegir(BANCO.filter(p=>p.b===k),3)));
+  else if(modo==="mix") qs = mezclar(Object.keys(TEMAS).flatMap(k=>elegir(BANCO.filter(p=>p.b===k),k==="b5"?4:2)));
   else qs = elegir(BANCO.filter(p=>p.b===modo),8);
   P = {modo, qs, i:0, ok:0, racha:0, torta:8, res:[], repaso:!!soloEstas};
   pantallaJuego(); mostrar();
@@ -1053,16 +1192,51 @@ function resultado(){
   $("#volver").onclick=menu;
 }
 
+/* ---------- lo que va a salir (los 3 del profe + ondas) ---------- */
+function diasExamen(){ const h=new Date(); h.setHours(0,0,0,0); const [y,m,d]=FECHA_EXAMEN.split("-").map(Number); return Math.round((new Date(y,m-1,d)-h)/864e5); }
+function cuentaExamen(){ const n=diasExamen();
+  return n>1?`Viernes 13/11 · faltan ${n} días`:n===1?"¡Es mañana! Repasá tranquila":n===0?"¡Es hoy! Vos podés 💪":"Examen del viernes 13/11"; }
+function examen(){
+  pararReloj(); P=null; pararSim(); S=null; volverEj = examen;
+  const pr=datos.practica||{}, tot=EXAMEN.reduce((a,e)=>a+(pr[e.id]||0),0);
+  const lista = EXAMEN.map((e,k)=>{ const i=EJ.indexOf(e), st=datos.ej[e.id], n=pr[e.id]||0;
+    return `<button class="ej-item" data-i="${i}"><span class="n">${k+1}</span><span class="t">${F(e.t)}${e.pts?` · ${e.pts}`:""}</span><span class="st">${st?ICONO[st]:""}${n?`<span class="vez"> 🎲×${n}</span>`:""}</span></button>`; }).join("");
+  const ojo = ["Pasá los cm a metros: se divide por 100 (30 cm = 0,30 m).","Pasá µC a C: multiplicá por 10⁻⁶.","En F₂₃ van q₂ y q₃. Mirá los subíndices.",
+    "En la raíz, F₁₃ y F₂₃ van las dos al cuadrado.","cos 120° = −0,5. La calculadora tiene que estar en grados (DEG).","Escribí siempre la unidad: m, Hz o N."];
+  app.innerHTML = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver al menú">←</button><h2>Lo que va a salir</h2>${AA_BTN}</div>
+    <div class="animo"><img src="assets/sofi.webp" alt=""><p><b>${esc(datos.nombre)}, ya sabés qué va a salir.</b> Practicá estos 3 con números distintos hasta que te salgan sin mirar. Así llegás tranquila. 💪<br><span class="cuenta">${cuentaExamen()}</span></p></div>
+    <div class="nivel">1. Los 3 ejercicios del profe</div>
+    <p class="ayuda" style="text-align:left;margin:4px 0 8px">Resolvé primero en el cuaderno y después mirá la solución paso a paso. Con 🎲 sale el mismo ejercicio con otros números.</p>
+    ${lista}
+    <button class="btn dado" id="azar"><span class="nom">🎲 Uno de los 3 con números nuevos<small>${tot?`ya te salieron ${tot} con números nuevos`:"hacé cada uno por lo menos 3 veces"}</small></span></button>
+    <div class="nivel">2. La teoría de ondas</div>
+    <div class="lista">
+      <button class="btn" id="jOndas" style="background:var(--b5);--s:var(--b5s)"><span class="nom">🌊 Jugar con Dina: Ondas<small>unidades, cualidades del sonido y fenómenos</small></span><span class="der"><span class="fr">${fresas(datos.est.b5||0)}</span></span></button>
+      <button class="btn form" id="fOndas"><span class="nom">📐 Resumen de ondas<small>fórmulas, unidades, cualidades y fenómenos</small></span></button>
+    </div>
+    <div class="nivel">3. Hacé de cuenta que es el examen</div>
+    <div class="lista"><button class="btn sim" id="simEx"><span class="nom">📋 Simulacro del examen<small>8 de teoría + los 3 problemas con números nuevos</small></span></button></div>
+    <div class="ojo"><h3>⚠️ Ojo con estos errores</h3><ul>${ojo.map(x=>`<li>${F(x)}</li>`).join("")}</ul></div>`;
+  window.scrollTo(0,0);
+  $("#volver").onclick=menu;
+  app.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>verEj(+b.dataset.i));
+  $("#azar").onclick=()=>verEj(EJ.indexOf(elegir1(EXAMEN)),true);
+  $("#jOndas").onclick=()=>{ audio(); empezar("b5"); };
+  $("#fOndas").onclick=()=>formulas("b5");
+  $("#simEx").onclick=simulacro;
+}
+
 /* ---------- ejercicios en papel ---------- */
 const ICONO = {si:"✅", masomenos:"🟡", no:"❌"};
-const NOMBRE_NIVEL = {basico:"Básico",inter:"Intermedio",avanz:"Avanzado"};
+const NOMBRE_NIVEL = {examen:"Examen", basico:"Básico",inter:"Intermedio",avanz:"Avanzado"};
 const AA_BTN = `<button class="redondo aa" aria-label="Cambiar letra y tamaño">Aa</button>`;
 function pasosHTML(e){
   return e.p.map(([et,tx])=>`<div class="paso"><b>${F(et)}</b>${F(tx)}</div>`).join("")
     + `<div class="paso final"><b>Respuesta</b>${F(e.r)}${e.figR?`<div class="marco">${dib(e.figR)}</div>`:""}</div>`;
 }
+let volverEj = ()=>listaEj();
 function listaEj(){
-  pararReloj(); P=null; pararSim();
+  pararReloj(); P=null; pararSim(); volverEj = listaEj;
   let h = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver al menú">←</button><h2>Ejercicios en papel</h2>${AA_BTN}</div>
     <p class="ayuda" style="text-align:left;margin:4px 0 0">Primero resolvé el ejercicio en el cuaderno, con los pasos del material. Después mirá la solución paso a paso y marcá cómo te fue.</p>
     <button class="btn dado" id="sorpresa"><span class="nom">🎲 Ejercicio sorpresa<small>cualquier tipo, con números nuevos</small></span></button>`;
@@ -1088,7 +1262,7 @@ function verEj(i,nuevo){
       <div id="fin"></div></div>
     <button class="btn dado" id="otraVez"><span class="nom">🎲 ${nuevo?"Otro igual con números nuevos":"Este mismo con otros números"}</span></button>`;
   window.scrollTo(0,0);
-  $("#volver").onclick=listaEj;
+  $("#volver").onclick=()=>volverEj();
   $("#otraVez").onclick=()=>verEj(i,true);
   const mas=$("#mas");
   mas.onclick=()=>{
@@ -1102,6 +1276,7 @@ function verEj(i,nuevo){
       $("#fin").querySelectorAll("[data-r]").forEach(b=>b.onclick=()=>{
         const r=b.dataset.r;
         if(nuevo){ datos.var=datos.var||{}; datos.var[e.id]=r; } else datos.ej[e.id]=r;
+        if(e.n==="examen" && r==="si"){ datos.practica=datos.practica||{}; datos.practica[e.id]=(datos.practica[e.id]||0)+1; }
         if(window.Nube) Nube.ejercicio(datos, {f:Date.now(), id:e.id+(nuevo?"*":""), nom:e.t, r});
         guardar(true);
         anotar({tipo:"ejercicio", id:e.id+(nuevo?"*":""), nivel:NIVELES[e.n]+(nuevo?" · números nuevos":""), ejercicio:e.t, resultado:{si:"Sí",masomenos:"Más o menos",no:"No"}[r], enunciado:e.q, respuesta:e.r});
@@ -1118,7 +1293,7 @@ function verEj(i,nuevo){
    (uno básico, uno intermedio, uno avanzado) para resolver en el cuaderno. Tiempo total a elección.
    Corrección: la teoría se corrige sola; los problemas los corrige ella mirando la solución.
    Puntaje: teoría 5 puntos cada una (40) + problemas 20 cada uno (60) = 100. */
-const SIM_PROB = [["b2","b3","b4","b5","i3"],["i1","i2","i5","a3","a4","a7"],["a1","a2","a5","a6","a8"]];
+const SIM_PROB = [["x1"],["x2"],["x3"]]; // los tres tipos que mostró el profe, con números nuevos
 let S=null, simTick=0;
 function pararSim(){ clearInterval(simTick); simTick=0; }
 function simulacro(){
@@ -1129,8 +1304,8 @@ function simulacro(){
     <div class="tarjeta">
       <p class="enun" style="margin-top:0">Como un examen de verdad: sin explicaciones hasta el final.</p>
       <ol class="metodo" style="box-shadow:none;background:var(--crema);margin-top:10px">
-        <li><b>Teoría:</b> 8 preguntas de opción múltiple (5 puntos cada una).</li>
-        <li><b>Problemas:</b> 3 problemas con números nuevos para resolver en el cuaderno (20 puntos cada uno).</li>
+        <li><b>Teoría:</b> 8 preguntas de opción múltiple, la mitad de ondas (5 puntos cada una).</li>
+        <li><b>Problemas:</b> los 3 que mostró el profe (longitud de onda, fuerza entre dos cargas y triángulo), con números nuevos (20 puntos cada uno).</li>
         <li><b>Corrección:</b> la teoría se corrige sola. Los problemas los corregís vos, comparando con la solución.</li></ol>
       <p class="sub-t">Tiempo total</p>
       <div class="chips" role="group" aria-label="Tiempo total">${[40,60,90].map(m=>`<button class="chip" data-min="${m}" aria-pressed="${m===min}">${m} minutos</button>`).join("")}</div>
@@ -1142,7 +1317,7 @@ function simulacro(){
   $("#volver").onclick=menu;
   app.querySelectorAll("[data-min]").forEach(b=>b.onclick=()=>{ datos.simMin=+b.dataset.min; guardar(); simulacro(); });
   $("#empezarSim").onclick=()=>{
-    const teoria = mezclar(Object.keys(TEMAS).flatMap(k=>elegir(BANCO.filter(p=>p.b===k),2))).map(p=>({p, ops:mezclar(p.o.map((txt,k)=>({txt,bien:k===0}))), elegida:-1}));
+    const teoria = mezclar(Object.keys(TEMAS).flatMap(k=>elegir(BANCO.filter(p=>p.b===k),k==="b5"?4:1))).map(p=>({p, ops:mezclar(p.o.map((txt,k)=>({txt,bien:k===0}))), elegida:-1}));
     const probs = SIM_PROB.map(ids=>{ const id=elegir1(ids); return variante(EJ.find(e=>e.id===id)); });
     S = {fin: Date.now()+min*60000, inicio: Date.now(), min, teoria, probs, parte:"t", i:0, notas:[]};
     simTick = setInterval(crono,1000);
@@ -1231,7 +1406,7 @@ function notaFinal(){
   const tit = pct>=80?"¡Muy bien preparada!":pct>=60?"¡Vas bien!":"Todavía falta un poco";
   const msj = pct>=80?"Seguí practicando con ejercicios sorpresa para no perder el ritmo."
     : pct>=60?"Repasá las preguntas que fallaste y practicá los problemas que salieron a medias."
-    : "Volvé a los temas con menos frutillas y practicá los ejercicios con números nuevos. Después hacé otro simulacro.";
+    : "Volvé a «Lo que va a salir» y practicá los 3 ejercicios con números nuevos. Después hacé otro simulacro.";
   app.innerHTML = `<div class="top"><span></span>${AA_BTN}</div>
     <div class="res-cab"><img src="assets/${pct>=60?"sofi":"dina"}.webp" alt=""><h2>${tit}</h2>
       <div class="nota">${pct} de 100 puntos</div><p>${msj}</p></div>
@@ -1305,16 +1480,16 @@ if("serviceWorker" in navigator) addEventListener("load",()=>navigator.serviceWo
 /* arranque: "#falladas" abre directo el repaso de las más falladas (botón de Mi progreso) */
 if(window.Nube) Nube.meta(datos, "Física 1", TEMAS, BANCO);
 (function(){
-  const f = location.hash==="#falladas" ? masFalladas(10) : [];
+  const h = location.hash, f = h==="#falladas" ? masFalladas(10) : [];
   history.replaceState(null,"",location.pathname);
-  if(f.length) empezar("mix", f); else menu();
+  if(f.length) empezar("mix", f); else if(h==="#examen") examen(); else menu();
 })();
 reenviar();
 /* copia en la nube: unir con lo que haya (por si se usó en otro teléfono o se borraron los datos) */
 if(window.Nube) Nube.abrir(CLAVE, ()=>datos, m=>{
   Object.assign(datos, m); Nube.meta(datos, "Física 1", TEMAS, BANCO);
   try{ localStorage.setItem(CLAVE, JSON.stringify(datos)); }catch(_){}
-  if(!P && !S && app.querySelector(".lista")) menu();
+  if(!P && !S && app.querySelector("#examen")) menu();
 });
 </script>
 </body>
