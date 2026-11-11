@@ -227,6 +227,16 @@ sub{font-size:.72em;line-height:0;vertical-align:-.3em}
 .animo img{width:64px;height:64px;object-fit:contain;flex:none}
 .animo p{margin:0}
 .ej-item .vez{font-size:13px;color:var(--tinta-suave);white-space:nowrap}
+.meta{margin-top:10px;padding:12px 14px;border-radius:18px;background:var(--blanco);box-shadow:0 3px 0 var(--sombra);text-align:left}
+.meta h3{margin:0 0 8px;font-size:17px}
+.meta p{margin:8px 0;font-size:calc(15px*var(--escala))}
+.meta .bar{height:14px;border-radius:9px;background:var(--crema);border:2px solid var(--sombra);overflow:hidden}
+.meta .bar i{display:block;height:100%;background:var(--b4)}
+.acor{background:var(--blanco);border-radius:18px;padding:10px 16px;box-shadow:0 3px 0 var(--sombra);text-align:left}
+.acor h3{margin:12px 0 4px;font-size:18px}
+.acor ul{margin:0;padding-left:20px}
+.acor li{margin:5px 0;font-size:calc(15px*var(--escala));line-height:1.45}
+@media print{html,body{background:#fff !important;background-image:none !important}.cab-ej,.sig,.noimp{display:none !important}.acor{box-shadow:none;border:1px solid #888;padding:4px 10px}.acor h2{font-size:16px !important}.acor li{font-size:11px;margin:2px 0;line-height:1.3}.acor h3{margin:6px 0 1px;font-size:13px}.fr{font-size:.95em}@page{margin:10mm}.app,body,html{min-height:0 !important;height:auto !important}.app{padding:0 !important}}
 .nuevo{display:inline-block;margin-left:6px;font-size:12px;font-weight:800;letter-spacing:.4px;text-transform:uppercase;color:var(--b3s);background:#efe7ff;padding:3px 10px;border-radius:999px}
 .anotado{margin:12px 0 0;text-align:center;font-weight:800;color:var(--bien);font-size:17px}
 .sub-t{font-weight:700;color:var(--tinta-suave);margin:14px 0 6px}
@@ -381,7 +391,7 @@ const BANCO = [
    se usan los mismos datos que en el PDF de ejercicios resueltos.
    Escritura: [[arriba::abajo]] = fracción · q₁, F_Rx = subíndice · 10⁻⁶ = potencia · \n = renglón nuevo.
    fig = dibujo del enunciado · figR = dibujo con los vectores de la respuesta. */
-const NIVELES = {examen:"⭐ Lo que va a salir (los del profe)", basico:"Nivel básico", inter:"Nivel intermedio", avanz:"Nivel avanzado"};
+const NIVELES = {examen:"⭐ Lo que va a salir (los del profe)", ondas:"🌊 Más problemas de ondas", basico:"Nivel básico", inter:"Nivel intermedio", avanz:"Nivel avanzado"};
 const K = "(8,99 × 10⁹)";
 const EJ = [
 {id:"b1",n:"basico",t:"Número de electrones",q:"Determine el número de electrones correspondiente a una carga Q = −3,2 µC.",
@@ -547,6 +557,34 @@ function textoDir(fx,fy){
 
 const limpio = x => { const t=num(x); return /,\d*$/.test(t) ? t.replace(/0+$/,"").replace(/,$/,"") : t; };
 const GEN = {
+ ondaF(o){
+  o = o || {v:340, lam:elegir1([0.4,0.5,1,2,4])};
+  const f=o.v/o.lam, L=coma(String(o.lam));
+  return {t:"Hallar la frecuencia", q:`Una onda sonora viaja a ${o.v} m/s y tiene una longitud de onda de ${L} m. Determine su frecuencia.`,
+   p:[["Datos",`v = ${o.v} m/s\nλ = ${L} m\nf = ?`],["Fórmula","λ = [[v::f]]   →   f = [[v::λ]]"],["Cálculo",`f = [[${o.v}::${L}]] = ${exacto(f)} Hz`]],
+   r:`f = ${exacto(f)} Hz.`};
+ },
+ ondaV(o){
+  o = o || {lam:elegir1([0.5,1,2,3]), f:elegir1([50,100,170,200,300])};
+  const v=o.lam*o.f, L=coma(String(o.lam));
+  return {t:"Hallar la velocidad", q:`Una onda tiene una longitud de onda de ${L} m y una frecuencia de ${o.f} Hz. Determine su velocidad de propagación.`,
+   p:[["Datos",`λ = ${L} m\nf = ${o.f} Hz\nv = ?`],["Fórmula","v = λ · f"],["Cálculo",`v = ${L} · ${o.f} = ${exacto(v)} m/s`]],
+   r:`v = ${exacto(v)} m/s.`};
+ },
+ ondaT(o){
+  o = o || {f:elegir1([5,10,20,25,50,100,125])};
+  const T=1/o.f, w=2*Math.PI*o.f;
+  return {t:"Período y frecuencia angular", q:`Una onda tiene una frecuencia de ${o.f} Hz. Determine su período y su frecuencia angular.`,
+   p:[["Datos",`f = ${o.f} Hz`],["Período",`T = [[1::f]] = [[1::${o.f}]] = ${exacto(T)} s`],["Frecuencia angular",`ω = 2π · f = 2π · ${o.f} ≈ ${num(w)} rad/s`]],
+   r:`T = ${exacto(T)} s y ω ≈ ${num(w)} rad/s.`};
+ },
+ intens(o){
+  o = o || {P:elegir1([4,6,10,20,50,100]), A:elegir1([0.5,1,2,4,5])};
+  const I=o.P/o.A, A=coma(String(o.A));
+  return {t:"Intensidad del sonido", q:`Un parlante emite una potencia de ${o.P} W repartida en un área de ${A} m². Determine la intensidad del sonido.`,
+   p:[["Datos",`P = ${o.P} W\nA = ${A} m²`],["Fórmula","I = [[P::A]]"],["Cálculo",`I = [[${o.P}::${A}]] = ${exacto(I)} W/m²`]],
+   r:`I = ${exacto(I)} W/m².`};
+ },
  /* ---- los tres que mostró el profe (k = 9 × 10⁹, como en su hoja). Con o = datos fijos; sin o = números nuevos ---- */
  onda(o){
   o = o || (()=>{ const v=elegir1([340,343,343,1500]), lam=elegir1(v===1500?[0.5,1,1.5,2,3,5]:[0.2,0.25,0.4,0.5,0.8,1,1.25,2]);
@@ -831,7 +869,7 @@ const GEN = {
 };
 const GEN_DE = {b1:"electrones",b2:"fuerza",b3:"fuerza",b4:"campo",b5:"campo",i1:"iguales",i2:"distancia",i3:"campoFuerza",i4:"cargaF",i5:"medio",
                 a1:"tres",a2:"tri",a3:"medio",a4:"equi",a5:"nulo1",a6:"perp",a7:"cuad",a8:"nulo2",
-                x1:"onda",x2:"fuerzaEx",x3:"triEx"};
+                x1:"onda",x2:"fuerzaEx",x3:"triEx",w1:"ondaF",w2:"ondaV",w3:"ondaT",w4:"intens"};
 function variante(base){ const g=GEN[GEN_DE[base.id]](); return {...g, id:base.id, n:base.n, nuevo:true}; }
 
 /* ---------- lo que va a salir: los 3 ejercicios que mostró el profe (hoja del 10/11) ---------- */
@@ -843,7 +881,10 @@ const EXAMEN = [
  {...GEN.triEx({q1:2, q2:-4, q3:7, a:0.5}), id:"x3", n:"examen", t:"Fuerza neta en el triángulo"}
 ];
 EXAMEN[2].p.push(["Ojo con el cuaderno","F₂₃ también va al cuadrado dentro de la raíz.\nF₂₃ usa q₂ · q₃ (no q₁ · q₃).\nF_R no queda horizontal: como F₂₃ es el doble de F₁₃, baja 30°."]);
-EJ.unshift(...EXAMEN);
+const ONDAS = [
+ {...GEN.ondaF({v:340,lam:0.5}), id:"w1", n:"ondas"}, {...GEN.ondaV({lam:2,f:170}), id:"w2", n:"ondas"},
+ {...GEN.ondaT({f:50}), id:"w3", n:"ondas"}, {...GEN.intens({P:10,A:2}), id:"w4", n:"ondas"}];
+EJ.unshift(...EXAMEN, ...ONDAS);
 
 /* =====================  ESCRITURA DE FÓRMULAS  =====================
    Convierte el texto de las preguntas en algo fácil de leer y copiar al cuaderno:
@@ -1201,10 +1242,17 @@ function examen(){
   const pr=datos.practica||{}, tot=EXAMEN.reduce((a,e)=>a+(pr[e.id]||0),0);
   const lista = EXAMEN.map((e,k)=>{ const i=EJ.indexOf(e), st=datos.ej[e.id], n=pr[e.id]||0;
     return `<button class="ej-item" data-i="${i}"><span class="n">${k+1}</span><span class="t">${F(e.t)}${e.pts?` · ${e.pts}`:""}</span><span class="st">${st?ICONO[st]:""}${n?`<span class="vez"> 🎲×${n}</span>`:""}</span></button>`; }).join("");
+  const ondasLista = EJ.filter(e=>e.n==="ondas").map(e=>`<button class="ej-item" data-i="${EJ.indexOf(e)}"><span class="n">🌊</span><span class="t">${F(e.t)}</span><span class="st">${datos.ej[e.id]?ICONO[datos.ej[e.id]]:""}</span></button>`).join("");
+  const meta=EXAMEN.map(e=>Math.min(3,pr[e.id]||0)), hecho=meta.reduce((a,b)=>a+b,0), dias=datos.dias||{};
+  const DIAS=[["2026-11-11","Mié 11","los 3 ejercicios"],["2026-11-12","Jue 12","simulacro"],["2026-11-13","Vie 13","acordeón y ¡a rendir!"]];
+  const metaHTML=`<div class="meta"><h3>🎯 Meta: cada ejercicio 3 veces bien con números nuevos</h3><div class="bar"><i style="width:${Math.round(hecho/9*100)}%"></i></div>
+    <p>${EXAMEN.map((e,k)=>`${k+1}: ${"●".repeat(meta[k])}${"○".repeat(3-meta[k])}`).join("   ")} · ${hecho>=9?"<b>¡Meta cumplida! Dina se queda con la torta 🍰</b>":`faltan ${9-hecho}`}</p>
+    <div class="chips" role="group" aria-label="Plan de días">${DIAS.map(([k,t,x])=>`<button class="chip" data-dia="${k}" aria-pressed="${!!dias[k]}">${t} · ${x}</button>`).join("")}</div></div>`;
   const ojo = ["Pasá los cm a metros: se divide por 100 (30 cm = 0,30 m).","Pasá µC a C: multiplicá por 10⁻⁶.","En F₂₃ van q₂ y q₃. Mirá los subíndices.",
     "En la raíz, F₁₃ y F₂₃ van las dos al cuadrado.","cos 120° = −0,5. La calculadora tiene que estar en grados (DEG).","Escribí siempre la unidad: m, Hz o N."];
   app.innerHTML = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver al menú">←</button><h2>Lo que va a salir</h2>${AA_BTN}</div>
     <div class="animo"><img src="assets/sofi.webp" alt=""><p><b>${esc(datos.nombre)}, ya sabés qué va a salir.</b> Practicá estos 3 con números distintos hasta que te salgan sin mirar. Así llegás tranquila. 💪<br><span class="cuenta">${cuentaExamen()}</span></p></div>
+    ${metaHTML}
     <div class="nivel">1. Los 3 ejercicios del profe</div>
     <p class="ayuda" style="text-align:left;margin:4px 0 8px">Resolvé primero en el cuaderno y después mirá la solución paso a paso. Con 🎲 sale el mismo ejercicio con otros números.</p>
     ${lista}
@@ -1213,7 +1261,10 @@ function examen(){
     <div class="lista">
       <button class="btn" id="jOndas" style="background:var(--b5);--s:var(--b5s)"><span class="nom">🌊 Jugar con Dina: Ondas<small>unidades, cualidades del sonido y fenómenos</small></span><span class="der"><span class="fr">${fresas(datos.est.b5||0)}</span></span></button>
       <button class="btn form" id="fOndas"><span class="nom">📐 Resumen de ondas<small>fórmulas, unidades, cualidades y fenómenos</small></span></button>
+      <button class="btn mix" id="huecos"><span class="nom">🧠 Fórmulas con huecos<small>escribilas de memoria y comprobá</small></span><span class="der">${datos.huecos?"✓ "+datos.huecos+"×":""}</span></button>
+      <button class="btn mix" id="acor"><span class="nom">📄 Acordeón de una hoja<small>para imprimir o copiar al cuaderno</small></span></button>
     </div>
+    <div class="nivel">Más problemas de ondas (por si cambian el dato)</div>${ondasLista}
     <div class="nivel">3. Hacé de cuenta que es el examen</div>
     <div class="lista"><button class="btn sim" id="simEx"><span class="nom">📋 Simulacro del examen<small>8 de teoría + los 3 problemas con números nuevos</small></span></button></div>
     <div class="ojo"><h3>⚠️ Ojo con estos errores</h3><ul>${ojo.map(x=>`<li>${F(x)}</li>`).join("")}</ul></div>`;
@@ -1223,12 +1274,60 @@ function examen(){
   $("#azar").onclick=()=>verEj(EJ.indexOf(elegir1(EXAMEN)),true);
   $("#jOndas").onclick=()=>{ audio(); empezar("b5"); };
   $("#fOndas").onclick=()=>formulas("b5");
+  $("#huecos").onclick=()=>{ H=null; huecos(); };
+  $("#acor").onclick=acordeon;
+  app.querySelectorAll("[data-dia]").forEach(b=>b.onclick=()=>{ datos.dias=datos.dias||{}; const k=b.dataset.dia; datos.dias[k]=!datos.dias[k]; guardar(); b.setAttribute("aria-pressed",!!datos.dias[k]); });
   $("#simEx").onclick=simulacro;
+}
+
+/* ---------- acordeón (una hoja, para imprimir) ---------- */
+function acordeon(){
+  pararReloj(); P=null; pararSim(); S=null;
+  const B=[["🌊 Ondas",["λ = [[v::f]]     v = λ · f     T = [[1::f]]     ω = 2π · f","I = [[P::A]]     (W/m²)","Unidades: λ → m · f → Hz · ω → rad/s · T → s","Tono → frecuencia (Hz) · Intensidad → W/m² o dB · Timbre → espectro armónico (sin unidad) · Duración → s",
+   "Reflexión: la onda regresa al medio de donde venía (eco)","Refracción: la onda pasa a otro medio donde cambia su rapidez","Interferencia: dos o más ondas coinciden al mismo tiempo en una región","Polarización: la vibración de una onda transversal queda en un solo plano (el sonido no se polariza)"]],
+   ["⚡ Fuerza entre dos cargas",["F = k · [[|q₁ · q₂|::r²]]     k = 9 × 10⁹ N·m²/C²","cm → m: se divide por 100     µC → C: se multiplica por 10⁻⁶","Mismo signo → repulsión · Signos opuestos → atracción"]],
+   ["🔺 Tres cargas (triángulo)",["F₁₃ usa q₁ y q₃ · F₂₃ usa q₂ y q₃ (mirá los subíndices)","F_R = √(F₁₃² + F₂₃² + 2 · F₁₃ · F₂₃ · cos α)","Una fuerza se aleja y la otra va hacia su carga → α = 120° → cos 120° = −0,5","Las dos se alejan (o las dos van hacia su carga) → α = 60° → cos 60° = 0,5"]],
+   ["✅ Antes de entregar",["Calculadora en grados (DEG)","Unidades en el resultado: m, Hz, N","Módulo + unidad + dirección + sentido"]]];
+  app.innerHTML=`<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver">←</button><h2>Acordeón</h2>${AA_BTN}</div>
+    <div class="acor"><h2 style="margin:4px 0">Física I · examen del viernes 13/11</h2>${B.map(([t,l])=>`<h3>${t}</h3><ul>${l.map(x=>`<li>${F(x)}</li>`).join("")}</ul>`).join("")}</div>
+    <button class="sig" onclick="window.print()">🖨️ Imprimir o guardar en PDF</button><p class="ayuda noimp">También podés copiarlo a mano en el cuaderno: escribirlo ayuda a recordarlo.</p>`;
+  window.scrollTo(0,0); $("#volver").onclick=examen;
+}
+
+/* ---------- fórmulas con huecos (tarjetas de memoria) ---------- */
+const HUECOS=[
+ ["Longitud de onda con la velocidad y la frecuencia:   λ = ___","λ = [[v::f]]"],["Período en función de la frecuencia:   T = ___","T = [[1::f]]"],
+ ["Velocidad de una onda con λ y f:   v = ___","v = λ · f"],["Frecuencia angular:   ω = ___","ω = 2π · f"],["Intensidad:   I = ___  (¿en qué unidad?)","I = [[P::A]]   en W/m²"],
+ ["Unidades de λ, f, ω y T","λ → m · f → Hz · ω → rad/s · T → s"],["El tono depende de…","La frecuencia fundamental (Hz)"],["El timbre depende de…","El espectro armónico (no tiene unidad)"],
+ ["Reflexión es…","La onda llega a una frontera y regresa al medio de donde venía"],["Refracción es…","La onda pasa de un medio a otro donde cambia su rapidez"],
+ ["Interferencia es…","Dos o más ondas coinciden al mismo tiempo en una región del espacio"],["Polarización es…","La vibración de una onda transversal queda en un solo plano"],
+ ["Fuerza entre dos cargas:   F = ___","F = k · [[|q₁ · q₂|::r²]]"],["Valor de k","k = 9 × 10⁹ N·m²/C²"],["De cm a m…","Se divide por 100 (30 cm = 0,30 m)"],["De µC a C…","Se multiplica por 10⁻⁶"],
+ ["Mismo signo → ___ · Signos opuestos → ___","Repulsión · Atracción"],["Resultante de dos fuerzas con ángulo α:   F_R = ___","F_R = √(F₁₃² + F₂₃² + 2 · F₁₃ · F₂₃ · cos α)"],["cos 120° = ___  (y la calculadora en…)","−0,5   (en grados, DEG)"]];
+let H=null;
+function huecos(){
+  pararReloj(); P=null; pararSim(); S=null;
+  if(!H) H={cola:mezclar(HUECOS), malas:0, ver:false};
+  if(!H.cola.length){
+    datos.huecos=(datos.huecos||0)+1; guardar(); const n=H.malas; H=null;
+    app.innerHTML=`<div class="top"><span></span>${AA_BTN}</div><div class="res-cab"><img src="assets/sofi.webp" alt=""><h2>¡Te las sabés!</h2><p>${n?`Repetiste ${n} de las que más cuestan. Dale otra vuelta mañana.`:"Todas a la primera."}</p></div>
+      <div class="acciones"><button class="sig" id="otra">Otra vuelta</button><button class="btn mix" id="volver" style="justify-content:center"><span class="nom" style="text-align:center;flex:none">Volver</span></button></div>`;
+    sBien(); window.scrollTo(0,0); $("#otra").onclick=huecos; $("#volver").onclick=examen; return;
+  }
+  const [p,r]=H.cola[0];
+  app.innerHTML=`<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver">←</button><h2>Fórmulas con huecos</h2>${AA_BTN}</div>
+    <div class="tarjeta"><span class="tema" style="--tc:var(--b4s)">Quedan ${H.cola.length}</span><p class="preg">${F(p)}</p>
+      <div class="papel">📝 Escribila en el cuaderno sin mirar y después tocá «Ver respuesta».</div>
+      ${H.ver?`<div class="paso final"><b>Respuesta</b>${F(r)}</div><div class="tal"><button id="si">✅ La sabía</button><button id="no">❌ Todavía no</button></div>`:`<button class="sig" id="ver">Ver respuesta</button>`}</div>`;
+  window.scrollTo(0,0);
+  $("#volver").onclick=()=>{ H=null; examen(); };
+  if($("#ver")) $("#ver").onclick=()=>{ H.ver=true; huecos(); };
+  if($("#si")) $("#si").onclick=()=>{ H.cola.shift(); H.ver=false; sBien(); huecos(); };
+  if($("#no")) $("#no").onclick=()=>{ const c=H.cola.shift(); H.cola.splice(Math.min(3,H.cola.length),0,c); H.malas++; H.ver=false; huecos(); };
 }
 
 /* ---------- ejercicios en papel ---------- */
 const ICONO = {si:"✅", masomenos:"🟡", no:"❌"};
-const NOMBRE_NIVEL = {examen:"Examen", basico:"Básico",inter:"Intermedio",avanz:"Avanzado"};
+const NOMBRE_NIVEL = {examen:"Examen", ondas:"Ondas", basico:"Básico",inter:"Intermedio",avanz:"Avanzado"};
 const AA_BTN = `<button class="redondo aa" aria-label="Cambiar letra y tamaño">Aa</button>`;
 function pasosHTML(e){
   return e.p.map(([et,tx])=>`<div class="paso"><b>${F(et)}</b>${F(tx)}</div>`).join("")
