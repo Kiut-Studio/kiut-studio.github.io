@@ -20,7 +20,7 @@
 :root{
   --crema:#fff7fb; --rosa:#ff7eb6; --rosa-osc:#e2559a; --tinta:#4a2a3f; --tinta-suave:#7b5a6f;
   --sombra:#e9b6cd; --blanco:#ffffff; --bien:#2fae78; --bien-fondo:#e3f7ee; --mal:#e2496b; --mal-fondo:#fde6ec;
-  --b1:#ff7eb6; --b1s:#d9579a; --b2:#ff9a3c; --b2s:#d9741c; --b3:#8a5ce0; --b3s:#6a3fbf; --b4:#2fb37e; --b4s:#1f8a5f; --b5:#22a7c4; --b5s:#13809b;
+  --b1:#ff7eb6; --b1s:#d9579a; --b2:#ff9a3c; --b2s:#d9741c; --b3:#8a5ce0; --b3s:#6a3fbf; --b4:#2fb37e; --b4s:#1f8a5f; --b5:#22a7c4; --b5s:#13809b; --b6:#5a6bdc; --b6s:#3e4cb5;
   --display:"Fredoka","Baloo 2","Trebuchet MS",system-ui,sans-serif;
   --texto:"Andika","Verdana","Segoe UI",system-ui,sans-serif;
   --escala:1; --pos:#e8553f; --neg:#3a7fd9; --vec:#6a4fd0; --vec2:#d9741c; --res:#1f8a5f;
@@ -267,7 +267,8 @@ sub{font-size:.72em;line-height:0;vertical-align:-.3em}
    La primera opción de cada pregunta es la correcta (se mezclan al mostrarlas).
    s = sección del material del Prof. Riveros donde está explicado. */
 const TEMAS = {
-  b5:{nom:"Ondas", sub:"λ, frecuencia, cualidades del sonido, fenómenos", c:"var(--b5)", s:"var(--b5s)"},
+  b5:{nom:"Ondas", sub:"λ, frecuencia, cualidades del sonido", c:"var(--b5)", s:"var(--b5s)"},
+  b6:{nom:"Fenómenos ondulatorios", sub:"reflexión, refracción, interferencia, difracción, polarización", c:"var(--b6)", s:"var(--b6s)"},
   b1:{nom:"Carga eléctrica", sub:"electrones, cuantización, conservación", c:"var(--b1)", s:"var(--b1s)"},
   b2:{nom:"Ley de Coulomb", sub:"fuerza entre dos cargas", c:"var(--b2)", s:"var(--b2s)"},
   b3:{nom:"Campo eléctrico", sub:"sentido, F = qE, líneas, conductores", c:"var(--b3)", s:"var(--b3s)"},
@@ -300,6 +301,46 @@ const BANCO = [
 {id:"o23",b:"b5",q:"¿Cuál de estas es una onda electromagnética?",o:["La luz","El sonido","Una ola del mar","Una onda en una cuerda"],e:"Luz, radio, rayos X y microondas son electromagnéticas. Las otras son mecánicas.",s:"Repaso del 30/10"},
 {id:"o24",b:"b5",q:"El eco es un ejemplo de…",o:["Reflexión","Refracción","Interferencia","Polarización"],e:"El sonido rebota en una pared y vuelve.",s:"Repaso del 30/10"},
 {id:"o25",b:"b5",q:"Para pasar de centímetros a metros…",o:["Se divide por 100","Se multiplica por 100","Se divide por 1 000","Se multiplica por 10"],e:"30 cm ÷ 100 = 0,30 m. Siempre en metros antes de usar una fórmula.",s:"Repaso del 30/10"},
+/* ---------- Bloque 6: fenómenos ondulatorios (material «Fenómenos ondulatorios», 12/11) ---------- */
+{id:"n1",b:"b6",q:"¿Qué es una onda?",o:["Una perturbación que se propaga y transporta energía, sin transportar materia de forma neta","Un desplazamiento de materia de un lugar a otro","Una fuerza que empuja a las partículas del medio","Un movimiento que no transporta energía"],e:"La onda lleva energía de un lugar a otro, pero la materia no viaja con ella.",s:"Sección 1"},
+{id:"n2",b:"b6",q:"¿Qué necesita una onda mecánica para propagarse?",o:["Un medio material","El vacío","Una fuente de luz","Un campo eléctrico"],e:"El sonido, las ondas en una cuerda o en el agua necesitan un medio. Por eso el sonido no viaja en el vacío.",s:"Sección 1"},
+{id:"n3",b:"b6",q:"En una onda transversal, las partículas vibran…",o:["perpendicular a la dirección de propagación","paralelo a la dirección de propagación","sin moverse","en círculos alrededor de la fuente"],e:"Transversal: vibración ⊥ propagación. Ejemplo: una onda en una cuerda.",s:"Sección 1.1"},
+{id:"n4",b:"b6",q:"En una onda longitudinal, las partículas vibran…",o:["paralelo a la dirección de propagación","perpendicular a la dirección de propagación","solo en la superficie","a 45° de la propagación"],e:"Longitudinal: vibración ∥ propagación. Ejemplo: el sonido en el aire, con zonas de compresión y de rarefacción.",s:"Sección 1.2"},
+{id:"n5",b:"b6",q:"¿Qué representa la amplitud A de una onda?",o:["El máximo desplazamiento de una partícula respecto de su posición de equilibrio","La distancia entre dos crestas","El tiempo de una vibración completa","La velocidad de la onda"],e:"La distancia entre dos crestas es la longitud de onda λ, no la amplitud.",s:"Sección 1.1"},
+{id:"n6",b:"b6",q:"¿Cuál es la fórmula del número de onda k?",o:["k = [[2π::λ]]","k = 2π · λ","k = [[λ::2π]]","k = [[1::T]]"],e:"k = [[2π::λ]]. Y también v = [[ω::k]].",s:"Sección 2.3"},
+{id:"n7",b:"b6",q:"¿Cuál es la ley de la reflexión?",o:["El ángulo de incidencia es igual al ángulo de reflexión (θ_i = θ_r)","El ángulo de reflexión es el doble del de incidencia","El ángulo de reflexión es 90° menos el de incidencia","Los dos ángulos suman 180°"],e:"θ_i = θ_r, los dos medidos respecto de la normal.",s:"Sección 3.1"},
+{id:"n8",b:"b6",q:"Una onda incide en una frontera formando 38° con la normal. ¿Cuánto vale el ángulo de reflexión?",o:["38°","52°","76°","142°"],e:"θ_r = θ_i = 38°. La onda incidente y la reflejada forman el mismo ángulo con la normal.",s:"Sección 3.4"},
+{id:"n9",b:"b6",q:"En la reflexión, los ángulos de incidencia y de reflexión se miden respecto de…",o:["la normal","la frontera","la dirección de la fuente","el eje horizontal"],e:"La normal es la línea perpendicular a la frontera.",s:"Sección 3.1"},
+{id:"n10",b:"b6",q:"Un pulso en una cuerda llega a un extremo fijo. ¿Qué pasa al reflejarse?",o:["Se refleja invertido (cambio de fase de π, o sea 180°)","Se refleja sin invertirse","Desaparece","Se refracta"],e:"Extremo fijo: el pulso vuelve invertido, Δφ = π.",s:"Sección 3.3.1"},
+{id:"n11",b:"b6",q:"Un pulso en una cuerda llega a un extremo libre. ¿Qué pasa al reflejarse?",o:["Vuelve sin invertirse (Δφ = 0)","Vuelve invertido (Δφ = π)","Se detiene","Cambia su frecuencia"],e:"Extremo libre: el pulso vuelve igual, sin invertirse.",s:"Sección 3.3.2"},
+{id:"n12",b:"b6",q:"Cuando una onda cambia de medio (refracción), ¿cuál de estas magnitudes NO cambia?",o:["La frecuencia","La rapidez","La longitud de onda","La rapidez y la longitud de onda juntas"],e:"La frecuencia la determina la fuente: f₁ = f₂. Cambian v y λ.",s:"Sección 4"},
+{id:"n13",b:"b6",q:"En la refracción, si la rapidez de la onda disminuye en el segundo medio, su longitud de onda…",o:["disminuye","aumenta","no cambia","se vuelve cero"],e:"[[v₁::v₂]] = [[λ₁::λ₂]] porque f no cambia. Si baja v, baja λ.",s:"Sección 4.1"},
+{id:"n14",b:"b6",q:"¿Cuál es la relación entre el ángulo y la rapidez en la refracción?",o:["[[sin θ₁::v₁]] = [[sin θ₂::v₂]]","sin θ₁ · v₁ = sin θ₂ · v₂","[[θ₁::v₂]] = [[θ₂::v₁]]","sin θ₁ + v₁ = sin θ₂ + v₂"],e:"Es la ley de Snell para ondas: el seno del ángulo dividido la rapidez es igual en los dos medios.",s:"Sección 4.2"},
+{id:"n15",b:"b6",q:"Si v₂ < v₁, la onda refractada…",o:["se acerca a la normal (θ₂ < θ₁)","se aleja de la normal (θ₂ > θ₁)","no cambia de dirección","vuelve al primer medio"],e:"Más lenta en el segundo medio → se desvía hacia la normal.",s:"Sección 4.4"},
+{id:"n16",b:"b6",q:"Si v₂ > v₁, la onda refractada…",o:["se aleja de la normal (θ₂ > θ₁)","se acerca a la normal (θ₂ < θ₁)","no cambia de dirección","se refleja"],e:"Más rápida en el segundo medio → se desvía alejándose de la normal.",s:"Sección 4.4"},
+{id:"n17",b:"b6",q:"Una onda viaja a v₁ = 4,0 m/s y llega a la frontera con θ₁ = 30°. En el segundo medio v₂ = 2,0 m/s. ¿Cuánto vale θ₂?",o:["≈ 14,5°","≈ 60°","≈ 15°","≈ 25°"],e:"sin θ₂ = [[v₂::v₁]] · sin θ₁ = [[2::4]] · 0,5 = 0,25 → θ₂ ≈ 14,5°. Como v₂ < v₁, se acerca a la normal.",s:"Sección 4.5"},
+{id:"n18",b:"b6",q:"¿Qué es el principio de superposición?",o:["Si dos ondas coinciden, la onda resultante es la suma: y_R = y₁ + y₂","La onda resultante es la resta de las dos ondas","La onda más grande borra a la más chica","Dos ondas nunca pueden coincidir en el mismo lugar"],e:"Es la base de la interferencia.",s:"Sección 5"},
+{id:"n19",b:"b6",q:"¿Cuándo hay interferencia constructiva?",o:["Cuando las ondas llegan en fase: Δr = mλ","Cuando una cresta coincide con un valle","Cuando Δr = (m + ½) · λ","Cuando las ondas tienen distinta frecuencia"],e:"En fase: A + A = 2A. La amplitud aumenta. m = 0, 1, 2, 3…",s:"Sección 5.1"},
+{id:"n20",b:"b6",q:"¿Cuándo hay interferencia destructiva (con amplitudes iguales)?",o:["Cuando una cresta coincide con un valle: Δr = (m + ½) · λ","Cuando las ondas llegan en fase","Cuando Δr = mλ","Cuando las ondas no se encuentran"],e:"A + (−A) = 0. La condición es Δr = (m + ½) · λ.",s:"Sección 5.2"},
+{id:"n21",b:"b6",q:"En un punto, λ = 0,80 m y la diferencia de caminos es Δr = 2,40 m. ¿Qué interferencia hay?",o:["Constructiva (Δr = 3λ)","Destructiva","Ninguna","No se puede saber"],e:"[[Δr::λ]] = [[2,40::0,80]] = 3, un número entero → Δr = mλ → constructiva.",s:"Sección 5.5"},
+{id:"n22",b:"b6",q:"¿Cuánto vale la diferencia de fase Δφ en función de Δr?",o:["Δφ = [[2π::λ]] · Δr","Δφ = [[λ::2π]] · Δr","Δφ = 2π · λ · Δr","Δφ = [[Δr::2π]]"],e:"Constructiva: Δφ = 2mπ. Destructiva: Δφ = (2m + 1)π.",s:"Sección 5.3"},
+{id:"n23",b:"b6",q:"En una interferencia destructiva, las ondas…",o:["no desaparecen para siempre: sus desplazamientos se cancelan mientras se superponen","desaparecen para siempre","pierden toda su energía","cambian de frecuencia"],e:"Después de cruzarse, cada onda sigue su camino como si nada.",s:"Sección 12"},
+{id:"n24",b:"b6",q:"¿Qué es la difracción?",o:["La onda se extiende o se curva al atravesar una abertura o rodear un obstáculo","La onda rebota en una frontera","La onda cambia de rapidez al cambiar de medio","La vibración queda en un solo plano"],e:"Ejemplo: escuchás una conversación desde otra habitación porque el sonido dobla en la puerta.",s:"Sección 6"},
+{id:"n25",b:"b6",q:"¿Cuándo es más evidente la difracción?",o:["Cuando el tamaño de la abertura es comparable con la longitud de onda (a ≈ λ)","Cuando la abertura es mucho mayor que λ (a ≫ λ)","Cuando la onda es longitudinal","Cuando la frecuencia es cero"],e:"Si a ≫ λ la difracción es pequeña. Si a ≈ λ es muy apreciable.",s:"Sección 6.1"},
+{id:"n26",b:"b6",q:"Una onda de agua tiene λ = 0,50 m y pasa por una abertura de a = 0,55 m. ¿Cómo es la difracción?",o:["Apreciable (a/λ = 1,1, o sea a ≈ λ)","Muy pequeña","No hay difracción","Se transforma en refracción"],e:"[[a::λ]] = [[0,55::0,50]] = 1,1. Como a ≈ λ, se espera una difracción apreciable.",s:"Sección 6.4"},
+{id:"n27",b:"b6",q:"¿Qué dice el principio de Huygens?",o:["Cada punto de un frente de onda es fuente de ondas secundarias; la envolvente forma el nuevo frente","Las ondas siempre se propagan en línea recta","La frecuencia no cambia al cambiar de medio","La luz no puede polarizarse"],e:"Ayuda a entender la reflexión, la refracción y la difracción.",s:"Sección 6.3"},
+{id:"n28",b:"b6",q:"¿Qué se necesita para que una onda se pueda polarizar?",o:["Que sea una onda transversal","Que sea una onda longitudinal","Que viaje en el vacío","Que tenga frecuencia baja"],e:"La polarización selecciona una dirección de vibración, y eso solo existe en ondas transversales.",s:"Sección 7"},
+{id:"n29",b:"b6",q:"La polarización de la luz es una evidencia de que la luz es…",o:["una onda transversal","una onda longitudinal","una onda mecánica","una partícula sin energía"],e:"La luz es una onda electromagnética transversal, por eso se puede polarizar.",s:"Sección 7.3"},
+{id:"n30",b:"b6",q:"Luz polarizada con I₀ = 100 W/m² pasa por un analizador a 60°. ¿Cuánto vale la intensidad transmitida?",o:["25 W/m²","50 W/m²","75 W/m²","86,6 W/m²"],e:"I = I₀ · cos²θ = 100 · (0,5)² = 100 · 0,25 = 25 W/m².",s:"Sección 7.5"},
+{id:"n31",b:"b6",q:"¿Cuál es la ley de Malus?",o:["I = I₀ · cos²θ","I = I₀ · cos θ","I = I₀ · sin²θ","I = [[I₀::cos²θ]]"],e:"I₀ es la intensidad inicial e I la transmitida. θ es el ángulo entre las direcciones de polarización.",s:"Sección 7.4"},
+{id:"n32",b:"b6",q:"¿Se puede polarizar el sonido ordinario en el aire?",o:["No de la misma forma que una onda transversal, porque es longitudinal","Sí, igual que la luz","Sí, pero solo de noche","No, porque no tiene amplitud"],e:"El sonido en el aire es longitudinal: no tiene una dirección transversal para seleccionar.",s:"Sección 7.2"},
+{id:"n33",b:"b6",q:"La onda llega a una frontera y vuelve al medio de donde venía. ¿Qué fenómeno es?",o:["Reflexión","Refracción","Difracción","Polarización"],e:"Pregunta 1 de la lista del material: ¿llega a una frontera y regresa? → reflexión.",s:"Sección 9"},
+{id:"n34",b:"b6",q:"La onda entra en otra región y cambia su velocidad o su dirección. ¿Qué fenómeno es?",o:["Refracción","Reflexión","Interferencia","Difracción"],e:"Pregunta 2 de la lista del material: cambia de medio y de rapidez → refracción.",s:"Sección 9"},
+{id:"n35",b:"b6",q:"Dos ondas coinciden en el mismo lugar al mismo tiempo. ¿Qué fenómeno es?",o:["Interferencia","Difracción","Reflexión","Polarización"],e:"Pregunta 3 de la lista del material: se suman por el principio de superposición.",s:"Sección 9"},
+{id:"n36",b:"b6",q:"La onda atraviesa una abertura o rodea un obstáculo y se abre. ¿Qué fenómeno es?",o:["Difracción","Refracción","Interferencia","Reflexión"],e:"Pregunta 4 de la lista del material. No lo confundas con la refracción: la difracción tiene que ver con aberturas y obstáculos.",s:"Sección 9"},
+{id:"n37",b:"b6",q:"Se selecciona una dirección transversal de vibración. ¿Qué fenómeno es?",o:["Polarización","Difracción","Interferencia","Refracción"],e:"Pregunta 5 de la lista del material.",s:"Sección 9"},
+{id:"n38",b:"b6",q:"¿Cuál es la diferencia entre reflexión y refracción?",o:["En la reflexión la onda vuelve; en la refracción continúa hacia otro medio","En la reflexión cambia la frecuencia; en la refracción no","Son lo mismo","En la refracción la onda vuelve; en la reflexión continúa"],e:"Error frecuente del material: reflexión = vuelve. Refracción = sigue hacia otro medio y cambia su rapidez.",s:"Sección 12"},
+{id:"n39",b:"b6",q:"¿Cuál es el orden recomendado para resolver un problema de ondas?",o:["Datos → Incógnita → Ecuación → Despeje → Cálculo → Resultado","Cálculo → Datos → Ecuación → Resultado","Ecuación → Resultado → Datos","Resultado → Datos → Cálculo"],e:"Y al final: el resultado con unidades y una interpretación física.",s:"Sección 10"},
 /* ---------- lo que mostró el profe (Coulomb y triángulo) ---------- */
 {id:"x1",b:"b2",q:"q₁ = +4 µC y q₂ = +6 µC están separadas 30 cm. ¿La fuerza es de atracción o de repulsión?",o:["Repulsión","Atracción","No hay fuerza","Depende de la distancia"],e:"Las dos son positivas: mismo signo → se repelen. F ≈ 2,4 N.",s:"Ejercicio del profe"},
 {id:"x2",b:"b2",q:"q₁ = +4 µC y q₂ = +6 µC están a 0,30 m. Con k = 9 × 10⁹, ¿cuánto vale F?",o:["2,4 N","0,72 N","7,2 N","24 N"],e:"F = [[(9 × 10⁹) · (4 × 10⁻⁶) · (6 × 10⁻⁶)::(0,30)²]] = [[0,216::0,09]] = 2,4 N.",s:"Ejercicio del profe"},
@@ -391,7 +432,7 @@ const BANCO = [
    se usan los mismos datos que en el PDF de ejercicios resueltos.
    Escritura: [[arriba::abajo]] = fracción · q₁, F_Rx = subíndice · 10⁻⁶ = potencia · \n = renglón nuevo.
    fig = dibujo del enunciado · figR = dibujo con los vectores de la respuesta. */
-const NIVELES = {examen:"⭐ Lo que va a salir (los del profe)", ondas:"🌊 Más problemas de ondas", basico:"Nivel básico", inter:"Nivel intermedio", avanz:"Nivel avanzado"};
+const NIVELES = {examen:"⭐ Lo que va a salir (los del profe)", ondas:"🌊 Más problemas de ondas", fenom:"🌠 Fenómenos ondulatorios (material del 12/11)", basico:"Nivel básico", inter:"Nivel intermedio", avanz:"Nivel avanzado"};
 const K = "(8,99 × 10⁹)";
 const EJ = [
 {id:"b1",n:"basico",t:"Número de electrones",q:"Determine el número de electrones correspondiente a una carga Q = −3,2 µC.",
@@ -557,6 +598,64 @@ function textoDir(fx,fy){
 
 const limpio = x => { const t=num(x); return /,\d*$/.test(t) ? t.replace(/0+$/,"").replace(/,$/,"") : t; };
 const GEN = {
+ /* ---- fenómenos ondulatorios (material «Fenómenos ondulatorios»): 6 tipos, con o = datos del material y sin o = números nuevos ---- */
+ refl(o){
+  o = o || {ti:elegir1([20,25,30,35,40,45,50,55,60,65,70])};
+  const t=o.ti;
+  return {t:"Ángulo de reflexión", q:`Una onda incide sobre una frontera formando un ángulo de ${t}° con la normal. Calcule el ángulo de reflexión.`,
+   p:[["Datos",`θ_i = ${t}°`],["Incógnita","θ_r = ?"],["Estrategia","Ley de la reflexión:   θ_i = θ_r\nLos dos ángulos se miden respecto de la normal."],["Sustitución",`θ_r = ${t}°`]],
+   r:`θ_r = ${t}°. La onda incidente y la reflejada forman el mismo ángulo con la normal.`};
+ },
+ refrac(o){
+  o = o || (()=>{ let v1,v2,t1; do{ v1=elegir1([2,3,4,5,6,8]); v2=elegir1([1,2,3,4,5,6,8]); t1=elegir1([20,25,30,35,40,45,50,60]); }while(v1===v2 || v2/v1*Math.sin(t1*Math.PI/180)>=0.95); return {v1,v2,t1}; })();
+  const {v1,v2,t1}=o, s1=Math.sin(t1*Math.PI/180), s2=v2/v1*s1, t2=Math.asin(s2)*180/Math.PI, acerca=v2<v1;
+  return {t:"Refracción: ángulo del segundo medio", q:`Una onda viaja en un primer medio con v₁ = ${exacto(v1)} m/s y llega a la frontera con θ₁ = ${t1}°. En el segundo medio, v₂ = ${exacto(v2)} m/s. Calcule θ₂.`,
+   p:[["Datos",`v₁ = ${exacto(v1)} m/s\nv₂ = ${exacto(v2)} m/s\nθ₁ = ${t1}°`],["Incógnita","θ₂ = ?"],
+      ["Estrategia","[[sin θ₁::v₁]] = [[sin θ₂::v₂]]"],["Despeje","sin θ₂ = [[v₂::v₁]] · sin θ₁"],
+      ["Sustitución",`sin θ₂ = [[${exacto(v2)}::${exacto(v1)}]] · sin ${t1}°\nsin ${t1}° ≈ ${num(s1,3)}\nsin θ₂ ≈ ${num(s2,3)}`],
+      ["Ángulo",`θ₂ = sin⁻¹(${num(s2,3)}) ≈ ${num(t2,3)}°`],
+      ["Interpretación",acerca?"Como v₂ < v₁, la onda se desvía hacia la normal (θ₂ < θ₁).":"Como v₂ > v₁, la onda se aleja de la normal (θ₂ > θ₁)."]],
+   r:`θ₂ ≈ ${num(t2,3)}°. ${acerca?"Se acerca a la normal.":"Se aleja de la normal."}`};
+ },
+ refracL(o){
+  o = o || (()=>{ let v1,v2; do{ v1=elegir1([2,3,4,5,6,8]); v2=elegir1([1,2,3,4,5,6,8]); }while(v1===v2); return {v1,v2,l1:elegir1([1,1.5,2,2.5,3,4])}; })();
+  const {v1,v2,l1}=o, f=v1/l1, l2=l1*v2/v1;
+  return {t:"Refracción: longitud de onda del segundo medio", q:`Una onda pasa de un medio donde v₁ = ${exacto(v1)} m/s y λ₁ = ${exacto(l1)} m a otro donde v₂ = ${exacto(v2)} m/s. Calcule la frecuencia y la longitud de onda λ₂ en el segundo medio.`,
+   p:[["Datos",`v₁ = ${exacto(v1)} m/s\nλ₁ = ${exacto(l1)} m\nv₂ = ${exacto(v2)} m/s`],
+      ["Frecuencia",`f = [[v₁::λ₁]] = [[${exacto(v1)}::${exacto(l1)}]] = ${exacto(f)} Hz\nLa frecuencia no cambia: f₁ = f₂.`],
+      ["Estrategia","[[v₁::v₂]] = [[λ₁::λ₂]]   →   λ₂ = [[v₂::f]]"],
+      ["Cálculo",`λ₂ = [[${exacto(v2)}::${exacto(f)}]] = ${limpio(l2)} m`],
+      ["Interpretación",v2<v1?"Como v₂ < v₁, la longitud de onda también disminuye.":"Como v₂ > v₁, la longitud de onda también aumenta."]],
+   r:`f = ${exacto(f)} Hz (no cambia) y λ₂ = ${limpio(l2)} m.`};
+ },
+ interf(o){
+  o = o || (()=>{ const l=elegir1([0.4,0.5,0.8,1,1.2,1.5,2]), des=Math.random()<.5, m=rnd(1,5); return {l, N:m+(des?0.5:0)}; })();
+  const {l,N}=o, dr=+(l*N).toFixed(4), des=N%1!==0, m=Math.floor(N), L=coma(String(l)), D=exacto(dr), n=exacto(N), dF=exacto(2*N);
+  return {t:"Tipo de interferencia", q:`Dos fuentes coherentes producen ondas de longitud de onda λ = ${L} m. En cierto punto, la diferencia de caminos es Δr = ${D} m. Determine el tipo de interferencia.`,
+   p:[["Datos",`λ = ${L} m\nΔr = ${D} m`],["Incógnita","Tipo de interferencia."],["Estrategia","Calculamos   [[Δr::λ]]\nEntero → constructiva (Δr = mλ)\nEntero + ½ → destructiva (Δr = (m + ½) · λ)"],
+      ["Desarrollo",`[[Δr::λ]] = [[${D}::${L}]] = ${n}`],
+      ["Conclusión",des?`Δr = ${n} · λ = (${m} + ½) · λ   →   m = ${m}`:`Δr = ${n} · λ = mλ   →   m = ${m}`],
+      ["Diferencia de fase (por si la piden)",`Δφ = [[2π::λ]] · Δr = 2π · ${n} = ${dF}π   ${des?"(es (2m + 1)π)":"(es 2mπ)"}`]],
+   r:des?`Interferencia destructiva (Δr = (${m} + ½) · λ).`:`Interferencia constructiva (Δr = ${m}λ).`};
+ },
+ difrac(o){
+  o = o || (()=>{ const l=elegir1([0.2,0.3,0.4,0.5,0.6,0.8,1]), grande=Math.random()<.4, R=grande?elegir1([10,15,20,25,40]):elegir1([0.9,1.1,1.2,1.5]); return {l, a:+(l*R).toFixed(4), R}; })();
+  const {l,a,R}=o, L=coma(String(l)), A=exacto(a), ap=R<3;
+  return {t:"¿Es importante la difracción?", q:`Una onda de agua tiene λ = ${L} m y atraviesa una abertura de a = ${A} m. Determine si la difracción será importante.`,
+   p:[["Datos",`λ = ${L} m\na = ${A} m`],["Estrategia","Calculamos   [[a::λ]]\na ≈ λ → difracción muy apreciable\na ≫ λ → difracción pequeña"],
+      ["Desarrollo",`[[a::λ]] = [[${A}::${L}]] = ${exacto(R)}`],["Conclusión",ap?`a ≈ λ`:`a ≫ λ (la abertura es ${exacto(R)} veces λ)`]],
+   r:ap?`Se espera una difracción apreciable (a ≈ λ).`:`La difracción es pequeña (a ≫ λ): la onda casi sigue derecho.`};
+ },
+ malus(o){
+  o = o || {I0:elegir1([50,80,100,120,200,400]), t:elegir1([30,45,60,90])};
+  const {I0,t}=o, c2={30:0.75,45:0.5,60:0.25,90:0}[t], cs={30:"[[√3::2]] ≈ 0,87",45:"[[√2::2]] ≈ 0,71",60:"0,5",90:"0"}[t],
+        cuad={30:"([[√3::2]])² = [[3::4]] = 0,75",45:"([[√2::2]])² = [[2::4]] = 0,5",60:"(0,5)² = 0,25",90:"0² = 0"}[t], I=I0*c2;
+  return {t:"Ley de Malus (luz polarizada)", q:`Una onda luminosa linealmente polarizada tiene una intensidad I₀ = ${I0} W/m². Pasa por un analizador que forma θ = ${t}° con la polarización. Calcule la intensidad transmitida.`,
+   p:[["Datos",`I₀ = ${I0} W/m²\nθ = ${t}°`],["Incógnita","I = ?"],["Estrategia","Ley de Malus:   I = I₀ · cos²θ"],
+      ["Valor del coseno",`cos ${t}° = ${cs}\ncos²${t}° = ${cuad}`],
+      ["Cálculo",`I = ${I0} · cos²${t}° = ${I0} · ${exacto(c2)} = ${exacto(I)} W/m²`]],
+   r:`I = ${exacto(I)} W/m².${t===90?" Con 90° no pasa nada de luz.":""}`};
+ },
  ondaF(o){
   o = o || {v:340, lam:elegir1([0.4,0.5,1,2,4])};
   const f=o.v/o.lam, L=coma(String(o.lam));
@@ -869,7 +968,8 @@ const GEN = {
 };
 const GEN_DE = {b1:"electrones",b2:"fuerza",b3:"fuerza",b4:"campo",b5:"campo",i1:"iguales",i2:"distancia",i3:"campoFuerza",i4:"cargaF",i5:"medio",
                 a1:"tres",a2:"tri",a3:"medio",a4:"equi",a5:"nulo1",a6:"perp",a7:"cuad",a8:"nulo2",
-                x1:"onda",x2:"fuerzaEx",x3:"triEx",w1:"ondaF",w2:"ondaV",w3:"ondaT",w4:"intens"};
+                x1:"onda",x2:"fuerzaEx",x3:"triEx",w1:"ondaF",w2:"ondaV",w3:"ondaT",w4:"intens",
+                f1:"refl",f2:"refrac",f3:"refracL",f4:"interf",f5:"difrac",f6:"malus"};
 function variante(base){ const g=GEN[GEN_DE[base.id]](); return {...g, id:base.id, n:base.n, nuevo:true}; }
 
 /* ---------- lo que va a salir: los 3 ejercicios que mostró el profe (hoja del 10/11) ---------- */
@@ -884,7 +984,12 @@ EXAMEN[2].p.push(["Ojo con el cuaderno","F₂₃ también va al cuadrado dentro 
 const ONDAS = [
  {...GEN.ondaF({v:340,lam:0.5}), id:"w1", n:"ondas"}, {...GEN.ondaV({lam:2,f:170}), id:"w2", n:"ondas"},
  {...GEN.ondaT({f:50}), id:"w3", n:"ondas"}, {...GEN.intens({P:10,A:2}), id:"w4", n:"ondas"}];
-EJ.unshift(...EXAMEN, ...ONDAS);
+/* los ejemplos resueltos del material «Fenómenos ondulatorios» (sec. 3.4, 4.5, 5.5, 6.4 y 7.5) + uno de refracción con λ */
+const FENOM = [
+ {...GEN.refl({ti:38}), id:"f1", n:"fenom"}, {...GEN.refrac({v1:4,v2:2,t1:30}), id:"f2", n:"fenom"},
+ {...GEN.refracL({v1:4,v2:2,l1:2}), id:"f3", n:"fenom"}, {...GEN.interf({l:0.8,N:3}), id:"f4", n:"fenom"},
+ {...GEN.difrac({l:0.5,a:0.55,R:1.1}), id:"f5", n:"fenom"}, {...GEN.malus({I0:100,t:60}), id:"f6", n:"fenom"}];
+EJ.unshift(...EXAMEN, ...ONDAS, ...FENOM);
 
 /* =====================  ESCRITURA DE FÓRMULAS  =====================
    Convierte el texto de las preguntas en algo fácil de leer y copiar al cuaderno:
@@ -917,7 +1022,19 @@ function F(t){
   {f:"Refracción", d:"La onda pasa de un medio a otro donde su rapidez es diferente. Ejemplo: la cuchara que parece quebrada en el agua."},
   {f:"Interferencia", d:"Dos o más ondas coinciden al mismo tiempo en una región del espacio y se suman."},
   {f:"Polarización", d:"La vibración de una onda transversal queda en un solo plano. Ejemplo: lentes de sol polarizados. El sonido no se polariza porque es longitudinal."},
-  {f:"Mecánicas: necesitan un medio\nElectromagnéticas: viajan en el vacío", d:"Sonido = mecánica. Luz = electromagnética."}]}, {tema:"b1", items:[
+  {f:"Mecánicas: necesitan un medio\nElectromagnéticas: viajan en el vacío", d:"Sonido = mecánica. Luz = electromagnética."}]}, {tema:"b6", items:[
+  {f:"Transversal: vibración ⊥ propagación (cuerda)\nLongitudinal: vibración ∥ propagación (sonido)", d:"La onda transporta energía, no materia. Una onda mecánica necesita un medio."},
+  {f:"k = [[2π::λ]]     ω = 2π · f     v = [[ω::k]]", d:"Número de onda y frecuencia angular. También v = λ · f."},
+  {f:"Reflexión:   θ_i = θ_r", d:"Los dos ángulos se miden respecto de la normal. Extremo fijo: el pulso vuelve invertido (Δφ = π). Extremo libre: vuelve sin invertirse (Δφ = 0)."},
+  {f:"Refracción:   f₁ = f₂\n[[v₁::v₂]] = [[λ₁::λ₂]]", d:"Al cambiar de medio no cambia la frecuencia (la fija la fuente); cambian v y λ."},
+  {f:"[[sin θ₁::v₁]] = [[sin θ₂::v₂]]\nsin θ₂ = [[v₂::v₁]] · sin θ₁", d:"Si v₂ < v₁ → θ₂ < θ₁ (se acerca a la normal). Si v₂ > v₁ → θ₂ > θ₁ (se aleja)."},
+  {f:"Interferencia:   y_R = y₁ + y₂", d:"Principio de superposición."},
+  {f:"Constructiva:   Δr = mλ\nDestructiva:   Δr = (m + ½) · λ", d:"m = 0, 1, 2, 3… Calculá [[Δr::λ]]: si da entero es constructiva; si da entero + ½ es destructiva."},
+  {f:"Δφ = [[2π::λ]] · Δr\nConstructiva: Δφ = 2mπ     Destructiva: Δφ = (2m + 1)π", d:"Diferencia de fase entre dos ondas."},
+  {f:"Difracción:   a ≈ λ → muy apreciable\na ≫ λ → pequeña", d:"a = ancho de la abertura. Calculá [[a::λ]]. Principio de Huygens: cada punto del frente de onda es fuente de ondas secundarias."},
+  {f:"Polarización: solo ondas transversales", d:"Se selecciona una dirección de vibración. La luz se polariza (es transversal). El sonido ordinario en el aire no."},
+  {f:"I = I₀ · cos²θ", d:"Ley de Malus (luz polarizada). I₀ = intensidad inicial, I = transmitida, θ = ángulo entre las direcciones de polarización. cos 60° = 0,5."},
+  {f:"¿Vuelve? → reflexión\n¿Cambia de medio y de rapidez? → refracción\n¿Dos ondas en el mismo lugar? → interferencia\n¿Abertura u obstáculo? → difracción\n¿Una sola dirección de vibración? → polarización", d:"Cómo reconocer cada fenómeno en el enunciado."}]}, {tema:"b1", items:[
   {f:"e = 1,602 × 10⁻¹⁹ C", d:"Carga elemental: la de un protón (+e) o un electrón (−e)."},
   {f:"Q = n · e", d:"La carga siempre es un múltiplo entero de e (n = número entero)."},
   {f:"n = [[|Q|::e]]", d:"Cuántos electrones de más (si Q < 0) o de menos (si Q > 0)."},
@@ -1065,7 +1182,7 @@ function menu(){
   const hechos = EJ.filter(e=>datos.ej[e.id]==="si").length;
   const ultSim=(datos.simulacros||[]).slice(-1)[0];
   h += `<button class="btn sim" id="sim"><span class="nom">📋 Simulacro de examen<small>teoría + problemas, con tiempo</small></span><span class="der">${ultSim?"último: "+ultSim.pct+"/100":""}</span></button>`;
-  h += `<button class="btn form" id="forms"><span class="nom">📐 Fórmulas<small>ondas, Coulomb y campo, con qué es cada letra</small></span></button>`;
+  h += `<button class="btn form" id="forms"><span class="nom">📐 Fórmulas<small>ondas, fenómenos, Coulomb y campo, con qué es cada letra</small></span></button>`;
   h += `<button class="btn ej" id="ejs"><span class="nom">📝 Ejercicios en papel<small>los del profe y los del material, paso a paso</small></span><span class="der">${hechos}/${EJ.length} ✓</span></button>`;
   h += `</div>
   <div class="chips"><a class="chip" href="../progreso/#${CLAVE}">📈 Mi progreso</a><button class="chip" id="quien">👤 Juega: ${datos.nombre}</button>${yaInstalada()?"":`<button class="chip" id="instalar">📲 Instalar</button>`}</div>
@@ -1074,7 +1191,7 @@ function menu(){
     <button class="chip" id="conApuro" aria-pressed="${datos.apuro}">⏱ Con reloj</button>
     <button class="chip" id="sinApuro" aria-pressed="${!datos.apuro}">🐢 Sin apuro</button>
   </div>
-  <p class="pie">Preguntas del material «Ley de Coulomb y Campo Eléctrico» (Prof. Riveros) y del repaso de ondas<br>Dibujos de Sofía · Kiut Studio</p>`;
+  <p class="pie">Preguntas del material «Ley de Coulomb y Campo Eléctrico» (Prof. Riveros), del repaso de ondas y del material «Fenómenos ondulatorios»<br>Dibujos de Sofía · Kiut Studio</p>`;
   app.innerHTML = h;
   app.querySelectorAll("[data-modo]").forEach(b=>b.onclick=()=>{ audio(); empezar(b.dataset.modo); });
   $("#mudo").onclick=()=>{ datos.mudo=!datos.mudo; guardar(); menu(); };
@@ -1096,11 +1213,14 @@ function menu(){
 /* ---------- partida ---------- */
 let P = null; // estado de la partida
 const DURA = 40; // segundos que tarda Dina en llegar a la torta
+/* cuántas preguntas de cada tema entran en la prueba mezclada (12) y en la teoría del simulacro (8) */
+const PESO_MIX = {b5:3, b6:3, b1:1, b2:2, b3:1, b4:2};
+const PESO_SIM = {b5:3, b6:2, b1:1, b2:1, b3:0, b4:1};
 
 function empezar(modo, soloEstas){
   let qs;
   if(soloEstas) qs = mezclar(soloEstas);
-  else if(modo==="mix") qs = mezclar(Object.keys(TEMAS).flatMap(k=>elegir(BANCO.filter(p=>p.b===k),k==="b5"?4:2)));
+  else if(modo==="mix") qs = mezclar(Object.keys(TEMAS).flatMap(k=>elegir(BANCO.filter(p=>p.b===k),PESO_MIX[k])));
   else qs = elegir(BANCO.filter(p=>p.b===modo),8);
   P = {modo, qs, i:0, ok:0, racha:0, torta:8, res:[], repaso:!!soloEstas};
   pantallaJuego(); mostrar();
@@ -1243,13 +1363,15 @@ function examen(){
   const lista = EXAMEN.map((e,k)=>{ const i=EJ.indexOf(e), st=datos.ej[e.id], n=pr[e.id]||0;
     return `<button class="ej-item" data-i="${i}"><span class="n">${k+1}</span><span class="t">${F(e.t)}${e.pts?` · ${e.pts}`:""}</span><span class="st">${st?ICONO[st]:""}${n?`<span class="vez"> 🎲×${n}</span>`:""}</span></button>`; }).join("");
   const ondasLista = EJ.filter(e=>e.n==="ondas").map(e=>`<button class="ej-item" data-i="${EJ.indexOf(e)}"><span class="n">🌊</span><span class="t">${F(e.t)}</span><span class="st">${datos.ej[e.id]?ICONO[datos.ej[e.id]]:""}</span></button>`).join("");
+  const fenLista = EJ.filter(e=>e.n==="fenom").map(e=>`<button class="ej-item" data-i="${EJ.indexOf(e)}"><span class="n">🌠</span><span class="t">${F(e.t)}</span><span class="st">${datos.ej[e.id]?ICONO[datos.ej[e.id]]:""}</span></button>`).join("");
   const meta=EXAMEN.map(e=>Math.min(3,pr[e.id]||0)), hecho=meta.reduce((a,b)=>a+b,0), dias=datos.dias||{};
   const DIAS=[["2026-11-11","Mié 11","los 3 ejercicios"],["2026-11-12","Jue 12","simulacro"],["2026-11-13","Vie 13","acordeón y ¡a rendir!"]];
   const metaHTML=`<div class="meta"><h3>🎯 Meta: cada ejercicio 3 veces bien con números nuevos</h3><div class="bar"><i style="width:${Math.round(hecho/9*100)}%"></i></div>
     <p>${EXAMEN.map((e,k)=>`${k+1}: ${"●".repeat(meta[k])}${"○".repeat(3-meta[k])}`).join("   ")} · ${hecho>=9?"<b>¡Meta cumplida! Dina se queda con la torta 🍰</b>":`faltan ${9-hecho}`}</p>
     <div class="chips" role="group" aria-label="Plan de días">${DIAS.map(([k,t,x])=>`<button class="chip" data-dia="${k}" aria-pressed="${!!dias[k]}">${t} · ${x}</button>`).join("")}</div></div>`;
   const ojo = ["Pasá los cm a metros: se divide por 100 (30 cm = 0,30 m).","Pasá µC a C: multiplicá por 10⁻⁶.","En F₂₃ van q₂ y q₃. Mirá los subíndices.",
-    "En la raíz, F₁₃ y F₂₃ van las dos al cuadrado.","cos 120° = −0,5. La calculadora tiene que estar en grados (DEG).","Escribí siempre la unidad: m, Hz o N."];
+    "En la raíz, F₁₃ y F₂₃ van las dos al cuadrado.","cos 120° = −0,5. La calculadora tiene que estar en grados (DEG).","Escribí siempre la unidad: m, Hz o N.",
+    "Reflexión: la onda vuelve (θ_i = θ_r). Refracción: la onda sigue hacia otro medio y cambia su rapidez.","En refracción la frecuencia no cambia: cambian v y λ."];
   app.innerHTML = `<div class="cab-ej"><button class="redondo" id="volver" aria-label="Volver al menú">←</button><h2>Lo que va a salir</h2>${AA_BTN}</div>
     <div class="animo"><img src="assets/sofi.webp" alt=""><p><b>${esc(datos.nombre)}, ya sabés qué va a salir.</b> Practicá estos 3 con números distintos hasta que te salgan sin mirar. Así llegás tranquila. 💪<br><span class="cuenta">${cuentaExamen()}</span></p></div>
     ${metaHTML}
@@ -1259,12 +1381,15 @@ function examen(){
     <button class="btn dado" id="azar"><span class="nom">🎲 Uno de los 3 con números nuevos<small>${tot?`ya te salieron ${tot} con números nuevos`:"hacé cada uno por lo menos 3 veces"}</small></span></button>
     <div class="nivel">2. La teoría de ondas</div>
     <div class="lista">
-      <button class="btn" id="jOndas" style="background:var(--b5);--s:var(--b5s)"><span class="nom">🌊 Jugar con Dina: Ondas<small>unidades, cualidades del sonido y fenómenos</small></span><span class="der"><span class="fr">${fresas(datos.est.b5||0)}</span></span></button>
-      <button class="btn form" id="fOndas"><span class="nom">📐 Resumen de ondas<small>fórmulas, unidades, cualidades y fenómenos</small></span></button>
+      <button class="btn" id="jOndas" style="background:var(--b5);--s:var(--b5s)"><span class="nom">🌊 Jugar con Dina: Ondas<small>unidades y cualidades del sonido</small></span><span class="der"><span class="fr">${fresas(datos.est.b5||0)}</span></span></button>
+      <button class="btn" id="jFen" style="background:var(--b6);--s:var(--b6s)"><span class="nom">🌠 Jugar con Dina: Fenómenos ondulatorios<small>reflexión, refracción, interferencia, difracción y polarización</small></span><span class="der"><span class="fr">${fresas(datos.est.b6||0)}</span></span></button>
+      <button class="btn form" id="fOndas"><span class="nom">📐 Resumen de ondas<small>fórmulas, unidades y cualidades</small></span></button>
+      <button class="btn form" id="fFen"><span class="nom">📐 Resumen de fenómenos<small>las fórmulas de cada fenómeno</small></span></button>
       <button class="btn mix" id="huecos"><span class="nom">🧠 Fórmulas con huecos<small>escribilas de memoria y comprobá</small></span><span class="der">${datos.huecos?"✓ "+datos.huecos+"×":""}</span></button>
       <button class="btn mix" id="acor"><span class="nom">📄 Acordeón de una hoja<small>para imprimir o copiar al cuaderno</small></span></button>
     </div>
     <div class="nivel">Más problemas de ondas (por si cambian el dato)</div>${ondasLista}
+    <div class="nivel">Problemas de fenómenos ondulatorios (del material)</div>${fenLista}
     <div class="nivel">3. Hacé de cuenta que es el examen</div>
     <div class="lista"><button class="btn sim" id="simEx"><span class="nom">📋 Simulacro del examen<small>8 de teoría + los 3 problemas con números nuevos</small></span></button></div>
     <div class="ojo"><h3>⚠️ Ojo con estos errores</h3><ul>${ojo.map(x=>`<li>${F(x)}</li>`).join("")}</ul></div>`;
@@ -1274,6 +1399,8 @@ function examen(){
   $("#azar").onclick=()=>verEj(EJ.indexOf(elegir1(EXAMEN)),true);
   $("#jOndas").onclick=()=>{ audio(); empezar("b5"); };
   $("#fOndas").onclick=()=>formulas("b5");
+  $("#jFen").onclick=()=>{ audio(); empezar("b6"); };
+  $("#fFen").onclick=()=>formulas("b6");
   $("#huecos").onclick=()=>{ H=null; huecos(); };
   $("#acor").onclick=acordeon;
   app.querySelectorAll("[data-dia]").forEach(b=>b.onclick=()=>{ datos.dias=datos.dias||{}; const k=b.dataset.dia; datos.dias[k]=!datos.dias[k]; guardar(); b.setAttribute("aria-pressed",!!datos.dias[k]); });
@@ -1285,6 +1412,8 @@ function acordeon(){
   pararReloj(); P=null; pararSim(); S=null;
   const B=[["🌊 Ondas",["λ = [[v::f]]     v = λ · f     T = [[1::f]]     ω = 2π · f","I = [[P::A]]     (W/m²)","Unidades: λ → m · f → Hz · ω → rad/s · T → s","Tono → frecuencia (Hz) · Intensidad → W/m² o dB · Timbre → espectro armónico (sin unidad) · Duración → s",
    "Reflexión: la onda regresa al medio de donde venía (eco)","Refracción: la onda pasa a otro medio donde cambia su rapidez","Interferencia: dos o más ondas coinciden al mismo tiempo en una región","Polarización: la vibración de una onda transversal queda en un solo plano (el sonido no se polariza)"]],
+   ["🌠 Fenómenos ondulatorios",["Reflexión: θ_i = θ_r (respecto de la normal)","Refracción: f no cambia · [[v₁::v₂]] = [[λ₁::λ₂]] · [[sin θ₁::v₁]] = [[sin θ₂::v₂]] (v₂ < v₁ → se acerca a la normal)",
+    "Interferencia: constructiva Δr = mλ · destructiva Δr = (m + ½) · λ · Δφ = [[2π::λ]] · Δr","Difracción: a ≈ λ → apreciable · a ≫ λ → pequeña (calculá [[a::λ]])","Polarización: solo ondas transversales · Malus: I = I₀ · cos²θ (cos 60° = 0,5)"]],
    ["⚡ Fuerza entre dos cargas",["F = k · [[|q₁ · q₂|::r²]]     k = 9 × 10⁹ N·m²/C²","cm → m: se divide por 100     µC → C: se multiplica por 10⁻⁶","Mismo signo → repulsión · Signos opuestos → atracción"]],
    ["🔺 Tres cargas (triángulo)",["F₁₃ usa q₁ y q₃ · F₂₃ usa q₂ y q₃ (mirá los subíndices)","F_R = √(F₁₃² + F₂₃² + 2 · F₁₃ · F₂₃ · cos α)","Una fuerza se aleja y la otra va hacia su carga → α = 120° → cos 120° = −0,5","Las dos se alejan (o las dos van hacia su carga) → α = 60° → cos 60° = 0,5"]],
    ["✅ Antes de entregar",["Calculadora en grados (DEG)","Unidades en el resultado: m, Hz, N","Módulo + unidad + dirección + sentido"]]];
@@ -1301,6 +1430,10 @@ const HUECOS=[
  ["Unidades de λ, f, ω y T","λ → m · f → Hz · ω → rad/s · T → s"],["El tono depende de…","La frecuencia fundamental (Hz)"],["El timbre depende de…","El espectro armónico (no tiene unidad)"],
  ["Reflexión es…","La onda llega a una frontera y regresa al medio de donde venía"],["Refracción es…","La onda pasa de un medio a otro donde cambia su rapidez"],
  ["Interferencia es…","Dos o más ondas coinciden al mismo tiempo en una región del espacio"],["Polarización es…","La vibración de una onda transversal queda en un solo plano"],
+ ["Ley de la reflexión:   θ_i = ___","θ_r (los dos respecto de la normal)"],["Refracción: ¿qué magnitud NO cambia?","La frecuencia (f₁ = f₂)"],
+ ["Relación de refracción:   [[sin θ₁::v₁]] = ___","[[sin θ₂::v₂]]"],["Si v₂ < v₁, la onda refractada…","Se acerca a la normal (θ₂ < θ₁)"],
+ ["Interferencia constructiva:   Δr = ___","mλ   (las ondas llegan en fase)"],["Interferencia destructiva:   Δr = ___","(m + ½) · λ   (cresta con valle)"],
+ ["Difracción apreciable cuando…","a ≈ λ (la abertura es parecida a la longitud de onda)"],["Ley de Malus:   I = ___","I₀ · cos²θ"],["¿Qué ondas se pueden polarizar?","Solo las transversales (la luz sí, el sonido en el aire no)"],
  ["Fuerza entre dos cargas:   F = ___","F = k · [[|q₁ · q₂|::r²]]"],["Valor de k","k = 9 × 10⁹ N·m²/C²"],["De cm a m…","Se divide por 100 (30 cm = 0,30 m)"],["De µC a C…","Se multiplica por 10⁻⁶"],
  ["Mismo signo → ___ · Signos opuestos → ___","Repulsión · Atracción"],["Resultante de dos fuerzas con ángulo α:   F_R = ___","F_R = √(F₁₃² + F₂₃² + 2 · F₁₃ · F₂₃ · cos α)"],["cos 120° = ___  (y la calculadora en…)","−0,5   (en grados, DEG)"]];
 let H=null;
@@ -1327,7 +1460,7 @@ function huecos(){
 
 /* ---------- ejercicios en papel ---------- */
 const ICONO = {si:"✅", masomenos:"🟡", no:"❌"};
-const NOMBRE_NIVEL = {examen:"Examen", ondas:"Ondas", basico:"Básico",inter:"Intermedio",avanz:"Avanzado"};
+const NOMBRE_NIVEL = {examen:"Examen", ondas:"Ondas", fenom:"Fenómenos", basico:"Básico",inter:"Intermedio",avanz:"Avanzado"};
 const AA_BTN = `<button class="redondo aa" aria-label="Cambiar letra y tamaño">Aa</button>`;
 function pasosHTML(e){
   return e.p.map(([et,tx])=>`<div class="paso"><b>${F(et)}</b>${F(tx)}</div>`).join("")
@@ -1403,7 +1536,7 @@ function simulacro(){
     <div class="tarjeta">
       <p class="enun" style="margin-top:0">Como un examen de verdad: sin explicaciones hasta el final.</p>
       <ol class="metodo" style="box-shadow:none;background:var(--crema);margin-top:10px">
-        <li><b>Teoría:</b> 8 preguntas de opción múltiple, la mitad de ondas (5 puntos cada una).</li>
+        <li><b>Teoría:</b> 8 preguntas de opción múltiple, 5 de ondas y fenómenos ondulatorios (5 puntos cada una).</li>
         <li><b>Problemas:</b> los 3 que mostró el profe (longitud de onda, fuerza entre dos cargas y triángulo), con números nuevos (20 puntos cada uno).</li>
         <li><b>Corrección:</b> la teoría se corrige sola. Los problemas los corregís vos, comparando con la solución.</li></ol>
       <p class="sub-t">Tiempo total</p>
@@ -1416,7 +1549,7 @@ function simulacro(){
   $("#volver").onclick=menu;
   app.querySelectorAll("[data-min]").forEach(b=>b.onclick=()=>{ datos.simMin=+b.dataset.min; guardar(); simulacro(); });
   $("#empezarSim").onclick=()=>{
-    const teoria = mezclar(Object.keys(TEMAS).flatMap(k=>elegir(BANCO.filter(p=>p.b===k),k==="b5"?4:1))).map(p=>({p, ops:mezclar(p.o.map((txt,k)=>({txt,bien:k===0}))), elegida:-1}));
+    const teoria = mezclar(Object.keys(TEMAS).flatMap(k=>elegir(BANCO.filter(p=>p.b===k),PESO_SIM[k]))).map(p=>({p, ops:mezclar(p.o.map((txt,k)=>({txt,bien:k===0}))), elegida:-1}));
     const probs = SIM_PROB.map(ids=>{ const id=elegir1(ids); return variante(EJ.find(e=>e.id===id)); });
     S = {fin: Date.now()+min*60000, inicio: Date.now(), min, teoria, probs, parte:"t", i:0, notas:[]};
     simTick = setInterval(crono,1000);
