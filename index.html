@@ -18,6 +18,7 @@
   --fondo:#fff4f7; --papel:#ffffff; --tinta:#3f2433; --suave:#7d5b6b;
   --rosa:#ff4d6d; --rosa-osc:#c92f4f; --rosa-cl:#ffe4ec;
   --vio:#7a4fd0; --vio-osc:#5733a8; --vio-cl:#efe6ff;
+  --men:#1f9d8a; --men-osc:#146f61; --men-cl:#dcf7f0;
   --crema:#fff6dc; --oro:#e0a526; --oro-osc:#9a6c06;
   --borde:#f3cdd9;
   --mano:'Caveat','Comic Sans MS',cursive;
@@ -59,9 +60,10 @@ h1 em{font-style:normal;color:var(--rosa)}
   background:var(--papel);border-radius:26px;border:3px solid var(--tinta);box-shadow:6px 6px 0 var(--tinta);
   display:flex;flex-direction:column;overflow:hidden;min-width:0}
 .juego.beat{--c:var(--vio);--c-osc:var(--vio-osc);--c-cl:var(--vio-cl)}
+.juego.michis{--c:var(--men);--c-osc:var(--men-osc);--c-cl:var(--men-cl)}
 .vista{height:210px;background:var(--c-cl);position:relative;overflow:hidden;border-bottom:3px solid var(--tinta)}
 .vista img{display:block}
-.run .vista img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.run .vista img,.michis .vista img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
 .beat .vista{display:flex;justify-content:center;align-items:flex-start;gap:14px;padding-top:18px;background:linear-gradient(160deg,#cdb6ff,var(--vio-cl))}
 .beat .vista img{width:118px;border-radius:16px;border:3px solid var(--tinta);box-shadow:3px 3px 0 var(--tinta)}
 .beat .vista img:first-child{transform:rotate(-5deg) translateY(10px)}
@@ -143,6 +145,16 @@ footer b{color:var(--tinta)}
       <ul class="chips"><li>🎵 Tus canciones</li><li>⚔️ Desafíos</li><li>☁️ Guardado en la nube</li><li>📲 Instalable</li></ul>
       <p class="tuyo" id="tuyoBeat"></p>
       <a class="jugar" href="https://kiut-studio.github.io/dina-beat/">▶ Jugar</a>
+    </div>
+  </article>
+
+  <article class="juego michis">
+    <div class="vista"><img src="img/cuidamichis.webp" alt="Partida de Cuidamichis: Sofi y su gatito Michi en el patio, con el portón cerrado" loading="lazy"></div>
+    <div class="cuerpo">
+      <div class="titulo"><img src="img/cuidamichis-icon.png" alt=""><div><h2>Cuidamichis</h2><p class="tipo">Cuidá a tu gatito · tiempo real</p></div></div>
+      <p class="desc">Dale de comer, jugá, bañalo y quereló: el gatito crece con los días, y si lo descuidás… puede pasar lo peor. Y cuidate vos también. Nunca dejes el portón abierto.</p>
+      <ul class="chips"><li>🐱 Un gatito que crece</li><li>🌙 Día y noche reales</li><li>🎮 3 minijuegos</li><li>📲 Instalable</li></ul>
+      <a class="jugar" href="https://kiut-studio.github.io/cuidamichis/">▶ Jugar</a>
     </div>
   </article>
 </section>

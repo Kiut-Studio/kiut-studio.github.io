@@ -6,6 +6,7 @@ Portada de los juegos con los dibujos de Sofía: **https://kiut-studio.github.io
 | --- | --- |
 | [Dina Run](https://kiut-studio.github.io/dina-run/) | Runner de un toque: saltá tortas, juntá frutillas y que no te alcance Dina. |
 | [Dina Beat](https://kiut-studio.github.io/dina-beat/) | Juego de ritmo: espantá a Dina a tiempo con la música. |
+| [Cuidamichis](https://kiut-studio.github.io/cuidamichis/) | Cuidá a tu gatito (y a vos): crece con los días y, si lo descuidás, puede morir. |
 | [Torta Runner](https://leandroacasco.github.io/torta-runner/) | Edición especial: el juego de cumpleaños de la familia. |
 
 ## Cómo está hecho
