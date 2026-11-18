@@ -1,4 +1,4 @@
-# Kiut Studio · Los juegos de Dina 🐱🍓
+# Kiut Studio · Los juegos 🐱🍓
 
 Portada de los juegos con los dibujos de Sofía: **https://kiut-studio.github.io/**
 
